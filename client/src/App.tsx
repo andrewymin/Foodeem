@@ -1,5 +1,5 @@
 // import { useEffect } from "react";
-import "../src/css/app.css";
+import "./css/app.css";
 import Nav from "./components/Nav";
 import { BrowserRouter } from "react-router-dom";
 import AllRoutes from "./AllRoutes";

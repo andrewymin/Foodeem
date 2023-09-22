@@ -12,23 +12,27 @@ interface Props {
 
 function Home(props: Props) {
   const [modalActive, setModalActive] = useState(false);
-  const [data, setData] = useState([]);
+  const [recipeData, setRecipeData] = useState([]);
 
   useEffect(() => {
     if (props.randomOneOn) {
       axios
         .get("http://localhost:3001/randomfood") // place nodejs(aws) created route for url, using server to hide api keys
         .then((response) => {
-          // after success place data into randomFoods
-          console.log(response.data.recipes[0].title);
+          // this will return a list of recipes, i.e. recipes: array
+          // after success place data of that arrayinto recipeData
+          setRecipeData(response.data.recipes);
+        })
+        .then(() => {
+          // after axios call send data to modal
+          openModal();
         })
         .catch((error) => {
           console.log(error);
         });
-      // after axios call send data to modal
-      // openModal();
     }
   }, []);
+
   // console.log(randomFoods.recipes);
   // let searchFoods = []; // hold json data of searched foods
 
@@ -46,7 +50,7 @@ function Home(props: Props) {
   //     });
   // }, []);
 
-  const testAxios = () => {
+  const handleSearch = () => {
     axios
       .get("http://localhost:3001/randomfoods") // place nodejs(aws) created route for url, using server to hide api keys
       .then((response) => {
@@ -59,7 +63,7 @@ function Home(props: Props) {
       });
   };
 
-  const openModal = (data: any) => {
+  const openModal = () => {
     setModalActive(true);
   };
 
@@ -68,7 +72,7 @@ function Home(props: Props) {
       <div className="container">
         <img src={pizza} alt="pizza" className="food-img" />
         {/*need to somehow pass data into this component when set to active*/}
-        <Modal modal={modalActive} />
+        <Modal recipeData={recipeData} modal={modalActive} />
         <div className="content">
           <div className="search">
             {/* using searched input (handleSubmit=>this.state?) for another api call after submiting data */}
@@ -78,7 +82,8 @@ function Home(props: Props) {
               id="searchbar"
               placeholder="Search"
             />
-            <button onClick={testAxios}>
+            {/* // set a different function to onClick where the function will call axios then call openModal */}
+            <button onClick={handleSearch}>
               <AiOutlineSearch size={30} className="search-icon" />
             </button>
           </div>
@@ -92,6 +97,7 @@ function Home(props: Props) {
                   key={k}
                   className="food-item"
                   title={i.title}
+                  // set a different function to onClick where the function will call axios then call openModal
                   onClick={openModal}
                 >
                   <img src={i.image} alt={i.title} />
