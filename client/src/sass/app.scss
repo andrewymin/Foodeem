@@ -371,6 +371,7 @@ button:hover {
             top: -23%;
             left: -42%;
             animation: rotate 20s linear infinite;
+            pointer-events: none;
         }
 
 
