@@ -107,6 +107,10 @@ a:link {
   background-color: #232323;
 }
 
+.line-height {
+  line-height: 1.6;
+}
+
 #heading {
   z-index: 3;
   position: relative;
@@ -310,7 +314,26 @@ button:hover {
   float: left;
 }
 #recipe .container .modal-space .modal .modal-content .summary {
-  margin-top: 0.5rem;
+  margin-top: 0.7rem;
+}
+#recipe .container .modal-space .modal .modal-content .details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+#recipe .container .modal-space .modal .modal-content .details span, #recipe .container .modal-space .modal .modal-content .details h2 {
+  text-decoration: underline;
+}
+#recipe .container .modal-space .modal .modal-content .details .ingredients {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+#recipe .container .modal-space .modal .modal-content .details .instructions {
+  list-style-position: inside;
+}
+#recipe .container .modal-space .modal .modal-content .details .instructions li {
+  margin-bottom: 1rem;
 }
 #recipe .container .food-img {
   position: absolute;
@@ -379,10 +402,12 @@ button:hover {
   width: 100%;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
+  pointer-events: none;
 }
 #recipe .container .content .foods .food-item h3 {
   padding: 10px;
   text-align: center;
+  pointer-events: none;
 }
 #recipe .container .content .foods .food-item:hover {
   cursor: pointer;

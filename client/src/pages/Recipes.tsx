@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import pizza from "../assets/img/pizza.svg";
 import Modal from "../components/Modal";
@@ -52,11 +52,11 @@ function Home(props: Props) {
 
   const handleSearch = () => {
     axios
-      .get("http://localhost:3001/randomfoods") // place nodejs(aws) created route for url, using server to hide api keys
+      .get("http://localhost:3001/searchfoods") // place nodejs(aws) created route for url, using server to hide api keys
       .then((response) => {
         // after success place data into randomFoods
-        let randomFoods = response.data.meals;
-        console.log(randomFoods[0]);
+        // let randomFoods = response.data.meals;
+        console.log(response.data.recipes[0].title);
       })
       .catch((error) => {
         console.log(error);
@@ -65,6 +65,26 @@ function Home(props: Props) {
 
   const openModal = () => {
     setModalActive(true);
+  };
+
+  const openRecipe = (e: React.MouseEvent<HTMLDivElement>) => {
+    // console.log(e.target.id);
+    // console.log(typeof e.target.id);
+    let target = e.target as HTMLDivElement;
+    axios
+      .get("http://localhost:3001/searchfoods") // place nodejs(aws) created route for url, using server to hide api keys
+      .then((response) => {
+        // after success place data into randomFoods
+        // let randomFoods = response.data.meals;
+        console.log(
+          response.data.recipes[0].id == target.id
+            ? "found recipe to send"
+            : "did not find recipe"
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -83,7 +103,7 @@ function Home(props: Props) {
               placeholder="Search"
             />
             {/* // set a different function to onClick where the function will call axios then call openModal */}
-            <button onClick={handleSearch}>
+            <button style={{ padding: "0" }} onClick={handleSearch}>
               <AiOutlineSearch size={30} className="search-icon" />
             </button>
           </div>
@@ -98,7 +118,7 @@ function Home(props: Props) {
                   className="food-item"
                   title={i.title}
                   // set a different function to onClick where the function will call axios then call openModal
-                  onClick={openModal}
+                  onClick={openRecipe}
                 >
                   <img src={i.image} alt={i.title} />
                   <h3>{i.title}</h3>

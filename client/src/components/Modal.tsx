@@ -21,27 +21,35 @@ function Modal(props: Props) {
     <div className="modal-space">
       <div className="modal">
         <div className="modal-content">
-          <h1>{data.title}</h1>
-          <img src={data.image} alt={data.title} />
-          <p>{parse(data.summary.split(". ").slice(0, -3).join(". "))}.</p>
-          <ul className="summary">
-            <li>Serving Size: {data.servings}</li>
-            <li>
-              Ready Time {"(Minutes)"}: {data.readyInMinutes}
-            </li>
-          </ul>
-          <h2>Ingredients</h2>
-          <ul className="ingredients">
-            {data.extendedIngredients.map((i: Ingredient, k: number) => (
-              <li key={k}>{i.original}</li>
-            ))}
-          </ul>
-          <h2>Instructions</h2>
-          <ul className="instructions">
-            {data.analyzedInstructions[0].steps.map((i: Step, k: number) => (
-              <li key={k}>{i.step}</li>
-            ))}
-          </ul>
+          <div>
+            <h1>{data.title}</h1>
+            <img src={data.image} alt={data.title} />
+            <p className="summary line-height">
+              {parse(data.summary.split(". ").slice(0, -3).join(". "))}.
+            </p>
+          </div>
+          <div className="details">
+            <div className="time line-height">
+              <p>
+                <span>Serving Size</span>: {data.servings}
+              </p>
+              <p>
+                <span>Ready Time {"(Minutes)"}</span>: {data.readyInMinutes}
+              </p>
+            </div>
+            <h2>Ingredients</h2>
+            <ul className="ingredients line-height">
+              {data.extendedIngredients.map((i: Ingredient, k: number) => (
+                <li key={k}>{i.original}</li>
+              ))}
+            </ul>
+            <h2>Instructions</h2>
+            <ol className="instructions line-height">
+              {data.analyzedInstructions[0].steps.map((i: Step, k: number) => (
+                <li key={k}>{i.step}</li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
     </div>
