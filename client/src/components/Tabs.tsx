@@ -1,9 +1,10 @@
 import Slider from "./Slider";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
   setVideoNum: React.Dispatch<React.SetStateAction<number>>; // Replace 'string' with the actual type of your state
-  setRandomOneOn: React.Dispatch<React.SetStateAction<boolean>>; // Replace 'string' with the actual type of your state
+  getRandomRecipe: React.Dispatch<React.SetStateAction<undefined>>; // Replace 'string' with the actual type of your state
   tabNum: number;
 }
 
@@ -21,8 +22,18 @@ function Tabs(props: Props) {
 
   const randomOne = () => {
     let path = `recipes`;
+    axios
+      .get("http://localhost:3001/randomfood") // place nodejs(aws) created route for url, using server to hide api keys
+      .then((response) => {
+        // this will return a list of recipes, i.e. recipes: array
+        // after success place data of that arrayinto recipeData
+        props.getRandomRecipe(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     navigate(path);
-    props.setRandomOneOn(true);
   };
 
   return (

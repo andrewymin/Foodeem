@@ -6,7 +6,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 function AllRoutes() {
-  const [randomBtn, setRandomBtn] = useState(false);
+  const [randomRecipe, setrandomRecipe] = useState();
+
   const location = useLocation();
   // show user current page by addrress link path, also add bg to header based on link path
   useEffect(() => {
@@ -36,8 +37,11 @@ function AllRoutes() {
 
   return (
     <Routes>
-      <Route path="/" element={<Home setRandomOneOn={setRandomBtn} />} />
-      <Route path="/recipes" element={<Recipes randomOneOn={randomBtn} />} />
+      <Route path="/" element={<Home getRandomRecipe={setrandomRecipe} />} />
+      <Route
+        path="/recipes"
+        element={<Recipes randomRecipe={randomRecipe} />}
+      />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
     </Routes>

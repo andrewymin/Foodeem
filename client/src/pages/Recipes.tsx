@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import pizza from "../assets/img/pizza.svg";
 import Modal from "../components/Modal";
@@ -7,48 +7,20 @@ import { randomFoods } from "../spoonTestData";
 // import { useLocation } from "react-router-dom";
 
 interface Props {
-  randomOneOn: boolean;
+  randomRecipe: undefined;
 }
 
-function Home(props: Props) {
+function Recipe(props: Props) {
   const [modalActive, setModalActive] = useState(false);
-  const [recipeData, setRecipeData] = useState([]);
+  const [recipeData, setRecipeData] = useState();
 
   useEffect(() => {
-    if (props.randomOneOn) {
-      axios
-        .get("http://localhost:3001/randomfood") // place nodejs(aws) created route for url, using server to hide api keys
-        .then((response) => {
-          // this will return a list of recipes, i.e. recipes: array
-          // after success place data of that arrayinto recipeData
-          setRecipeData(response.data.recipes);
-        })
-        .then(() => {
-          // after axios call send data to modal
-          openModal();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    if (props.randomRecipe) {
+      setRecipeData(props.randomRecipe);
+      openModal();
+      // console.log(props.randomRecipe);
     }
-  }, []);
-
-  // console.log(randomFoods.recipes);
-  // let searchFoods = []; // hold json data of searched foods
-
-  // might change this to useLayoutEffect if need to load layout first
-  // useEffect(() => {
-  //   // make axios get call for random foods, 1 for testing 8 after
-  //   axios
-  //     .get("http://localhost:3001/randomfoods") // place nodejs(aws) created route for url, using server to hide api keys
-  //     .then((response) => {
-  //       // after success place data into randomFoods
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
+  }, [props.randomRecipe]);
 
   const handleSearch = () => {
     axios
@@ -71,17 +43,20 @@ function Home(props: Props) {
     // console.log(e.target.id);
     // console.log(typeof e.target.id);
     let target = e.target as HTMLDivElement;
+    let targetId = target.id;
     axios
-      .get("http://localhost:3001/searchfoods") // place nodejs(aws) created route for url, using server to hide api keys
+      .get("http://localhost:3001/searchfoods/recipe", {
+        params: {
+          id: targetId,
+        },
+      }) // place nodejs(aws) created route for url, using server to hide api keys
       .then((response) => {
-        // after success place data into randomFoods
-        // let randomFoods = response.data.meals;
-        console.log(
-          response.data.recipes[0].id == target.id
-            ? "found recipe to send"
-            : "did not find recipe"
-        );
+        console.log(response.data.id);
       })
+      // .then(() => {
+      //   // after axios call send data to modal
+      //   openModal();
+      // })
       .catch((error) => {
         console.log(error);
       });
@@ -133,4 +108,4 @@ function Home(props: Props) {
   );
 }
 
-export default Home;
+export default Recipe;

@@ -4,7 +4,7 @@ import Videos from "../components/Videos";
 import { useState, useEffect } from "react";
 
 interface Props {
-  setRandomOneOn: React.Dispatch<React.SetStateAction<boolean>>;
+  getRandomRecipe: React.Dispatch<React.SetStateAction<undefined>>;
 }
 
 function Home(props: Props) {
@@ -12,6 +12,7 @@ function Home(props: Props) {
   // let [count, setCount] = useState(0);
 
   useEffect(() => {
+    // console.log("did this log once?");
     const intervalId = setInterval(() => {
       // Increment the count and reset to 0 if it reaches 4
       setVideoNum((prevVideoNum) => (prevVideoNum + 1) % 5);
@@ -30,7 +31,7 @@ function Home(props: Props) {
       <Tabs
         tabNum={videoNum}
         setVideoNum={setVideoNum}
-        setRandomOneOn={props.setRandomOneOn}
+        getRandomRecipe={props.getRandomRecipe}
       />
       <Social />
     </>

@@ -3,7 +3,7 @@ import parse from "html-react-parser";
 // import { Link } from "react-router-dom";
 
 interface Props {
-  recipeData: any[];
+  recipeData: any;
   modal: boolean;
 }
 
@@ -15,7 +15,7 @@ interface Ingredient {
 }
 
 function Modal(props: Props) {
-  let data = props.recipeData[0];
+  let data = props.recipeData;
 
   return props.modal ? (
     <div className="modal-space">
