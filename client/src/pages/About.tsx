@@ -7,7 +7,7 @@ function About() {
       <img src={aboutImg} alt="Cooking Board" />
       <div className="content">
         <h1>About Us</h1>
-        <h2 className="title">Finding Great Foods</h2>
+        <h2 className="title">Finding Great Recipes</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus,
           possimus accusantium commodi assumenda recusandae unde veniam
