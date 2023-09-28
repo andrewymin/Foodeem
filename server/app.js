@@ -21,10 +21,10 @@ app.use('/searchfoods', searchRoute);
 
 module.exports.handler = ServerlessHttp(app);
 
-// app.get('/', (req, res)=> {
-//   res.send('Server side running!')
-// });
+app.get('/', (req, res)=> {
+  res.send('Server side running!')
+});
 
-// app.listen(port, function (){
-//   console.log(`Server is running on port ${port}`);
-// });
+app.listen(port, function (){
+  console.log(`Server is running on port ${port}`);
+});
