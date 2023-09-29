@@ -23,7 +23,10 @@ function Tabs(props: Props) {
   const randomOne = () => {
     let path = `recipes`;
     axios
-      .get("http://localhost:3001/randomfood") // place nodejs(aws) created route for url, using server to hide api keys
+      // .get("http://localhost:3001/randomfood") // place nodejs(aws) created route for url, using server to hide api keys
+      .get(
+        "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/randomfood"
+      ) // place nodejs(aws) created route for url, using server to hide api keys
       .then((response) => {
         // this will return a list of recipes, i.e. recipes: array
         // after success place data of that arrayinto recipeData

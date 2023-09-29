@@ -59,11 +59,15 @@ function Recipe(props: Props) {
     let target = e.target as HTMLDivElement;
     let targetId = target.id;
     axios
-      .get("http://localhost:3001/searchfoods/recipe", {
-        params: {
-          id: targetId,
-        },
-      }) // place nodejs(aws) created route for url, using server to hide api keys
+      // .get("http://localhost:3001/searchfoods/recipe", {
+      .get(
+        "https://hicnd45lab.execute-api.us-west-2.amazonaws.com/prod/searchfoods/recipe",
+        {
+          params: {
+            id: targetId,
+          },
+        }
+      ) // place nodejs(aws) created route for url, using server to hide api keys
       .then((response) => {
         setRecipeData(response.data);
       })
