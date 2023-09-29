@@ -30,7 +30,7 @@ function Tabs(props: Props) {
       .then((response) => {
         // this will return a list of recipes, i.e. recipes: array
         // after success place data of that arrayinto recipeData
-        props.getRandomRecipe(response.data);
+        props.getRandomRecipe(response.data.body);
       })
       .catch((error) => {
         console.log(error);

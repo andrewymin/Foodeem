@@ -38,15 +38,19 @@ function Recipe(props: Props) {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     axios
-      .get("http://localhost:3001/searchfoods", {
-        params: {
-          search: search,
-        },
-      }) // place nodejs(aws) created route for url, using server to hide api keys
+      // .get("http://localhost:3001/searchfoods", {
+      .get(
+        "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods",
+        {
+          params: {
+            search: search,
+          },
+        }
+      ) // place nodejs(aws) created route for url, using server to hide api keys
       .then((response) => {
         // after success place data into randomFoods
         // let randomFoods = response.data.meals;
-        setSearchFoods(response.data.results);
+        setSearchFoods(response.data.body.results);
       })
       .catch((error) => {
         console.log(error);
@@ -58,10 +62,11 @@ function Recipe(props: Props) {
     // console.log(typeof e.target.id);
     let target = e.target as HTMLDivElement;
     let targetId = target.id;
+    // console.log(targetId);
     axios
       // .get("http://localhost:3001/searchfoods/recipe", {
       .get(
-        "https://hicnd45lab.execute-api.us-west-2.amazonaws.com/prod/searchfoods/recipe",
+        "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods/recipe",
         {
           params: {
             id: targetId,
@@ -69,7 +74,7 @@ function Recipe(props: Props) {
         }
       ) // place nodejs(aws) created route for url, using server to hide api keys
       .then((response) => {
-        setRecipeData(response.data);
+        setRecipeData(response.data.body);
       })
       .then(() => {
         // after axios call send data to modal
