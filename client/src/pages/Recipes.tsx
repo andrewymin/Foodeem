@@ -8,6 +8,7 @@ import { randomFoods } from "../spoonTestData";
 
 interface Props {
   randomRecipe: undefined;
+  isLoading: boolean;
 }
 
 interface Results {
@@ -94,7 +95,11 @@ function Recipe(props: Props) {
       <div className="container">
         <img src={pizza} alt="pizza" className="food-img" />
         {/*need to somehow pass data into this component when set to active*/}
-        <Modal recipeData={recipeData} modal={modalActive} />
+        <Modal
+          recipeData={recipeData}
+          modal={modalActive}
+          isLoading={props.isLoading}
+        />
         <div className="content">
           {/* using searched input (handleSubmit=>this.state?) for another api call after submiting data */}
           <form action="get" className="search" onSubmit={handleSearch}>

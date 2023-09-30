@@ -287,6 +287,12 @@ button:hover {
 }
 #recipe .container .modal-ph {
   width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  font-size: 3rem;
+  color: #1e7943;
 }
 #recipe .container .modal-space {
   width: 50%;

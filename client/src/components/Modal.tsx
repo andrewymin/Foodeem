@@ -5,6 +5,7 @@ import parse from "html-react-parser";
 interface Props {
   recipeData: any;
   modal: boolean;
+  isLoading: boolean;
 }
 
 interface Step {
@@ -54,7 +55,7 @@ function Modal(props: Props) {
       </div>
     </div>
   ) : (
-    <div className="modal-ph"></div>
+    <div className="modal-ph">{props.isLoading ? <p>Loading...</p> : null}</div>
   );
 }
 
