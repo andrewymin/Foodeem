@@ -47,7 +47,13 @@ function AllRoutes() {
       />
       <Route
         path="/recipes"
-        element={<Recipes randomRecipe={randomRecipe} isLoading={isLoading} />}
+        element={
+          <Recipes
+            randomRecipe={randomRecipe}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+          />
+        }
       />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />

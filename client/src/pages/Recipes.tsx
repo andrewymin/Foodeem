@@ -9,6 +9,7 @@ import { randomFoods } from "../spoonTestData";
 interface Props {
   randomRecipe: undefined;
   isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface Results {
@@ -64,6 +65,8 @@ function Recipe(props: Props) {
     let target = e.target as HTMLDivElement;
     let targetId = target.id;
     // console.log(targetId);
+    props.setIsLoading(true);
+
     axios
       // .get("http://localhost:3001/searchfoods/recipe", {
       .get(
@@ -83,6 +86,9 @@ function Recipe(props: Props) {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        props.setIsLoading(false);
       });
   };
 
