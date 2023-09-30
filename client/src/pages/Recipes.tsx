@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch, AiOutlineLoading3Quarters } from "react-icons/ai";
 import pizza from "../assets/img/pizza.svg";
 import Modal from "../components/Modal";
 import axios from "axios";
@@ -129,11 +129,8 @@ function Recipe(props: Props) {
           <div className="results">
             <h2>Recipes: </h2>
             {searchLoading ? (
-              <div
-                className="foods"
-                style={{ fontSize: "3rem", color: "#1e7943" }}
-              >
-                <p>Loading...</p>
+              <div className="foods" style={{ color: "#1e7943" }}>
+                <AiOutlineLoading3Quarters size={60} className="loading" />
               </div>
             ) : (
               <div className="foods">

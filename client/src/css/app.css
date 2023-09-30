@@ -111,6 +111,17 @@ a:link {
   line-height: 1.6;
 }
 
+.loading {
+  animation: rotate 1s linear infinite;
+}
+
+.center {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #heading {
   z-index: 3;
   position: relative;
