@@ -24,6 +24,7 @@ function Recipe(props: Props) {
   const [recipeData, setRecipeData] = useState();
   const [searchFoods, setSearchFoods] = useState([]);
   const [search, setSearch] = useState("");
+  const [searchLoading, setSearchLoading] = useState(false);
 
   useEffect(() => {
     if (props.randomRecipe) {
@@ -39,6 +40,7 @@ function Recipe(props: Props) {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSearchLoading(true);
     axios
       // .get("http://localhost:3001/searchfoods", {
       .get(
@@ -56,6 +58,9 @@ function Recipe(props: Props) {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setSearchLoading(false);
       });
   };
 
@@ -123,35 +128,44 @@ function Recipe(props: Props) {
           {/* // set a different function to onClick where the function will call axios then call openModal */}
           <div className="results">
             <h2>Recipes: </h2>
-            <div className="foods">
-              {searchFoods.length == 0
-                ? randomFoods.recipes.map((i, k) => (
-                    <div
-                      id={i.id.toString()}
-                      key={k}
-                      className="food-item"
-                      title={i.title}
-                      // set a different function to onClick where the function will call axios then call openModal
-                      onClick={openRecipe}
-                    >
-                      <img src={i.image} alt={i.title} />
-                      <h3>{i.title}</h3>
-                    </div>
-                  ))
-                : searchFoods.map((i: Results, k) => (
-                    <div
-                      id={i.id.toString()}
-                      key={k}
-                      className="food-item"
-                      title={i.title}
-                      // set a different function to onClick where the function will call axios then call openModal
-                      onClick={openRecipe}
-                    >
-                      <img src={i.image} alt={i.title} />
-                      <h3>{i.title}</h3>
-                    </div>
-                  ))}
-            </div>
+            {searchLoading ? (
+              <div
+                className="foods"
+                style={{ fontSize: "3rem", color: "#1e7943" }}
+              >
+                <p>Loading...</p>
+              </div>
+            ) : (
+              <div className="foods">
+                {searchFoods.length == 0
+                  ? randomFoods.recipes.map((i, k) => (
+                      <div
+                        id={i.id.toString()}
+                        key={k}
+                        className="food-item"
+                        title={i.title}
+                        // set a different function to onClick where the function will call axios then call openModal
+                        onClick={openRecipe}
+                      >
+                        <img src={i.image} alt={i.title} />
+                        <h3>{i.title}</h3>
+                      </div>
+                    ))
+                  : searchFoods.map((i: Results, k) => (
+                      <div
+                        id={i.id.toString()}
+                        key={k}
+                        className="food-item"
+                        title={i.title}
+                        // set a different function to onClick where the function will call axios then call openModal
+                        onClick={openRecipe}
+                      >
+                        <img src={i.image} alt={i.title} />
+                        <h3>{i.title}</h3>
+                      </div>
+                    ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
