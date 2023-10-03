@@ -1,11 +1,12 @@
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import parse from "html-react-parser";
+import { useData } from "./DataContext";
 // import { Link } from "react-router-dom";
 
 interface Props {
   recipeData: any;
   modal: boolean;
-  isLoading: boolean;
+  // isLoading: boolean;
 }
 
 interface Step {
@@ -16,12 +17,13 @@ interface Ingredient {
 }
 
 function Modal(props: Props) {
+  const { state } = useData();
   let data = props.recipeData;
 
   return props.modal ? (
     <div className="modal-space">
       <div className="modal">
-        {props.isLoading ? (
+        {state.isLoading ? (
           <div className="center" style={{ color: "#1e7943" }}>
             <AiOutlineLoading3Quarters size={60} className="loading" />
           </div>
@@ -64,7 +66,7 @@ function Modal(props: Props) {
     </div>
   ) : (
     <div className="modal-ph">
-      {props.isLoading ? (
+      {state.isLoading ? (
         <div className="foods" style={{ color: "#1e7943" }}>
           <AiOutlineLoading3Quarters size={60} className="loading" />
         </div>

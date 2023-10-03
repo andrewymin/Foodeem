@@ -1,11 +1,12 @@
 import Slider from "./Slider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useData } from "./DataContext";
 
 interface Props {
   setVideoNum: React.Dispatch<React.SetStateAction<number>>; // Replace 'string' with the actual type of your state
   getRandomRecipe: React.Dispatch<React.SetStateAction<undefined>>; // Replace 'string' with the actual type of your state
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  // setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   tabNum: number;
 }
 
@@ -18,12 +19,13 @@ const tabHeadings = [
 ];
 
 function Tabs(props: Props) {
-  // console.log(props.tabNum);
+  const { dispatch } = useData();
   let navigate = useNavigate();
 
   const randomOne = () => {
     let path = `recipes`;
-    props.setIsLoading(true);
+    // props.setIsLoading(true);
+    dispatch({ type: "loading" });
     axios
       // .get("http://localhost:3001/randomfood") // place nodejs(aws) created route for url, using server to hide api keys
       .get(
@@ -38,7 +40,8 @@ function Tabs(props: Props) {
         console.log(error);
       })
       .finally(() => {
-        props.setIsLoading(false);
+        // props.setIsLoading(false);
+        dispatch({ type: "unloading" });
       });
 
     navigate(path);

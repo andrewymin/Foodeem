@@ -4,12 +4,13 @@ import pizza from "../assets/img/pizza.svg";
 import Modal from "../components/Modal";
 import axios from "axios";
 import { randomFoods } from "../spoonTestData";
+import { useData } from "../components/DataContext";
 // import { useLocation } from "react-router-dom";
 
 interface Props {
   randomRecipe: undefined;
-  isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  // isLoading: boolean;
+  // setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface Results {
@@ -19,6 +20,7 @@ interface Results {
 }
 
 function Recipe(props: Props) {
+  const { state, dispatch } = useData();
   // later update states with useReducer
   const [modalActive, setModalActive] = useState(false);
   const [recipeData, setRecipeData] = useState();
@@ -70,7 +72,8 @@ function Recipe(props: Props) {
     let target = e.target as HTMLDivElement;
     let targetId = target.id;
     // console.log(targetId);
-    props.setIsLoading(true);
+    // props.setIsLoading(true);
+    dispatch({ type: "loading" });
 
     axios
       // .get("http://localhost:3001/searchfoods/recipe", {
@@ -93,7 +96,8 @@ function Recipe(props: Props) {
         console.log(error);
       })
       .finally(() => {
-        props.setIsLoading(false);
+        // props.setIsLoading(false);
+        dispatch({ type: "unloading" });
       });
   };
 
@@ -109,7 +113,7 @@ function Recipe(props: Props) {
         <Modal
           recipeData={recipeData}
           modal={modalActive}
-          isLoading={props.isLoading}
+          // isLoading={props.isLoading}
         />
         <div className="content">
           {/* using searched input (handleSubmit=>this.state?) for another api call after submiting data */}

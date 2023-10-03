@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 interface Props {
   getRandomRecipe: React.Dispatch<React.SetStateAction<undefined>>;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  // setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function Home(props: Props) {
@@ -33,7 +33,7 @@ function Home(props: Props) {
         tabNum={videoNum}
         setVideoNum={setVideoNum}
         getRandomRecipe={props.getRandomRecipe}
-        setIsLoading={props.setIsLoading}
+        // setIsLoading={props.setIsLoading}
       />
       <Social />
     </>

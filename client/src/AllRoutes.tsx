@@ -7,7 +7,7 @@ import Contact from "./pages/Contact";
 
 function AllRoutes() {
   const [randomRecipe, setrandomRecipe] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
   // show user current page by addrress link path, also add bg to header based on link path
@@ -42,7 +42,8 @@ function AllRoutes() {
       <Route
         path="/"
         element={
-          <Home getRandomRecipe={setrandomRecipe} setIsLoading={setIsLoading} />
+          // <Home getRandomRecipe={setrandomRecipe} setIsLoading={setIsLoading} />
+          <Home getRandomRecipe={setrandomRecipe} />
         }
       />
       <Route
@@ -50,8 +51,8 @@ function AllRoutes() {
         element={
           <Recipes
             randomRecipe={randomRecipe}
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
+            // isLoading={isLoading}
+            // setIsLoading={setIsLoading}
           />
         }
       />
