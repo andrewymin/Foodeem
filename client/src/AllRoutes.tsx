@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Recipes from "./pages/Recipes";
@@ -6,9 +6,6 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 function AllRoutes() {
-  // const [randomRecipe, setrandomRecipe] = useState(undefined);
-  // const [isLoading, setIsLoading] = useState(false);
-
   const location = useLocation();
   // show user current page by addrress link path, also add bg to header based on link path
   useEffect(() => {
@@ -39,23 +36,8 @@ function AllRoutes() {
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          // <Home getRandomRecipe={setrandomRecipe} setIsLoading={setIsLoading} />
-          <Home />
-        }
-      />
-      <Route
-        path="/recipes"
-        element={
-          <Recipes
-          // randomRecipe={randomRecipe}
-          // isLoading={isLoading}
-          // setIsLoading={setIsLoading}
-          />
-        }
-      />
+      <Route path="/" element={<Home />} />
+      <Route path="/recipes" element={<Recipes />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
     </Routes>

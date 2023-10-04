@@ -19,28 +19,19 @@ interface Results {
   image: string;
 }
 
-function Recipe(props: Props) {
+function Recipe() {
   const { state, dispatch } = useData();
-  // later update states with useReducer
+  // later update states with useReducer?
   const [modalActive, setModalActive] = useState(false);
   const [recipeData, setRecipeData] = useState();
   const [searchFoods, setSearchFoods] = useState([]);
   const [search, setSearch] = useState("");
   const [searchLoading, setSearchLoading] = useState(false);
 
-  // useEffect(() => {
-  //   if (props.randomRecipe) {
-  //     setRecipeData(props.randomRecipe);
-  //     openModal();
-  //     // console.log(props.randomRecipe);
-  //   }
-  // }, [props.randomRecipe]);
-
   useEffect(() => {
     if (state.randomRecipe) {
       setRecipeData(state.randomRecipe);
       openModal();
-      // console.log(props.randomRecipe);
     }
   }, [state.randomRecipe]);
 
@@ -75,12 +66,8 @@ function Recipe(props: Props) {
   };
 
   const openRecipe = (e: React.MouseEvent<HTMLDivElement>) => {
-    // console.log(e.target.id);
-    // console.log(typeof e.target.id);
     let target = e.target as HTMLDivElement;
     let targetId = target.id;
-    // console.log(targetId);
-    // props.setIsLoading(true);
     dispatch({ type: "LOADING" });
 
     axios
@@ -104,7 +91,6 @@ function Recipe(props: Props) {
         console.log(error);
       })
       .finally(() => {
-        // props.setIsLoading(false);
         dispatch({ type: "UNLOADING" });
       });
   };

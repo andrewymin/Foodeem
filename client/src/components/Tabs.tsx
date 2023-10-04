@@ -6,8 +6,6 @@ import { videos } from "../assets/vid/videos";
 
 interface Props {
   setVideoNum: React.Dispatch<React.SetStateAction<number>>; // Replace 'string' with the actual type of your state
-  // getRandomRecipe: React.Dispatch<React.SetStateAction<undefined>>; // Replace 'string' with the actual type of your state
-  // setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   tabNum: number;
 }
 
@@ -17,7 +15,6 @@ function Tabs(props: Props) {
 
   const randomOne = () => {
     let path = `recipes`;
-    // props.setIsLoading(true);
     dispatch({ type: "LOADING" });
     axios
       // .get("http://localhost:3001/randomfood") // place nodejs(aws) created route for url, using server to hide api keys
@@ -34,7 +31,6 @@ function Tabs(props: Props) {
         console.log(error);
       })
       .finally(() => {
-        // props.setIsLoading(false);
         dispatch({ type: "UNLOADING" });
       });
 

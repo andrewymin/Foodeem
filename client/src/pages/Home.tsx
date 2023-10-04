@@ -3,14 +3,8 @@ import Social from "../components/Social";
 import Videos from "../components/Videos";
 import { useState, useEffect } from "react";
 
-interface Props {
-  // getRandomRecipe: React.Dispatch<React.SetStateAction<undefined>>;
-  // setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function Home(props: Props) {
+function Home() {
   const [videoNum, setVideoNum] = useState(0);
-  // let [count, setCount] = useState(0);
 
   useEffect(() => {
     // console.log("did this log once?");
@@ -29,12 +23,7 @@ function Home(props: Props) {
     <>
       <div className="blur"></div>
       <Videos selectVid={videoNum} />
-      <Tabs
-        tabNum={videoNum}
-        setVideoNum={setVideoNum}
-        // getRandomRecipe={props.getRandomRecipe}
-        // setIsLoading={props.setIsLoading}
-      />
+      <Tabs tabNum={videoNum} setVideoNum={setVideoNum} />
       <Social />
     </>
   );

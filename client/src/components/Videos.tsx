@@ -10,8 +10,6 @@ interface Props {
 }
 
 function Videos(props: Props) {
-  // let vid;
-
   const vidChange = (position: number) => {
     let videos = document.querySelectorAll(".video-slide");
     videos[position].classList.add("play");
