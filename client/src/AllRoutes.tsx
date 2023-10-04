@@ -6,7 +6,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 function AllRoutes() {
-  const [randomRecipe, setrandomRecipe] = useState();
+  // const [randomRecipe, setrandomRecipe] = useState(undefined);
   // const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
@@ -43,16 +43,16 @@ function AllRoutes() {
         path="/"
         element={
           // <Home getRandomRecipe={setrandomRecipe} setIsLoading={setIsLoading} />
-          <Home getRandomRecipe={setrandomRecipe} />
+          <Home />
         }
       />
       <Route
         path="/recipes"
         element={
           <Recipes
-            randomRecipe={randomRecipe}
-            // isLoading={isLoading}
-            // setIsLoading={setIsLoading}
+          // randomRecipe={randomRecipe}
+          // isLoading={isLoading}
+          // setIsLoading={setIsLoading}
           />
         }
       />

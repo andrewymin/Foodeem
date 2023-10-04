@@ -1,18 +1,24 @@
-import React, { createContext, useContext, useState, useReducer } from "react";
+import React, { createContext, useContext, useReducer, Dispatch } from "react";
 // import { useNavigate } from "react-router-dom";
-
-interface DataContextType {
-  state: State;
-  dispatch: React.Dispatch<Action>;
-}
 
 interface State {
   isLoading: boolean;
-  // other properties...
+  randomRecipe: undefined | React.SetStateAction<undefined>;
 }
 
-interface Action {
-  type: "loading" | "unloading";
+const initialState = {
+  isLoading: false,
+  randomRecipe: undefined,
+};
+
+type Action =
+  | { type: "LOADING" }
+  | { type: "UNLOADING" }
+  | { type: "RANDOMRECIPE"; payload?: React.SetStateAction<undefined> };
+
+interface DataContextType {
+  state: State;
+  dispatch: Dispatch<Action>;
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -28,22 +34,21 @@ export const useData = () => {
   return context;
 };
 
-const reducer = (state: State, action: Action) => {
-  const { type } = action;
-  switch (type) {
-    case "loading":
+const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case "LOADING":
       return { ...state, isLoading: true };
-    case "unloading":
+    case "UNLOADING":
       return { ...state, isLoading: false };
+    case "RANDOMRECIPE":
+      return { ...state, randomRecipe: action.payload };
     default:
-      throw new Error("Component not loading");
+      return state;
   }
 };
 
-export const AuthProvider = ({ children }: any) => {
-  const [state, dispatch] = useReducer(reducer, {
-    isLoading: false,
-  });
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   //   const [randomRecipe, setrandomRecipe] = useState();
 
   return (

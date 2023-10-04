@@ -2,21 +2,14 @@ import Slider from "./Slider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useData } from "./DataContext";
+import { videos } from "../assets/vid/videos";
 
 interface Props {
   setVideoNum: React.Dispatch<React.SetStateAction<number>>; // Replace 'string' with the actual type of your state
-  getRandomRecipe: React.Dispatch<React.SetStateAction<undefined>>; // Replace 'string' with the actual type of your state
+  // getRandomRecipe: React.Dispatch<React.SetStateAction<undefined>>; // Replace 'string' with the actual type of your state
   // setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   tabNum: number;
 }
-
-const tabHeadings = [
-  { id: 0, title: "Breathtaking", subHeading: "tastes" },
-  { id: 1, title: "Citris", subHeading: "tendencies" },
-  { id: 2, title: "Explore", subHeading: "unknowns" },
-  { id: 3, title: "Unique", subHeading: "adventures" },
-  { id: 4, title: "relaxing", subHeading: "nights" },
-];
 
 function Tabs(props: Props) {
   const { dispatch } = useData();
@@ -25,7 +18,7 @@ function Tabs(props: Props) {
   const randomOne = () => {
     let path = `recipes`;
     // props.setIsLoading(true);
-    dispatch({ type: "loading" });
+    dispatch({ type: "LOADING" });
     axios
       // .get("http://localhost:3001/randomfood") // place nodejs(aws) created route for url, using server to hide api keys
       .get(
@@ -34,14 +27,15 @@ function Tabs(props: Props) {
       .then((response) => {
         // this will return a list of recipes, i.e. recipes: array
         // after success place data of that arrayinto recipeData
-        props.getRandomRecipe(response.data.body);
+        // props.getRandomRecipe(response.data.body);
+        dispatch({ type: "RANDOMRECIPE", payload: response.data.body });
       })
       .catch((error) => {
         console.log(error);
       })
       .finally(() => {
         // props.setIsLoading(false);
-        dispatch({ type: "unloading" });
+        dispatch({ type: "UNLOADING" });
       });
 
     navigate(path);
@@ -51,14 +45,14 @@ function Tabs(props: Props) {
     <section id="content">
       <h2 className="title">
         {props.tabNum == 0
-          ? tabHeadings[0].title
-          : tabHeadings.find((title) => title.id == props.tabNum)?.title}
+          ? videos[0].title
+          : videos.find((title) => title.id == props.tabNum)?.title}
         <span>.</span>
       </h2>
       <h1 className="sub-heading">
         {props.tabNum == 0
-          ? tabHeadings[0].subHeading
-          : tabHeadings.find((title) => title.id == props.tabNum)?.subHeading}
+          ? videos[0].subHeading
+          : videos.find((title) => title.id == props.tabNum)?.subHeading}
       </h1>
       <div className="description">
         <p>

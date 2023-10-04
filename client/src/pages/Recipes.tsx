@@ -8,7 +8,7 @@ import { useData } from "../components/DataContext";
 // import { useLocation } from "react-router-dom";
 
 interface Props {
-  randomRecipe: undefined;
+  // randomRecipe: undefined;
   // isLoading: boolean;
   // setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -28,13 +28,21 @@ function Recipe(props: Props) {
   const [search, setSearch] = useState("");
   const [searchLoading, setSearchLoading] = useState(false);
 
+  // useEffect(() => {
+  //   if (props.randomRecipe) {
+  //     setRecipeData(props.randomRecipe);
+  //     openModal();
+  //     // console.log(props.randomRecipe);
+  //   }
+  // }, [props.randomRecipe]);
+
   useEffect(() => {
-    if (props.randomRecipe) {
-      setRecipeData(props.randomRecipe);
+    if (state.randomRecipe) {
+      setRecipeData(state.randomRecipe);
       openModal();
       // console.log(props.randomRecipe);
     }
-  }, [props.randomRecipe]);
+  }, [state.randomRecipe]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -73,7 +81,7 @@ function Recipe(props: Props) {
     let targetId = target.id;
     // console.log(targetId);
     // props.setIsLoading(true);
-    dispatch({ type: "loading" });
+    dispatch({ type: "LOADING" });
 
     axios
       // .get("http://localhost:3001/searchfoods/recipe", {
@@ -97,7 +105,7 @@ function Recipe(props: Props) {
       })
       .finally(() => {
         // props.setIsLoading(false);
-        dispatch({ type: "unloading" });
+        dispatch({ type: "UNLOADING" });
       });
   };
 
