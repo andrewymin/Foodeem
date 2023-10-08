@@ -49,7 +49,6 @@ const reducer = (state: State, action: Action): State => {
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  //   const [randomRecipe, setrandomRecipe] = useState();
 
   return (
     <DataContext.Provider value={{ state, dispatch }}>

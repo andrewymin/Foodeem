@@ -5,13 +5,6 @@ import Modal from "../components/Modal";
 import axios from "axios";
 import { randomFoods } from "../spoonTestData";
 import { useData } from "../components/DataContext";
-// import { useLocation } from "react-router-dom";
-
-interface Props {
-  // randomRecipe: undefined;
-  // isLoading: boolean;
-  // setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
 interface Results {
   id: number;
