@@ -1,74 +1,144 @@
-@media(max-width: 1040px) {
-    body #heading nav {
-        .navbar-w {
-            display: none;            
+@media (max-width: 1040px) {
+  body #heading nav {
+    .navbar-w {
+      display: none;
+    }
+
+    .menu-btn {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      // margin-right: 1.5rem;
+      position: relative;
+
+      .burger {
+        margin-right: 1.5rem;
+      }
+
+      svg {
+        cursor: pointer;
+        transition: 0.3s ease;
+      }
+
+      .menu {
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(1, 1, 1, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        position: fixed;
+        z-index: 3;
+
+        .navbar {
+          flex-direction: column;
+          align-items: center;
         }
+
+        .navbar-a {
+          background: white;
+          width: 20%;
+          padding: 2rem 0;
+          // height: 35%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 20px;
+
+          a {
+            color: black;
+          }
+        }
+      }
+
+      .close-icon {
+        position: absolute;
+        font-size: 2rem;
+        color: white;
+        top: 0.9rem;
+        right: 1.4rem;
+      }
+
+      .hidden,
+      .clicked {
+        display: none;
+      }
+
+      .visiable,
+      .unclicked {
+        display: inline-block;
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  body {
+    #heading {
+      nav {
+        padding: 1rem 1rem 0;
 
         .menu-btn {
-            display: flex;
-            justify-content: end;
-            align-items: center;
-            // margin-right: 1.5rem;
-            position: relative;
+          .burger {
+            margin: 0;
+          }
 
-            .burger {
-                margin-right: 1.5rem;
-            }
+          .close-icon {
+            top: 1.3rem;
+            right: 15px;
+          }
 
-            svg {
-                cursor: pointer;
-                transition: 0.3s ease;
-            }
-
-            .menu {
-                width: 100%;
-                height: 100vh;
-                background-color: rgba(1, 1, 1, 0.5);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: absolute;
-                top: 0;
-                left: 0;
-                position: fixed;
-                z-index: 3;
-
-                .navbar {
-                    flex-direction: column;
-                    align-items: center;
-                }
-
-                .navbar-a {
-                    background: white;
-                    width: 20%;
-                    padding: 2rem 0;
-                    // height: 35%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border-radius: 20px;
-                    
-                    a {
-                        color: black;
-                    }
-                }
-            }
-            
-            .close-icon {
-                position: absolute;
-                font-size: 2rem;
-                color: white;
-                top: 0.9rem;
-                right: 1.4rem;
-            }
-
-            .hidden, .clicked {
-                display: none;
-            }
-    
-            .visiable, .unclicked {
-                display: inline-block;
-            }
+          .menu .navbar-a {
+            width: 50%;
+            padding: 3rem 0;
+          }
         }
+      }
     }
+
+    video {
+      width: 100svw;
+      height: 100svh;
+    }
+
+    #content {
+      padding: 0 1rem;
+    }
+    //////////////////// Contact section ///////////////
+    #contact {
+      flex-direction: column;
+      width: 100svw;
+
+      .contact-img {
+        width: 100vw;
+        position: absolute;
+        z-index: -1;
+        height: 100svh;
+      }
+
+      .contact-inputs {
+        width: 100vw;
+        height: 100svh;
+        background: rgba(4, 4, 4, 0.5);
+        margin-bottom: 0;
+        color: white;
+
+        .inputs {
+          label {
+            color: inherit !important;
+          }
+          input::placeholder,
+          textarea::placeholder {
+            color: white;
+          }
+        }
+      }
+
+      .contact-inputs > *:not(button) {
+        color: inherit !important;
+      }
+    }
+  }
 }
