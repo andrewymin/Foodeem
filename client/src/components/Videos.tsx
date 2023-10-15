@@ -54,11 +54,40 @@ function Videos(props: Props) {
         autoPlay
         muted
         loop
+        playsInline
       ></video>
-      <video className="video-slide" src={video1} autoPlay muted loop></video>
-      <video className="video-slide" src={video2} autoPlay muted loop></video>
-      <video className="video-slide" src={video3} autoPlay muted loop></video>
-      <video className="video-slide" src={video4} autoPlay muted loop></video>
+      <video
+        className="video-slide"
+        src={video1}
+        autoPlay
+        muted
+        loop
+        playsInline
+      ></video>
+      <video
+        className="video-slide"
+        src={video2}
+        autoPlay
+        muted
+        loop
+        playsInline
+      ></video>
+      <video
+        className="video-slide"
+        src={video3}
+        autoPlay
+        muted
+        loop
+        playsInline
+      ></video>
+      <video
+        className="video-slide"
+        src={video4}
+        autoPlay
+        muted
+        loop
+        playsInline
+      ></video>
     </>
   );
 }

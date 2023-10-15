@@ -80,6 +80,7 @@
   body video {
     width: 100svw;
     height: 100svh;
+    pointer-events: none;
   }
   body #content {
     padding: 0 1rem;
