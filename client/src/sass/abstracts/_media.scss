@@ -74,6 +74,9 @@
     }
   }
 }
+
+/////////////////// Mobile /////////////
+
 @media (max-width: 500px) {
   body {
     #heading {
@@ -108,6 +111,14 @@
       height: fit-content;
       padding: 0 1rem;
       margin-top: 3rem;
+
+      .description {
+        font-size: 17px;
+      }
+
+      .slider-nav {
+        transform: translateY(40px);
+      }
     }
     //////////////////// Contact section ///////////////
     #contact {

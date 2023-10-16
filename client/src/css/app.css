@@ -87,6 +87,12 @@
     padding: 0 1rem;
     margin-top: 3rem;
   }
+  body #content .description {
+    font-size: 17px;
+  }
+  body #content .slider-nav {
+    transform: translateY(40px);
+  }
   body #contact {
     flex-direction: column;
     width: 100svw;

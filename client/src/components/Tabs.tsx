@@ -2,7 +2,7 @@ import Slider from "./Slider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useData } from "./DataContext";
-import { videos } from "../assets/vid/videos";
+import { videoData } from "../assets/vid/videoData";
 
 interface Props {
   setVideoNum: React.Dispatch<React.SetStateAction<number>>; // Replace 'string' with the actual type of your state
@@ -41,14 +41,14 @@ function Tabs(props: Props) {
     <section id="content">
       <h2 className="title">
         {props.tabNum == 0
-          ? videos[0].title
-          : videos.find((title) => title.id == props.tabNum)?.title}
+          ? videoData[0].title
+          : videoData.find((title) => title.id == props.tabNum)?.title}
         <span>.</span>
       </h2>
       <h1 className="sub-heading">
         {props.tabNum == 0
-          ? videos[0].subHeading
-          : videos.find((title) => title.id == props.tabNum)?.subHeading}
+          ? videoData[0].subHeading
+          : videoData.find((title) => title.id == props.tabNum)?.subHeading}
       </h1>
       <div className="description">
         <p>
