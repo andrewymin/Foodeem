@@ -66,6 +66,10 @@
   html body {
     overflow: auto;
   }
+  html body #root {
+    height: 100svh;
+    width: 100svw;
+  }
   html body #heading nav {
     padding: 1rem 1rem 0;
   }
@@ -111,6 +115,10 @@
   html body #recipe .container .content .results .foods .food-item {
     width: 161px;
     height: 221px;
+  }
+  html body #about {
+    height: 100svh;
+    width: 100svw;
   }
   html body #about img {
     object-fit: cover;

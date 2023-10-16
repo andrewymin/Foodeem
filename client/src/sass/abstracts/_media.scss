@@ -80,6 +80,10 @@
 @media (max-width: 500px) {
   html body {
     overflow: auto;
+    #root {
+      height: 100svh;
+      width: 100svw;
+    }
     #heading {
       nav {
         padding: 1rem 1rem 0;
@@ -155,6 +159,9 @@
     //////////////////// About section ///////////////
 
     #about {
+      height: 100svh;
+      width: 100svw;
+
       img {
         object-fit: cover;
       }
