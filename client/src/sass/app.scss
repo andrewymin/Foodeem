@@ -394,6 +394,7 @@ button:hover {
       left: -42%;
       animation: rotate 20s linear infinite;
       pointer-events: none;
+      z-index: -1;
     }
 
     .content {

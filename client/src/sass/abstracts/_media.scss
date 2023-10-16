@@ -78,7 +78,8 @@
 /////////////////// Mobile /////////////
 
 @media (max-width: 500px) {
-  body {
+  html body {
+    overflow: auto;
     #heading {
       nav {
         padding: 1rem 1rem 0;
@@ -120,6 +121,45 @@
         transform: translateY(40px);
       }
     }
+    //////////////////// Recipe section ///////////////
+
+    #recipe {
+      .search {
+        transform: translateX(-50%);
+      }
+      .container {
+        overflow: hidden;
+        position: relative;
+
+        .food-img {
+          height: auto;
+          top: 16%;
+          left: 0%;
+        }
+
+        .content {
+          .results {
+            .foods {
+              //   height: 100%;
+
+              .food-item {
+                width: 161px;
+                height: 221px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    //////////////////// About section ///////////////
+
+    #about {
+      img {
+        object-fit: cover;
+      }
+    }
+
     //////////////////// Contact section ///////////////
     #contact {
       flex-direction: column;

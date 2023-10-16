@@ -63,61 +63,83 @@
   }
 }
 @media (max-width: 500px) {
-  body #heading nav {
+  html body {
+    overflow: auto;
+  }
+  html body #heading nav {
     padding: 1rem 1rem 0;
   }
-  body #heading nav .menu-btn .burger {
+  html body #heading nav .menu-btn .burger {
     margin: 0;
   }
-  body #heading nav .menu-btn .close-icon {
+  html body #heading nav .menu-btn .close-icon {
     top: 1.3rem;
     right: 15px;
   }
-  body #heading nav .menu-btn .menu .navbar-a {
+  html body #heading nav .menu-btn .menu .navbar-a {
     width: 50%;
     padding: 3rem 0;
   }
-  body video {
+  html body video {
     width: 100svw;
     height: 100svh;
     pointer-events: none;
   }
-  body #content {
+  html body #content {
     height: fit-content;
     padding: 0 1rem;
     margin-top: 3rem;
   }
-  body #content .description {
+  html body #content .description {
     font-size: 17px;
   }
-  body #content .slider-nav {
+  html body #content .slider-nav {
     transform: translateY(40px);
   }
-  body #contact {
+  html body #recipe .search {
+    transform: translateX(-50%);
+  }
+  html body #recipe .container {
+    overflow: hidden;
+    position: relative;
+  }
+  html body #recipe .container .food-img {
+    height: auto;
+    top: 16%;
+    left: 0%;
+  }
+  html body #recipe .container .content .results .foods .food-item {
+    width: 161px;
+    height: 221px;
+  }
+  html body #about img {
+    object-fit: cover;
+  }
+  html body #contact {
     flex-direction: column;
     width: 100svw;
   }
-  body #contact .contact-img {
+  html body #contact .contact-img {
     width: 100vw;
     position: absolute;
     z-index: -1;
     height: 100svh;
   }
-  body #contact .contact-inputs {
+  html body #contact .contact-inputs {
     width: 100vw;
     height: 100svh;
     background: rgba(4, 4, 4, 0.5);
     margin-bottom: 0;
     color: white;
   }
-  body #contact .contact-inputs .inputs label {
+  html body #contact .contact-inputs .inputs label {
     color: inherit !important;
   }
-  body #contact .contact-inputs .inputs input::placeholder,
-  body #contact .contact-inputs .inputs textarea::placeholder {
+  html body #contact .contact-inputs .inputs input::placeholder,
+  html body #contact .contact-inputs .inputs textarea::placeholder {
     color: white;
   }
-  body #contact .contact-inputs > *:not(button) {
+  html body #contact .contact-inputs > *:not(button) {
     color: inherit !important;
   }
 }
@@ -429,6 +451,7 @@ button:hover {
   left: -42%;
   animation: rotate 20s linear infinite;
   pointer-events: none;
+  z-index: -1;
 }
 #recipe .container .content {
   width: 50%;
