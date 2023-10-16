@@ -83,7 +83,9 @@
     pointer-events: none;
   }
   body #content {
+    height: fit-content;
     padding: 0 1rem;
+    margin-top: 3rem;
   }
   body #contact {
     flex-direction: column;
