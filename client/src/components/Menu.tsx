@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import { FaHamburger } from "react-icons/fa";
-import { BiMenuAltRight } from "react-icons/Bi";
-import { AiOutlineClose } from "react-icons/ai";
+// import { BiMenuAltRight } from "react-icons/Bi";
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 function HamburgerIcon() {
@@ -50,7 +50,7 @@ function HamburgerIcon() {
 
   return (
     <div className="menu-btn">
-      <BiMenuAltRight
+      <AiOutlineMenu
         onClick={toggleDropdown}
         className={burgerClass}
         size={30}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Recipes from "./pages/Recipes";
@@ -6,12 +6,11 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 function AllRoutes() {
-  const [randomRecipe, setrandomRecipe] = useState();
-
   const location = useLocation();
   // show user current page by addrress link path, also add bg to header based on link path
   useEffect(() => {
-    let path = location.pathname.replace("/", "");
+    let path = location.pathname.replaceAll("/", "");
+    console.log(location.pathname);
     const heading = document.getElementById("heading");
     const navList = document.querySelectorAll(".navbar-w a");
     // const menuList = document.querySelectorAll(".navbar-a a");
@@ -37,11 +36,8 @@ function AllRoutes() {
 
   return (
     <Routes>
-      <Route path="/" element={<Home getRandomRecipe={setrandomRecipe} />} />
-      <Route
-        path="/recipes"
-        element={<Recipes randomRecipe={randomRecipe} />}
-      />
+      <Route path="/" element={<Home />} />
+      <Route path="/recipes" element={<Recipes />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
     </Routes>
