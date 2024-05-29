@@ -1,8 +1,9 @@
-// import { useEffect } from "react";
+import BgImg from "../assets/img/contact_bg.avif";
 
 function Relax() {
-  const contactImg =
-    "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80";
+  // const contactImg =
+  //   "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80";
+  const contactImg = BgImg;
 
   return (
     <section id="contact">

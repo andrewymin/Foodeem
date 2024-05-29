@@ -3,7 +3,6 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import randomRoute from "./routes/randomRoute.js";
 import searchRoute from "./routes/searchRoute.js";
-import ServerlessHttp from "serverless-http";
 
 const app = express();
 
