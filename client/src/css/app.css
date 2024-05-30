@@ -665,4 +665,37 @@ button:hover {
 }
 #contact .contact-inputs .inputs button {
   margin-top: 2rem;
+}
+
+#error-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  width: 100%;
+  height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../assets/img/error_bg.avif") no-repeat center bottom;
+  background-size: cover;
+}
+#error-page span {
+  font-size: 8rem;
+}
+#error-page h1 {
+  text-align: center;
+  color: #f9f0eb;
+  font-size: 4rem;
+  z-index: 2;
+}
+
+#error-page:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
 }/*# sourceMappingURL=app.css.map */
