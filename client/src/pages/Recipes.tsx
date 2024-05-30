@@ -1,4 +1,4 @@
-import { HtmlHTMLAttributes, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineSearch, AiOutlineLoading3Quarters } from "react-icons/ai";
 import pizza from "../assets/img/pizza.svg";
 import Modal from "../components/Modal";
