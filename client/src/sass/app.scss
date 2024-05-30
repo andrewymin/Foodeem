@@ -12,7 +12,7 @@
 body {
   background-color: $sixty;
   color: white;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 h1,
@@ -49,7 +49,7 @@ a:link {
 
 //   Handle on hover
 ::-webkit-scrollbar-thumb:hover {
-  background: #1f954e;
+  background: darken($color: $ten, $amount: 10%);
 }
 
 .navBgColor {
@@ -73,8 +73,9 @@ a:link {
 
 #heading {
   z-index: 3;
-  position: relative;
-  // position: absolute;
+  //   position: relative;
+  position: absolute;
+  width: 100%;
 
   nav {
     // display: flex;
@@ -195,7 +196,7 @@ video {
   position: relative;
   width: 100%;
   // height: 150vh; // use for scrollbar testing
-  height: 90vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -308,11 +309,13 @@ button:hover {
 }
 
 #recipe {
-  // width: 100vw;
+  width: 100%;
   // height: 80vh;
 
   .container {
     display: flex;
+    height: 100vh;
+    width: 100%;
 
     .modal-ph {
       width: 50%;
@@ -325,21 +328,20 @@ button:hover {
     }
 
     .modal-space {
+      height: fit-content;
       width: 50%;
       // background-color: red;
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
 
       .modal {
-        position: absolute;
         background-color: $navBar;
         width: 95%;
         height: 82%;
-        bottom: 0;
         border-radius: 15px;
-        overflow: scroll;
+        margin-top: 11.3rem;
+        margin-bottom: 1rem;
 
         .modal-content {
           padding: 1rem;
@@ -362,6 +364,7 @@ button:hover {
             flex-direction: column;
             gap: 1rem;
             margin-top: 1.5rem;
+            float: right;
 
             span,
             h2 {
@@ -387,17 +390,18 @@ button:hover {
 
     .food-img {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      // bottom: -44%;
-      top: -23%;
-      left: -42%;
-      animation: rotate 20s linear infinite;
+      width: fit-content;
+      height: 50%;
+      top: 4.2rem;
+      right: 0;
       pointer-events: none;
       z-index: -1;
+      opacity: 0;
+      animation: bounce-in-right 1s forwards;
     }
 
     .content {
+      margin-top: 3rem;
       width: 50%;
 
       .search {
@@ -419,13 +423,19 @@ button:hover {
           border: 2px solid $ten;
         }
 
-        .search-icon:hover {
+        button {
+          background-color: $ten;
+          color: $white;
+        }
+
+        button:hover {
           cursor: pointer;
+          background-color: lighten($color: $ten, $amount: 10%);
         }
       }
 
       .results {
-        overflow: hidden;
+        // overflow: hidden;
 
         h2 {
           color: $navBar;
@@ -437,12 +447,12 @@ button:hover {
       .foods {
         display: flex;
         flex-wrap: wrap;
-        height: 75vh;
+        height: fit-content;
         // grid-template-columns: repeat(3, 1fr);
         justify-content: center;
         align-items: center;
         gap: 2rem;
-        overflow-y: scroll;
+        // overflow-y: scroll;
         padding-top: 1.5rem;
         padding-bottom: 1.2rem;
         border-radius: 8px;
@@ -454,8 +464,9 @@ button:hover {
           flex-direction: column;
           align-items: center;
           border-radius: 20px;
-          background-color: $navBar;
+          background-color: $ten;
           transition: all 0.5s;
+          border: 2px solid $ten;
 
           img {
             width: 100%;
@@ -489,12 +500,14 @@ button:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-image: url("../assets/img/about_bg.avif");
+  background-size: cover;
 
-  img {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-  }
+  //   img {
+  //     width: 100%;
+  //     height: 100%;
+  //     position: absolute;
+  //   }
 
   .content {
     width: 65%;
@@ -526,6 +539,7 @@ button:hover {
 
   .contact-inputs {
     width: 50vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -590,14 +604,5 @@ button:hover {
         margin-top: 2rem;
       }
     }
-  }
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }

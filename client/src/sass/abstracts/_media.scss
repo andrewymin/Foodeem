@@ -58,7 +58,7 @@
         position: absolute;
         font-size: 2rem;
         color: white;
-        top: 0.9rem;
+        top: 1.4rem;
         right: 1.4rem;
       }
 
@@ -79,7 +79,7 @@
 
 @media (max-width: 500px) {
   html body {
-    overflow: auto;
+    // overflow: auto;
     #root {
       height: 100svh;
       width: 100svw;
@@ -113,7 +113,7 @@
     }
 
     #content {
-      height: fit-content;
+      // height: fit-content;
       padding: 0 1rem;
       margin-top: 3rem;
 
@@ -129,19 +129,21 @@
 
     #recipe {
       .search {
-        transform: translateX(-50%);
+        // transform: translateX(-50%);
       }
       .container {
-        overflow: hidden;
+        // overflow: hidden;
+        flex-wrap: wrap;
         position: relative;
 
         .food-img {
-          height: auto;
-          top: 16%;
-          left: 0%;
+          height: 22%;
+          right: 1rem;
         }
 
         .content {
+          width: 100svw;
+
           .results {
             .foods {
               //   height: 100%;
@@ -152,6 +154,10 @@
               }
             }
           }
+        }
+
+        .modal-space {
+          width: 100svw;
         }
       }
     }

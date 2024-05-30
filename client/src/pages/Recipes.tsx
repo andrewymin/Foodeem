@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { HtmlHTMLAttributes, useEffect, useState } from "react";
 import { AiOutlineSearch, AiOutlineLoading3Quarters } from "react-icons/ai";
 import pizza from "../assets/img/pizza.svg";
 import Modal from "../components/Modal";
@@ -11,6 +11,11 @@ interface Results {
   title: string;
   image: string;
 }
+
+const SEARCH_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods"
+    : "http://localhost:3001/searchfoods";
 
 function Recipe() {
   const { state, dispatch } = useData();
@@ -36,19 +41,16 @@ function Recipe() {
     e.preventDefault();
     setSearchLoading(true);
     axios
-      // .get("http://localhost:3001/searchfoods", {
-      .get(
-        "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods",
-        {
-          params: {
-            search: search,
-          },
-        }
-      ) // place nodejs(aws) created route for url, using server to hide api keys
+      .get(SEARCH_URL, {
+        params: {
+          search: search,
+        },
+      }) // place nodejs(aws) created route for url, using server to hide api keys
       .then((response) => {
+        // console.log(response.data.results);
         // after success place data into randomFoods
         // let randomFoods = response.data.meals;
-        setSearchFoods(response.data.body.results);
+        setSearchFoods(response.data.results);
       })
       .catch((error) => {
         console.log(error);
@@ -95,13 +97,6 @@ function Recipe() {
   return (
     <section id="recipe">
       <div className="container">
-        <img src={pizza} alt="pizza" className="food-img" />
-        {/*need to somehow pass data into this component when set to active*/}
-        <Modal
-          recipeData={recipeData}
-          modal={modalActive}
-          // isLoading={props.isLoading}
-        />
         <div className="content">
           {/* using searched input (handleSubmit=>this.state?) for another api call after submiting data */}
           <form action="get" className="search" onSubmit={handleSearch}>
@@ -156,6 +151,12 @@ function Recipe() {
             )}
           </div>
         </div>
+        <Modal
+          recipeData={recipeData}
+          modal={modalActive}
+          // isLoading={props.isLoading}
+        />
+        <img src={pizza} alt="pizza" className="food-img" />
       </div>
     </section>
   );
