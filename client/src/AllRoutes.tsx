@@ -10,7 +10,7 @@ function AllRoutes() {
   // show user current page by addrress link path, also add bg to header based on link path
   useEffect(() => {
     let path = location.pathname.replaceAll("/", "");
-    console.log(location.pathname);
+    // console.log(location.pathname);
     const heading = document.getElementById("heading");
     const navList = document.querySelectorAll(".navbar-w a");
     // const menuList = document.querySelectorAll(".navbar-a a");

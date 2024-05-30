@@ -7,7 +7,7 @@ function About() {
 
   return (
     <section id="about">
-      <img src={aboutImg} alt="Cooking Board" />
+      {/* <img src={aboutImg} alt="Cooking Board" /> */}
       <div className="content">
         <h1>About Us</h1>
         <h2 className="title">Finding Great Recipes</h2>
