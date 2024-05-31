@@ -4,7 +4,7 @@ import pizza from "../assets/img/pizza.svg";
 import Modal from "../components/Modal";
 import axios from "axios";
 import { randomFoods } from "../spoonTestData";
-import { useData } from "../components/DataContext";
+import { useData } from "../context/DataContext";
 
 interface Results {
   id: number;

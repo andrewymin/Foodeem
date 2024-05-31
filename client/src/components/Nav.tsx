@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import HamburgerIcon from "./Menu";
+import { useAuth } from "../context/AuthContext";
 // import { useEffect } from "react";
 
 function Nav() {
+  const { login, register } = useAuth();
+
   return (
     <div id="heading">
       <nav>
@@ -19,6 +22,16 @@ function Nav() {
             </Link>
           </li>
           <li>
+            <button type="button" onClick={login}>
+              Login
+            </button>
+          </li>
+          <li>
+            <button type="button" onClick={register}>
+              Sign-up
+            </button>
+          </li>
+          {/* <li>
             <Link className="about" to={"about"}>
               About
             </Link>
@@ -27,7 +40,7 @@ function Nav() {
             <Link className="contact" to={"contact"}>
               Contact
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </div>

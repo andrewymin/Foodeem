@@ -31,6 +31,33 @@ a:link {
   position: relative;
 }
 
+footer {
+  color: $navBar;
+  text-align: center;
+  padding: 1rem 0;
+
+  ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 1rem;
+
+    li:nth-child(1) {
+      border-right: double;
+      padding: 0 1rem;
+    }
+
+    li > a {
+      color: $navBar;
+    }
+  }
+
+  .copyright {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+  }
+}
+
 //   Width
 ::-webkit-scrollbar {
   width: 15px;
@@ -127,7 +154,30 @@ a:link {
       flex-direction: row;
       gap: 2rem;
       justify-content: center;
+      align-items: center;
       color: white;
+
+      li > button {
+        padding: 0.5rem;
+        font-weight: bold;
+      }
+
+      li:nth-child(2) > button:hover {
+        filter: brightness(90%);
+        background-color: $white;
+        color: $ten;
+      }
+
+      li:nth-child(3) > button {
+        background-color: $ten;
+        color: $white;
+      }
+
+      li:nth-child(3) > button:hover {
+        background-color: darken($color: $ten, $amount: 10%);
+
+        color: $white;
+      }
 
       a.p-current::after {
         content: "";
@@ -314,7 +364,8 @@ button:hover {
 
   .container {
     display: flex;
-    height: 100vh;
+    // height: 100vh;
+    height: fit-content;
     width: 100%;
 
     .modal-ph {

@@ -1,7 +1,7 @@
 import Slider from "./Slider";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useData } from "./DataContext";
+import { useData } from "../context/DataContext";
 import { videoData } from "../assets/vid/videoData";
 
 interface Props {
