@@ -47,7 +47,7 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (

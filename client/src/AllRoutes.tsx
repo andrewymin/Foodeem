@@ -39,6 +39,8 @@ function AllRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/recipes" element={<Recipes />} />
+      {/* <Route path="/register" element={<Register />} />
+      <Route path="/verify" element={<VerificationCode />} /> */}
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="*" element={<NotFound />} />
