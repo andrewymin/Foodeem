@@ -2,12 +2,15 @@ import React, { useState } from "react";
 // import { FaHamburger } from "react-icons/fa";
 // import { BiMenuAltRight } from "react-icons/Bi";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function HamburgerIcon() {
   const [burgerClass, setBurgerClass] = useState("burger unclicked");
   const [menuClass, setMenuClass] = useState("menu hidden");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { state } = useAuth();
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     if (!isMenuOpen) {
@@ -48,6 +51,17 @@ function HamburgerIcon() {
     e.stopPropagation();
   };
 
+  const loginPage = () => {
+    // navigate("/signup");
+    toggleDropdown();
+    console.log("redirect to login page");
+  };
+
+  const registerPage = () => {
+    toggleDropdown();
+    navigate("/register");
+  };
+
   return (
     <div className="menu-btn">
       <AiOutlineMenu
@@ -65,16 +79,35 @@ function HamburgerIcon() {
                 Recipes
               </Link>
             </li>
-            <li>
-              <Link to={"about"} onClick={toggleDropdown}>
-                About
-              </Link>
-            </li>
-            <li>
-              <Link to={"contact"} onClick={toggleDropdown}>
-                Contact
-              </Link>
-            </li>
+            {!state.isAuth ? (
+              <>
+                {" "}
+                <li>
+                  <button type="button" onClick={loginPage}>
+                    Login
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={registerPage}>
+                    Sign-up
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                {" "}
+                <li>
+                  <Link to={"about"} onClick={toggleDropdown}>
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"contact"} onClick={toggleDropdown}>
+                    Contact
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

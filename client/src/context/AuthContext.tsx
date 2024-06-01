@@ -3,6 +3,7 @@ import React, { createContext, useContext, useReducer } from "react";
 interface State {
   user: String;
   pwd: String;
+  isAuth: Boolean;
 }
 
 interface LoginFunction {
@@ -14,7 +15,8 @@ interface RegisterFunction {
 
 type Action =
   | { type: "USER"; payload: String }
-  | { type: "PWD"; payload: String };
+  | { type: "PWD"; payload: String }
+  | { type: "IS_AUTH"; payload: Boolean };
 
 interface AppContextType {
   state: State;
@@ -35,6 +37,7 @@ export const useAuth = () => {
 const initialState: State = {
   user: "",
   pwd: "",
+  isAuth: false,
 };
 
 const reducer = (state: State, action: Action) => {
@@ -44,6 +47,9 @@ const reducer = (state: State, action: Action) => {
     }
     case "PWD": {
       return { ...state, pwd: action.payload };
+    }
+    case "IS_AUTH": {
+      return { ...state, isAuth: action.payload };
     }
     default:
       return state;

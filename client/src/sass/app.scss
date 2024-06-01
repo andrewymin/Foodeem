@@ -31,6 +31,18 @@ a:link {
   position: relative;
 }
 
+.full-page {
+  width: 100vw;
+  height: 100vh;
+  width: 100svw;
+  height: 100svh;
+  @include flexDisplay(center, center);
+}
+
+.grid-display {
+  display: grid;
+}
+
 footer {
   color: $navBar;
   text-align: center;
@@ -47,8 +59,27 @@ footer {
       padding: 0 1rem;
     }
 
-    li > a {
-      color: $navBar;
+    li {
+      a {
+        color: $navBar;
+      }
+      a::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        bottom: -3px;
+        left: 0;
+        background-color: $highlight;
+        transform-origin: bottom left;
+        transition: transform 0.25s ease-out;
+      }
+
+      a:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
     }
   }
 
@@ -56,6 +87,34 @@ footer {
     margin-top: 1rem;
     font-size: 0.8rem;
   }
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible !important;
+}
+
+.revealPsw {
+  position: relative;
+}
+
+.fa-eye {
+  visibility: hidden;
+}
+
+.fa-eye-slash,
+.fa-eye {
+  position: absolute;
+  margin-left: 1rem;
+  top: 30%;
+}
+
+.fa-eye-slash:hover,
+.fa-eye:hover {
+  cursor: pointer;
 }
 
 //   Width
@@ -691,4 +750,83 @@ button:hover {
   left: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.4);
+}
+
+#register {
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .signup-wrapper {
+    display: flex;
+    background: #3f2323;
+    justify-content: center;
+    width: 40%;
+    height: 51%;
+    align-items: center;
+    border-radius: 50px;
+    box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.8);
+
+    .formInputs {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      gap: 1.5rem;
+      height: 85%;
+
+      div:not(:last-of-type) {
+        padding: 0 3rem;
+      }
+
+      input[name="pwd"] {
+        width: 100%;
+      }
+
+      input[name="pwd"],
+      input[name="email"] {
+        border-radius: 5px;
+        height: 2rem;
+        border: 1px solid black;
+        margin-top: 0.3rem;
+        padding: 0 0.3rem;
+      }
+
+      p {
+        text-align: center;
+        font-size: 0.8rem;
+        margin: auto 2.8rem;
+        margin-top: 0.5rem;
+      }
+
+      .submit-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+
+        button {
+          padding: 0.5rem;
+          width: 73%;
+          background: maroon;
+          color: white;
+        }
+
+        button:hover {
+          filter: brightness(90%);
+        }
+      }
+    }
+  }
+
+  div:nth-last-child(2) {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: $navBar;
+
+    a {
+      color: $highlight;
+    }
+
+    a:hover {
+      color: $ten;
+    }
+  }
 }

@@ -1,0 +1,5 @@
+@mixin flexDisplay($JC, $AI) {
+  display: flex;
+  justify-content: $JC;
+  align-items: $AI;
+}
