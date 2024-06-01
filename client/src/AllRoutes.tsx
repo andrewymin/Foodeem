@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Recipes from "./pages/Recipes";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -39,6 +41,8 @@ function AllRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/recipes" element={<Recipes />} />
+      {/* <Route path="/login" element={<Login />} /> */}
+      <Route path="/register" element={<Signup />} />
       {/* <Route path="/register" element={<Register />} />
       <Route path="/verify" element={<VerificationCode />} /> */}
       <Route path="/about" element={<About />} />
