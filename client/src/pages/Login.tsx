@@ -61,10 +61,6 @@ function Login() {
     psw?.setAttribute("type", type);
   };
 
-  const registerPage = () => {
-    navigate("/register");
-  };
-
   const resetModal = () => {
     setOpenModal(!openModal);
   };

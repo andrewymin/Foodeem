@@ -65,8 +65,8 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const register = async () => {
-    console.log("Clicked signup");
-    // console.log(state.user, state.pwd);
+    // console.log("Clicked signup");
+    console.log(state.user, state.pwd);
     // try {
     //   await customAxios
     //     .post("api/user/signup", {
