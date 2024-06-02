@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 
+const d = new Date();
+let year = d.getFullYear();
+
 function Footer() {
   return (
     <footer>
@@ -15,7 +18,7 @@ function Footer() {
           </Link>
         </li>
       </ul>
-      <p className="copyright">© 2024 Foodiem. All rights reserved</p>
+      <p className="copyright">© {year} Foodiem. All rights reserved</p>
     </footer>
   );
 }

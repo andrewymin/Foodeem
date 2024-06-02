@@ -462,20 +462,26 @@ footer .copyright {
   align-items: center;
   color: white;
 }
-#heading nav .navbar li > button {
+#heading nav .navbar li:nth-child(2) > a {
+  background-color: #f9f0eb;
+  color: #952323;
+  font-size: 1.2rem;
   padding: 0.5rem;
-  font-weight: bold;
+  border-radius: 15px;
 }
-#heading nav .navbar li:nth-child(2) > button:hover {
+#heading nav .navbar li:nth-child(2) > a:hover {
   filter: brightness(90%);
   background-color: #f9f0eb;
   color: #952323;
 }
-#heading nav .navbar li:nth-child(3) > button {
+#heading nav .navbar li:nth-child(3) > a {
   background-color: #952323;
   color: #f9f0eb;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border-radius: 15px;
 }
-#heading nav .navbar li:nth-child(3) > button:hover {
+#heading nav .navbar li:nth-child(3) > a:hover {
   background-color: #6c1919;
   color: #f9f0eb;
 }

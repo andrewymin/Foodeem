@@ -216,25 +216,30 @@ footer {
       align-items: center;
       color: white;
 
-      li > button {
+      li:nth-child(2) > a {
+        background-color: $white;
+        color: $ten;
+        font-size: 1.2rem;
         padding: 0.5rem;
-        font-weight: bold;
+        border-radius: 15px;
       }
 
-      li:nth-child(2) > button:hover {
+      li:nth-child(2) > a:hover {
         filter: brightness(90%);
         background-color: $white;
         color: $ten;
       }
 
-      li:nth-child(3) > button {
+      li:nth-child(3) > a {
         background-color: $ten;
         color: $white;
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        border-radius: 15px;
       }
 
-      li:nth-child(3) > button:hover {
+      li:nth-child(3) > a:hover {
         background-color: darken($color: $ten, $amount: 10%);
-
         color: $white;
       }
 
