@@ -1,13 +1,12 @@
-import Button from "../components/button";
 import React, { useState, useEffect } from "react";
 import Input from "../components/inputs";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { ToastContainer } from "react-toastify";
-import customAxios from "../components/axiosInstance";
-import getGoogleUrl from "../oauth_Urls/getGoogleUrl";
+import { customAxios, AxiosError } from "../components/axiosInstance";
+import { getGoogleUrl, GoogleSignInButton } from "../oauth_Urls/getGoogleUrl";
 import { getGithubUrl } from "../oauth_Urls/getGithubUrl";
-import useToast from "../components/notifications";
+import useToast from "../components/Toastify";
 
 function Login() {
   const { login, dispatch, state } = useAuth();
@@ -15,30 +14,16 @@ function Login() {
   const [openModal, setOpenModal] = useState(false);
   const { showError, showSuccess } = useToast();
 
-  // const handleCallbackResponse = (response) => {
-  //   console.log("Encoded JWT ID token: " + response.credential);
-  // };
-
-  // useEffect(() => {
-  //   /* global google */
-  //   google.accounts.id.initialize({
-  //     client_id:
-  //       "744105593710-mfc4crns0h4tcba5o51fack7u20m5pk8.apps.googleusercontent.com",
-  //     callback: handleCallbackResponse,
-  //   });
-
-  //   google.accounts.id.renderButton(document.getElementById("signInDiv"), {
-  //     theme: "outline",
-  //     size: "large",
-  //   });
-  // }, []);
-
-  function handleSubmit(e) {
+  function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     login();
   }
 
-  const sendEmail = async (e) => {
+  interface ServerError {
+    errorMsg: string;
+  }
+
+  const sendEmail = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     // showSuccess(`Sent link to: ${state.user}`);
     try {
@@ -52,9 +37,18 @@ function Login() {
           setOpenModal(false);
         });
     } catch (error) {
-      showError(error.response.data.errorMsg);
+      if (error instanceof AxiosError) {
+        if (error.response) {
+          const customError: ServerError = error.response.data;
+          showError(customError.errorMsg);
+        } else {
+          console.error("An error occured:", error.message);
+        }
+      }
     }
   };
+
+  //   showError(error.response.data.errorMsg);
 
   const showPSW = () => {
     const eye = document.querySelector(".fa-eye");
@@ -77,69 +71,58 @@ function Login() {
 
   return (
     <section id="login" className="full-page">
-      <Link
-        style={{ position: "absolute", left: "1.5rem", top: "1.5rem" }}
-        to={"/"}
-      >
-        <button>Home</button>
-      </Link>
-      <section className="intro">
-        <i className="fas fa-lock fa-10x fa-shake"></i>
-        <h1>Locked Page</h1>
-        <h2>Login to See Secrets</h2>
-      </section>
-
-      <div className="loginSection">
-        <div className="authTypes">
-          <a className="gg" href={getGoogleUrl()}>
-            Google
-          </a>
-          <a className="gh" href={getGithubUrl()}>
-            Github
-          </a>
-        </div>
-        <div className="inputContainer">
-          <form className="formInputs" onSubmit={handleSubmit}>
-            <label htmlFor="user">User ID </label>
-            <Input
-              inputType="email"
-              name="user"
-              ph="User ID"
-              change={(e) =>
-                dispatch({ type: "USER", payload: e.target.value })
-              }
-              lengthMin="0"
-            />
-
+      <div className="authTypes">
+        {/* <a className="gg" href={getGoogleUrl()}>
+          Log in with Google
+        </a> */}
+        <GoogleSignInButton />
+        <a className="gh" href={getGithubUrl()}>
+          <i className="fa-brands fa-github"></i>
+          <p>Log in with Github</p>
+        </a>
+      </div>
+      <div className="loginSection signup-wrapper">
+        <form className="formInputs" onSubmit={handleSubmit}>
+          <label htmlFor="user">User ID </label>
+          <Input
+            inputType="email"
+            name="email"
+            ph="User ID"
+            change={(e) => dispatch({ type: "USER", payload: e.target.value })}
+            lengthMin={0}
+          />
+          <div className="forgotPass">
             <label htmlFor="pwd">Password </label>
-            <div className="revealPsw loginPass">
-              <Input
-                inputType="password"
-                name="pwd"
-                ph="Password"
-                change={(e) =>
-                  dispatch({ type: "PWD", payload: e.target.value })
-                }
-                lengthMin="3"
-              />
-              <span onClick={showPSW}>
-                <i className="fas fa-eye"></i>
-              </span>
-              <span onClick={showPSW}>
-                <i className="fas fa-eye-slash"></i>
-              </span>
-            </div>
-            <button type="button" onClick={registerPage} className="mt1">
-              Sign Up
-            </button>
-            <button type="submit" className="mt1">
-              Login
-            </button>
-            <button type="button" onClick={resetModal}>
-              Forgot Password?
-            </button>
-          </form>
-        </div>
+            <p onClick={resetModal}>Forgot Password?</p>
+          </div>
+
+          <div className="revealPsw loginPass">
+            <Input
+              inputType="password"
+              name="pwd"
+              ph="Password"
+              change={(e) => dispatch({ type: "PWD", payload: e.target.value })}
+              lengthMin={3}
+            />
+            <span onClick={showPSW}>
+              <i className="fas fa-eye"></i>
+            </span>
+            <span onClick={showPSW}>
+              <i className="fas fa-eye-slash"></i>
+            </span>
+          </div>
+          <button type="submit" className="login-button">
+            Login
+          </button>
+        </form>
+      </div>
+      <div>
+        <p>
+          Don't have an account?{" "}
+          <span>
+            <Link to={"/register"}>Sign up</Link>
+          </span>
+        </p>
       </div>
       <div className={`bg-cover ${openModal ? "open" : "close"}`}></div>
       <div className={`${openModal ? "open" : "close"}`}>
@@ -156,7 +139,7 @@ function Login() {
               change={(e) =>
                 dispatch({ type: "USER", payload: e.target.value })
               }
-              lengthMin="0"
+              lengthMin={0}
             />
             <button type="submit">Send</button>
           </form>

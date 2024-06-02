@@ -54,7 +54,7 @@ function HamburgerIcon() {
   const loginPage = () => {
     // navigate("/signup");
     toggleDropdown();
-    console.log("redirect to login page");
+    navigate("/login");
   };
 
   const registerPage = () => {
