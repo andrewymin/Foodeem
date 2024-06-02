@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useData } from "../context/DataContext";
 import { videoData } from "../assets/vid/videoData";
 
-interface Props {
-  setVideoNum: React.Dispatch<React.SetStateAction<number>>; // Replace 'string' with the actual type of your state
-  tabNum: number;
-}
+// interface Props {
+//   setVideoNum: React.Dispatch<React.SetStateAction<number>>; // Replace 'string' with the actual type of your state
+//   tabNum: number;
+// }
 
-function Tabs(props: Props) {
-  const { dispatch } = useData();
+function Tabs() {
+  const { state, dispatch } = useData();
   let navigate = useNavigate();
 
   const randomOne = () => {
@@ -40,27 +40,28 @@ function Tabs(props: Props) {
   return (
     <section id="content">
       <h2 className="title">
-        {props.tabNum == 0
+        {state.videoNum == 0
           ? videoData[0].title
-          : videoData.find((title) => title.id == props.tabNum)?.title}
+          : videoData.find((title) => title.id == state.videoNum)?.title}
         <span>.</span>
       </h2>
       <h1 className="sub-heading">
-        {props.tabNum == 0
+        {state.videoNum == 0
           ? videoData[0].subHeading
-          : videoData.find((title) => title.id == props.tabNum)?.subHeading}
+          : videoData.find((title) => title.id == state.videoNum)?.subHeading}
       </h1>
       <div className="description">
         <p>
-          {props.tabNum == 0
+          {state.videoNum == 0
             ? videoData[0].description
-            : videoData.find((title) => title.id == props.tabNum)?.description}
+            : videoData.find((title) => title.id == state.videoNum)
+                ?.description}
         </p>
       </div>
       <div>
         <button onClick={randomOne}>Random Cookin'</button>
       </div>
-      <Slider tabNum={props.tabNum} setVideoNum={props.setVideoNum} />
+      <Slider />
     </section>
   );
 }

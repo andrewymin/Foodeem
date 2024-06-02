@@ -4,15 +4,18 @@ import video2 from "../assets/vid/stew.mp4";
 import video3 from "../assets/vid/omlet.mp4";
 import video4 from "../assets/vid/pizza.mp4";
 import { useEffect } from "react";
+import { useData } from "../context/DataContext";
 
-interface Props {
-  selectVid: number;
-}
-
-function Videos(props: Props) {
+function Videos() {
+  const { state } = useData();
+  // Selecting which video to play and stop
   const vidChange = (position: number) => {
     let videos = document.querySelectorAll(".video-slide");
+    // using current video index number add class play to play the video
     videos[position].classList.add("play");
+    // Using forEach loop through videos with ".video-slide" class and
+    //  check if each index of loop video (v) equals video index number to
+    //  stop videos not equal to current video positon that should play
     videos.forEach((v, index) => {
       if (index != position) {
         v.classList.remove("play");
@@ -22,7 +25,7 @@ function Videos(props: Props) {
 
   // using useEffect for query search after everything has rendered
   useEffect(() => {
-    switch (props.selectVid) {
+    switch (state.videoNum) {
       case 0:
         vidChange(0);
         // console.log("clicked 0");
@@ -44,7 +47,7 @@ function Videos(props: Props) {
         // console.log("clicked 4");
         break;
     }
-  }, [props.selectVid]); // set to render on prop/state change
+  }, [state.videoNum]); // set to render on prop/state change
 
   return (
     <>
