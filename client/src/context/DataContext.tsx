@@ -22,7 +22,7 @@ const initialState = {
 interface DataContextType {
   state: State;
   dispatch: Dispatch<Action>;
-  intervalId: ReturnType<typeof setInterval>;
+  // intervalId: ReturnType<typeof setInterval>;
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -57,15 +57,17 @@ const reducer = (state: State, action: Action): State => {
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // setting time interval for videos to loop, 0-4 videos
-  const intervalId = setInterval(() => {
-    // Get previous videoNum using 'pre' and
-    //   increment the count and reset to 0 if it reaches 4
-    dispatch({ type: "VID_NUM", payload: (state.videoNum + 1) % 5 });
-  }, 10000); // 10000 milliseconds = 10 seconds
+  // // setting time interval for videos to loop, 0-4 videos
+  // const intervalId = setInterval(() => {
+  //   // Get previous videoNum using 'pre' and
+  //   //   increment the count and reset to 0 if it reaches 4
+  //   dispatch({ type: "VID_NUM", payload: (state.videoNum + 1) % 5 });
+  //   console.log("Video Index in set interval: ", state.videoNum);
+  // }, 5000); // 10000 milliseconds = 10 seconds
 
   return (
-    <DataContext.Provider value={{ state, dispatch, intervalId }}>
+    // <DataContext.Provider value={{ state, dispatch, intervalId }}>
+    <DataContext.Provider value={{ state, dispatch }}>
       {children}
     </DataContext.Provider>
   );
