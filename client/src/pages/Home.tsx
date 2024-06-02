@@ -1,7 +1,7 @@
 import Tabs from "../components/Tabs";
 import Social from "../components/Social";
 import Videos from "../components/Videos";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useData } from "../context/DataContext";
 
 function Home() {

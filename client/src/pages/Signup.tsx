@@ -44,8 +44,8 @@ function Register() {
     if (state.password != state.confirmPassword)
       return showError("Passwords do not match!");
     else {
-      //   register();
-      console.log("Password matches thus send to server.");
+      register();
+      //   console.log("Password matches thus send to server.");
     }
   };
 
