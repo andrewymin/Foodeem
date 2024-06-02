@@ -4,21 +4,25 @@ import React, { createContext, useContext, useReducer, Dispatch } from "react";
 interface State {
   isLoading: boolean;
   randomRecipe: undefined | React.SetStateAction<undefined>;
+  videoNum: number;
 }
-
-const initialState = {
-  isLoading: false,
-  randomRecipe: undefined,
-};
 
 type Action =
   | { type: "LOADING" }
   | { type: "UNLOADING" }
-  | { type: "RANDOMRECIPE"; payload?: React.SetStateAction<undefined> };
+  | { type: "RANDOMRECIPE"; payload?: React.SetStateAction<undefined> }
+  | { type: "VID_NUM"; payload: number };
+
+const initialState = {
+  isLoading: false,
+  randomRecipe: undefined,
+  videoNum: 0,
+};
 
 interface DataContextType {
   state: State;
   dispatch: Dispatch<Action>;
+  intervalId: ReturnType<typeof setInterval>;
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -42,6 +46,9 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, isLoading: false };
     case "RANDOMRECIPE":
       return { ...state, randomRecipe: action.payload };
+    case "VID_NUM": {
+      return { ...state, videoNum: action.payload };
+    }
     default:
       return state;
   }
@@ -50,8 +57,15 @@ const reducer = (state: State, action: Action): State => {
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // setting time interval for videos to loop, 0-4 videos
+  const intervalId = setInterval(() => {
+    // Get previous videoNum using 'pre' and
+    //   increment the count and reset to 0 if it reaches 4
+    dispatch({ type: "VID_NUM", payload: (state.videoNum + 1) % 5 });
+  }, 10000); // 10000 milliseconds = 10 seconds
+
   return (
-    <DataContext.Provider value={{ state, dispatch }}>
+    <DataContext.Provider value={{ state, dispatch, intervalId }}>
       {children}
     </DataContext.Provider>
   );

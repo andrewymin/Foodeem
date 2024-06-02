@@ -52,12 +52,9 @@ function Tabs(props: Props) {
       </h1>
       <div className="description">
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et
-          consectetur eaque quibusdam eos ipsa minus fugit, a, repellendus vero
-          labore ad commodi sequi iure ducimus fugiat nulla quo inventore atque
-          aspernatur consequatur, facere iste? Illo quisquam nesciunt in
-          voluptas eius fuga veniam distinctio! Sint quis amet quasi neque odio.
-          Distinctio.
+          {props.tabNum == 0
+            ? videoData[0].description
+            : videoData.find((title) => title.id == props.tabNum)?.description}
         </p>
       </div>
       <div>

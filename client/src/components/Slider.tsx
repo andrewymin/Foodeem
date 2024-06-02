@@ -13,10 +13,11 @@ function Slider(props: Props) {
     const target = e.target as HTMLElement;
     let targetIndex = parseInt(target.classList[1].slice(1)); // use this to get index of clicked btn
 
-    props.setVideoNum(targetIndex);
+    props.setVideoNum(targetIndex); // send clicked index to set state
 
-    !target.classList.contains("active") && target.classList.toggle("active");
+    !target.classList.contains("active") && target.classList.toggle("active"); // if target doesn't have class 'active' toggle it on
 
+    // loop through each slider button and remove active class if not the clicked target
     sliderBtns.forEach((btn: Element) => {
       if (btn != target) {
         btn.classList.remove("active");
