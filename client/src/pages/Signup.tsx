@@ -123,7 +123,7 @@ function Register() {
         <p>
           Already have an account?{" "}
           <span>
-            <Link to="login">Log in</Link>
+            <Link to={"/login"}>Log in</Link>
           </span>
         </p>
       </div>
