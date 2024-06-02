@@ -6,17 +6,23 @@ interface State {
   isAuth: Boolean;
 }
 
+type Action =
+  | { type: "USER"; payload: String }
+  | { type: "PWD"; payload: String }
+  | { type: "IS_AUTH"; payload: Boolean };
+
+const initialState: State = {
+  user: "",
+  pwd: "",
+  isAuth: false,
+};
+
 interface LoginFunction {
   (): Promise<void>;
 }
 interface RegisterFunction {
   (): Promise<void>;
 }
-
-type Action =
-  | { type: "USER"; payload: String }
-  | { type: "PWD"; payload: String }
-  | { type: "IS_AUTH"; payload: Boolean };
 
 interface AppContextType {
   state: State;
@@ -32,12 +38,6 @@ export const useAuth = () => {
     throw new Error("useAuth must be used within AuthProvider");
   }
   return context;
-};
-
-const initialState: State = {
-  user: "",
-  pwd: "",
-  isAuth: false,
 };
 
 const reducer = (state: State, action: Action) => {

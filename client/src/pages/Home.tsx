@@ -7,9 +7,10 @@ function Home() {
   const [videoNum, setVideoNum] = useState(0);
 
   useEffect(() => {
-    // console.log("did this log once?");
+    // setting time interval for videos to loop, 0-4 videos
     const intervalId = setInterval(() => {
-      // Increment the count and reset to 0 if it reaches 4
+      // Get previous videoNum using 'pre' and
+      //   increment the count and reset to 0 if it reaches 4
       setVideoNum((prevVideoNum) => (prevVideoNum + 1) % 5);
     }, 10000); // 10000 milliseconds = 10 seconds
 
