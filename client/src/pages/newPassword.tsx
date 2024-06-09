@@ -14,7 +14,7 @@ function ResetPassPage() {
 
   return (
     <div>
-      <PassInput axiosCall={setNewPassword(token)} />
+      <PassInput axiosCall={setNewPassword} newPassToken={token} />
     </div>
   );
 }

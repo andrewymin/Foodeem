@@ -1,10 +1,10 @@
-import axios from "axios";
-import React, { useState, useRef } from "react";
-import Input from "../components/inputs";
+// import axios from "axios";
+// import React, { useState, useRef } from "react";
+// import Input from "../components/inputs";
 import { Link } from "react-router-dom";
 // import Buttons from "../components/button";
 import { useAuth } from "../context/AuthContext";
-import useToast from "../components/Toastify";
+// import useToast from "../components/Toastify";
 import { ToastContainer } from "react-toastify";
 import PassInput from "../components/PassInput";
 
@@ -52,7 +52,7 @@ function Register() {
   return (
     <section id="register" className="full-page">
       <div className="signup-wrapper">
-        <PassInput axiosCall={register} />
+        <PassInput axiosCall={register} newPassToken={undefined} />
       </div>
       <div>
         <p>
