@@ -1,6 +1,6 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import CheckCookieExists from "./checkCookie";
+// import CheckCookieExists from "./checkCookie";
 
 function Protected() {
   const { state } = useAuth();
@@ -9,9 +9,11 @@ function Protected() {
 }
 
 function ProtectVerifyRoute() {
-  const verifyToken = CheckCookieExists("verifyToken");
-  console.log(verifyToken);
-  return verifyToken ? <Outlet /> : <Navigate to="/" replace={true} />;
+  const { state } = useAuth();
+
+  // const verifyToken = CheckCookieExists("verifyToken");
+  console.log(state.allowVerify);
+  return state.allowVerify ? <Outlet /> : <Navigate to="/" replace={true} />;
 }
 
 export { Protected, ProtectVerifyRoute };

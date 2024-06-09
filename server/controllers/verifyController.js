@@ -119,12 +119,18 @@ const verifyCode = async (req, res) => {
         }
 
         const user = await User.findById(decodedToken._id);
-        if (user.verificationCode.vCode != userCode) {
+        // check if user timeout expired
+        if (!user)
+          return res.status(400).json("Please go back and try sign up again.");
+        // double check if user existed however got deleted right when call was sent
+        if (!user.verificationCode.vCode)
           return res
             .status(400)
             .json(
-              "Incorrect code. Either request for another code or try again."
+              "Could not find verification code. Please get new code or try sign up again"
             );
+
+        if (user.verificationCode.vCode != userCode) {
         }
         // here vcode has to equal usercode, thus use 'set' to update
         else {

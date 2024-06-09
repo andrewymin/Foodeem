@@ -7,7 +7,7 @@ import {
 } from "../hooks/verifyCodeGen.js";
 // import TempUser from "./tempUserModel.js";
 
-const EXPIRE_AGE = 180; // in sec
+const EXPIRE_AGE = 60 * 5; // in sec
 
 const likedRecipes = new mongoose.Schema({
   title: String,
@@ -135,11 +135,12 @@ userSchema.statics.signup = async function (email, password) {
   const exists = await this.findOne({ email }); // checking to see if user already exists
   const tempExists = await TempUser.findOne({ email: email }); // checking if user didn't complete verify code input and trying again before tempUser expires
 
-  // Check if tempuser exists from not completing verify before it has expired from before
+  // if tempExists then user is trying to use same email they used for google/github to do regular signin
   if (tempExists) {
     const newCode = generateRandomSixDigitNumber();
     console.log("This is new code if temp already exists: ", newCode);
     const updatedTempUser = await TempUser.findOneAndUpdate(
+      { email: tempExists.email },
       {
         verificationCode: { vCode: newCode, expireAt: EXPIRE_AGE },
       },
@@ -185,6 +186,28 @@ userSchema.statics.signup = async function (email, password) {
 
       return newTempUser; // user already logged in previously through google thus email will already be saved in db thus sending temp user until verification is complete
     }
+    // create condition for when user exists from trying to sign in
+    //  before but didn't finish verification thus trying again
+    const newCode = generateRandomSixDigitNumber();
+    const hash = await bycrpt.hash(password, 10); // hashing password for security
+
+    exists.set({
+      password: hash,
+      verificationCode: { vCode: newCode, expireAt: EXPIRE_AGE },
+    });
+    // saving updates to existing user with new code
+    const updatedExistingUser = await exists.save();
+    ///////////////////  Uncomment when ready to email
+    // Here send a email for verification with crypto code
+    // let emailRes = await verifyEmail(exists.email, newCode);
+    // if (emailRes.messageId)
+    //   return updatedExistingUser
+    // throw Error("Verify email couldn't be sent.");
+    console.log(
+      "New code from updating existing user that didn't finish verification before: ",
+      newCode
+    );
+    return updatedExistingUser;
   }
 
   const verifyCode = generateRandomSixDigitNumber(); // generating 6 digit crypto number for security
