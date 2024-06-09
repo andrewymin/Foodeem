@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from "react";
-import customAxios from "../hooks/axiosInstance";
+import React, { useState } from "react";
 import Input from "./inputs";
-import { useNavigate, useParams } from "react-router-dom";
-// import Buttons from "../components/button";
 import { useAuth } from "../context/AuthContext";
-import useToast from "./notifications";
+import useToast from "./Toastify";
 import { ToastContainer } from "react-toastify";
 
-function PassInput(props) {
-  const { dispatch, state } = useAuth();
-  const navigate = useNavigate();
-  const { showError, showSuccess } = useToast();
-  const { token } = useParams();
+interface AxiosCallFunction {
+  (): Promise<void>;
+}
 
-  useEffect(() => {
-    // 4/29 commented for testing
-    // userDataFetch();
-  }, []);
+interface newPassAxiosCall {
+  (token: string | undefined): Promise<void>;
+}
+
+interface onSuccessCall {
+  axiosCall: any;
+}
+
+function PassInput(props: onSuccessCall) {
+  const { dispatch } = useAuth();
+  const { showError } = useToast();
 
   // using properties of state instead of actual state values do to delay
   //  from asyncronous updating
@@ -39,7 +41,7 @@ function PassInput(props) {
   };
 
   // Using function to handle state property update for both pass inputs
-  const handleChange = (e, n) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, n: string) => {
     setPasswordState({
       // merging previous state to new state object with the "..."
       ...passwordState,
@@ -47,75 +49,89 @@ function PassInput(props) {
     });
   };
 
-  const checkPassword = async (e) => {
+  const checkPassword = (
+    e: React.FormEvent<HTMLFormElement>,
+    onSuccessFunction: AxiosCallFunction | newPassAxiosCall
+  ) => {
     e.preventDefault();
-    if (state.password != state.confirmPassword)
+    if (passwordState.password != passwordState.confirmPassword)
       return showError("Passwords do not match!");
     else {
-      try {
-        await customAxios
-          .post("api/user/reset-password", {
-            userPass: state.pwd,
-            token: token,
-          })
-          .then((res) => {
-            // console.log(res);
-            showSuccess(res.data.msg);
-            navigate(`/`);
-          });
-      } catch (error) {
-        showError(error.response.data.msg);
-        // console.log(error);
-      }
+      onSuccessFunction;
     }
   };
 
   return (
     <>
-      <form className="formInputs" onSubmit={checkPassword}>
+      <form
+        className="formInputs"
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
+          checkPassword(e, props.axiosCall)
+        }
+      >
         {/* <label htmlFor='userEmail'>UserName: </label>
             <Input inputType="text" name="user" ph="HappyUser01" change={(e)=> setUser(e.target.value)} charLength="0"/> */}
-        <label htmlFor="userPass">New Password</label>
-        {/* this is for testing purposes */}
-        {/* <Input inputType="password" name="userPass" ph="0123abc!#$" change={this.handleChange} charLength="12"/> */}
-        {/* this is for testing purposes */}
-        {/* <Input inputType="password" name="userPass" ph="0123abc!#$" change={(e: any)=> setPwd(e.target.value)} charLength="3"/> */}
-        <div className="revealPsw">
+        <div className="grid-display">
+          <label htmlFor="userEmail">Email: </label>
           <Input
-            inputType="password"
-            name="pwd"
-            ph="Password"
-            change={(e) => handleChange(e, "password")}
-            lengthMin="3"
+            inputType="email"
+            name="email"
+            ph="Example@email.com"
+            change={(e: React.ChangeEvent<HTMLInputElement>) =>
+              dispatch({ type: "USER", payload: e.target.value })
+            }
+            lengthMin={0}
           />
         </div>
-        <label htmlFor="userPass">Confirm Password: </label>
-        <div className="revealPsw">
-          <Input
-            inputType="password"
-            name="pwd"
-            ph="Confirm Password"
-            change={(e) => {
-              handleChange(e, "confirmPassword");
-              // must place this here since it has the same delay if placed above with register()
-              dispatch({ type: "PWD", payload: e.target.value });
-            }}
-            lengthMin="3"
-          />
-          <span onClick={showPSW}>
-            <i className="fas fa-eye"></i>
-          </span>
-          <span onClick={showPSW}>
-            <i className="fas fa-eye-slash"></i>
-          </span>
+        <div className="grid-display">
+          <label htmlFor="userPass">Password: </label>
+          {/* this is for testing purposes */}
+          {/* <Input inputType="password" name="userPass" ph="0123abc!#$" change={this.handleChange} charLength="12"/> */}
+          {/* this is for testing purposes */}
+          {/* <Input inputType="password" name="userPass" ph="0123abc!#$" change={(e: any)=> setPwd(e.target.value)} charLength="3"/> */}
+          <div className="revealPsw">
+            <Input
+              inputType="password"
+              name="pwd"
+              ph="Password"
+              change={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange(e, "password")
+              }
+              lengthMin={3}
+            />
+          </div>
+        </div>
+        <div className="grid-display">
+          <label htmlFor="userPass">Confirm Password: </label>
+          <div className="revealPsw">
+            <Input
+              inputType="password"
+              name="pwd"
+              ph="Confirm Password"
+              change={(e: React.ChangeEvent<HTMLInputElement>) => {
+                handleChange(e, "confirmPassword");
+                // must place this here since it has the same delay if placed above with register()
+                dispatch({ type: "PWD", payload: e.target.value });
+              }}
+              lengthMin={3}
+            />
+            <span onClick={showPSW}>
+              <i className="fas fa-eye"></i>
+            </span>
+            <span onClick={showPSW}>
+              <i className="fas fa-eye-slash"></i>
+            </span>
+          </div>
         </div>
         <p>
-          minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1,
-          minSymbols: 1
+          Must contain 8+ characters, including at least 1 letter, 1 number, 1
+          symbol and 1 uppercase.
         </p>
-        <button type="submit" className="sc-grid">
-          Send
-        </button>
+        <div className="submit-buttons">
+          <button type="submit" id="registerBtn">
+            Sign Up
+          </button>
+        </div>
       </form>
       <ToastContainer />
     </>

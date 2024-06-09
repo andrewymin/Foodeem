@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import PassInput from "../components/PassInput";
 
-function ResetPassPage(props) {
-  const { authCheck } = useAuth();
+function ResetPassPage() {
+  const { setNewPassword } = useAuth();
   const { token } = useParams();
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function ResetPassPage(props) {
 
   return (
     <div>
-      <PassInput />
+      <PassInput axiosCall={setNewPassword(token)} />
     </div>
   );
 }

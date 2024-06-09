@@ -28,6 +28,10 @@ interface AxiosCallFunction {
   (): Promise<void>;
 }
 
+interface newPassAxiosCall {
+  (token: string | undefined): Promise<void>;
+}
+
 interface AppContextType {
   state: State;
   dispatch: React.Dispatch<Action>;
@@ -36,6 +40,7 @@ interface AppContextType {
   logout: AxiosCallFunction;
   authCheck: AxiosCallFunction;
   userDataFetch: AxiosCallFunction;
+  setNewPassword: newPassAxiosCall;
 }
 const AuthContext = createContext<AppContextType | undefined>(undefined);
 
@@ -73,7 +78,7 @@ interface ProviderChildern {
 
 export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { showError } = useToast();
+  const { showError, showSuccess } = useToast();
   const navigate = useNavigate();
 
   const register = async () => {
@@ -215,6 +220,40 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
     // }
   };
 
+  const setNewPassword = async (token: string | undefined) => {
+    try {
+      await customAxios
+        .post("api/user/reset-password", {
+          userPass: state.pwd,
+          token: token,
+        })
+        .then((res) => {
+          // console.log(res);
+          showSuccess(res.data.msg);
+          navigate(`/`);
+        });
+    } catch (error) {
+      if (isAxiosError(error)) {
+        // `error` is an AxiosError
+        console.error("Error message: ", error.message);
+        console.error("Error message: ", error.code);
+        if (error.response) {
+          showError(error.response.data.msg);
+          // console.log(error);
+        } else if (error.request) {
+          // Request was made but no response was received
+          console.error("Request data:", error.request);
+        } else {
+          // Something happened in setting up the request
+          console.error("Error:", error.message);
+        }
+      } else {
+        // Handle non-Axios errors
+        console.error("Unexpected error:", error);
+      }
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -225,6 +264,7 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
         logout,
         authCheck,
         userDataFetch,
+        setNewPassword,
       }}
     >
       {children}
