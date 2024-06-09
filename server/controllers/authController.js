@@ -13,7 +13,7 @@ import {
 const REDIRECT_URI =
   process.env.NODE_ENV === "production"
     ? "https://user-auth-frontend-teal.vercel.app/secret"
-    : "http://localhost:5173/secret";
+    : "http://localhost:5173";
 
 const CANCEL_URI =
   process.env.NODE_ENV === "production"

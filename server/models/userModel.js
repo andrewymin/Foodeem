@@ -19,6 +19,8 @@ const likedRecipes = new mongoose.Schema({
   analyzedInstructions: Array,
 });
 
+const LikedRecipes = mongoose.model("LikedRecipes", likedRecipes);
+
 const verificationRequest = new mongoose.Schema({
   // for sign up verification code input to see if email is real
   vCode: String,
@@ -49,7 +51,7 @@ const userSchema = new mongoose.Schema({
   verified: {
     type: Boolean,
   },
-  recipes: likedRecipes,
+  recipes: [{ type: mongoose.Schema.Types.ObjectId, ref: "LikedRecipe" }],
   verificationCode: verificationRequest,
 });
 
@@ -383,4 +385,4 @@ userSchema.statics.accountLink = async function (acctUser, id_token, company) {
 // const ResetEmail = mongoose.model("resetEmail", resetEmail);
 const User = mongoose.model("User", userSchema);
 
-export { User, TempUser };
+export { User, TempUser, LikedRecipes };
