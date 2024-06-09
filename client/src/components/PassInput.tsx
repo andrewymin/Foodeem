@@ -12,11 +12,12 @@ interface newPassAxiosCall {
   (token: string | undefined): Promise<void>;
 }
 
-interface onSuccessCall {
-  axiosCall: any;
+interface Props {
+  axiosCall: AxiosCallFunction | newPassAxiosCall;
+  newPassToken: string | undefined;
 }
 
-function PassInput(props: onSuccessCall) {
+function PassInput(props: Props) {
   const { dispatch } = useAuth();
   const { showError } = useToast();
 
@@ -53,12 +54,15 @@ function PassInput(props: onSuccessCall) {
     e: React.FormEvent<HTMLFormElement>,
     onSuccessFunction: AxiosCallFunction | newPassAxiosCall
   ) => {
+    // console.log("is this getting reached?");
     e.preventDefault();
     if (passwordState.password != passwordState.confirmPassword)
       return showError("Passwords do not match!");
-    else {
-      onSuccessFunction;
-    }
+    // the length method on a function returns how many arg that function may have
+    if (onSuccessFunction.length === 0)
+      // for types using union "|", using the "as" to define type of call to clear typescript errors
+      (onSuccessFunction as AxiosCallFunction)();
+    else (onSuccessFunction as newPassAxiosCall)(props.newPassToken);
   };
 
   return (

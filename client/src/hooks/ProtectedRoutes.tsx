@@ -10,7 +10,7 @@ function Protected() {
 
 function ProtectVerifyRoute() {
   const verifyToken = CheckCookieExists("verifyToken");
-
+  console.log(verifyToken);
   return verifyToken ? <Outlet /> : <Navigate to="/" replace={true} />;
 }
 
