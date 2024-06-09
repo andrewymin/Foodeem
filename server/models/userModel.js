@@ -5,19 +5,9 @@ import {
   generateRandomSixDigitNumber,
   verifyEmail,
 } from "../hooks/verifyCodeGen.js";
+import TempUser from "./tempUserModel.js";
 
 const EXPIRE_AGE = 180; // in sec
-
-const resetEmail = new mongoose.Schema({
-  // for when user requests password reset link, later deleted on completion or expried time reached
-  email: String,
-  token: String,
-  expireAt: {
-    type: Date,
-    default: Date.now,
-    expires: EXPIRE_AGE, // Document will expire after 180 sec
-  },
-});
 
 const likedRecipes = new mongoose.Schema({
   title: String,
@@ -62,33 +52,6 @@ const userSchema = new mongoose.Schema({
   recipes: likedRecipes,
   verificationCode: verificationRequest,
 });
-
-// Used for temp storing if GOOGLE user exists but they're trying to
-//  use same email for regular sign-in, thus temp while user hasn't completed verification code to link accounts
-const tempUserSchema = new mongoose.Schema({
-  googleUserId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
-  githubUserId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-  },
-  verified: {
-    type: Boolean,
-  },
-  verificationCode: verificationRequest,
-});
-
-const TempUser = mongoose.model("tempUser", tempUserSchema); // creating model of temp user here to be used in functions below for error corrections
 
 ///////////// static signup method/function being created
 // to be able to use the this keyword MUST use a regular function instead of an arrow funnction
@@ -366,6 +329,6 @@ userSchema.statics.accountLink = async function (acctUser, id_token, company) {
   }
 };
 
-const ResetEmail = mongoose.model("resetEmail", resetEmail);
 const User = mongoose.model("User", userSchema);
-export { User, TempUser, ResetEmail };
+
+export default User;
