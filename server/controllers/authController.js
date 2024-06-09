@@ -1,5 +1,6 @@
 import { createCookie } from "../hooks/jwtCookie.js";
-import { User, ResetEmail } from "../models/userModel.js";
+import User from "../models/userModel.js";
+import ResetEmail from "../models/ResetEmailModel.js";
 import {
   getGoogleUser,
   getGoogleOAuthTokens,
