@@ -3,7 +3,7 @@ import Input from "../components/inputs";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { ToastContainer } from "react-toastify";
-import { customAxios, AxiosError } from "../components/axiosInstance";
+import { customAxios, AxiosError } from "../hooks/axiosInstance";
 import { getGoogleUrl, GoogleSignInButton } from "../oauth_Urls/getGoogleUrl";
 import { getGithubUrl } from "../oauth_Urls/getGithubUrl";
 import useToast from "../components/Toastify";

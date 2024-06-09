@@ -45,7 +45,6 @@ function Register() {
       return showError("Passwords do not match!");
     else {
       register();
-      //   console.log("Password matches thus send to server.");
     }
   };
 

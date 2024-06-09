@@ -1,8 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import HamburgerIcon from "./Menu";
-// import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
+import { FaRegUser } from "react-icons/fa";
 
 function Nav() {
+  const { state, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const account = () => {
+    navigate("/dashboard");
+  };
+
   return (
     <div id="heading">
       <nav>
@@ -18,22 +26,23 @@ function Nav() {
               Recipes
             </Link>
           </li>
-          <li>
-            <Link to={"login"}>Login</Link>
-          </li>
-          <li>
-            <Link to={"register"}>Sign up</Link>
-          </li>
-          {/* <li>
-            <Link className="about" to={"about"}>
-              About
-            </Link>
-          </li>
-          <li>
-            <Link className="contact" to={"contact"}>
-              Contact
-            </Link>
-          </li> */}
+          {!state.isAuth ? (
+            <>
+              <li>
+                <Link to={"login"}>Login</Link>
+              </li>
+              <li>
+                <Link to={"register"}>Sign up</Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <button onClick={logout}>Logout</button>
+              <button onClick={account}>
+                <FaRegUser />
+              </button>
+            </>
+          )}
         </ul>
       </nav>
     </div>

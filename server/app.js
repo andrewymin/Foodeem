@@ -1,30 +1,82 @@
+import "dotenv/config.js";
 import express from "express";
-import bodyParser from "body-parser";
+import mongoose from "mongoose"; // for DB
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import randomRoute from "./routes/randomRoute.js";
 import searchRoute from "./routes/searchRoute.js";
+import userRoute from "./routes/user.js";
+import authRoute from "./routes/auth.js";
+import verifyRoute from "./routes/verification.js";
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+// app.use(express.static("public"));
+app.use(cookieParser());
+// Trust the first proxy, required for secure cookies on Heroku/Vercel
+app.set("trust proxy", 1);
 
-app.use(cors());
+///////////// cors option for Production (Vercel)
+const corsOptionsProd = {
+  origin: "https://user-auth-frontend-teal.vercel.app", // Explicitly allow your frontend domain
+  methods: "GET, POST, PUT, DELETE, OPTIONS", // Specify allowed methods as needed
+  credentials: true, // If your frontend needs to send cookies or credentials with the request
+  allowedHeaders: ["X-Requested-With", "Content-Type", "Authorization"], // Specify allowed headers
+};
 
-app.use(bodyParser.json());
+///////////// cors option for Localhost
+const corsOptionsLocal = {
+  origin: "http://localhost:5173",
+  methods: "GET, POST, PUT, DELETE",
+  credentials: true,
+};
+///////////// mongoose Production uri
+const mongoose_prod = process.env.MONGO_URI;
+///////////// mongoose Localhost uri
+const mongoose_local = "mongodb://127.0.0.1:27017/recipeAuth";
 
-let port = process.env.port || 3001;
+///////////// Setting cors_option based on NODE_ENV value
+const CORS_OPTIONS =
+  process.env.NODE_ENV === "production" ? corsOptionsProd : corsOptionsLocal;
 
+///////////// Setting mongoose_connection based on NODE_ENV value
+const MONGOOSE_CONNECTION =
+  process.env.NODE_ENV === "production" ? mongoose_prod : mongoose_local;
+
+app.use(cors(CORS_OPTIONS));
+
+// app.use(bodyParser.json());
+app.use(express.json());
+
+///////////// routes
 app.use("/randomfood", randomRoute);
 app.use("/searchfoods", searchRoute);
+// authenticaiton
+app.use("/user", userRoute);
+app.use("/auth", authRoute);
+app.use("/verification", verifyRoute);
 
-// might need this for aws commented out on local
-// module.exports.handler = ServerlessHttp(app);
+///////////// connection to mongoose
+let port = process.env.port || 3001;
+
+const startServer = async () => {
+  try {
+    // mongoose.set("strictQuery", true);
+    await mongoose.connect(MONGOOSE_CONNECTION);
+    console.log("Connected to MongoDB");
+    app.listen(port, () => {
+      console.log(`Server listening on port ${port}`);
+    });
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+  }
+};
+
+startServer(); // placed mongoose connection in function for async/await for deployment server (vercel)
 
 app.get("/", (req, res) => {
-  res.send("Server side running!");
-});
-
-app.listen(port, function () {
-  console.log(`Server is running on port ${port}`);
+  // use when in local
+  res.send(`Server up and running`);
 });

@@ -6,7 +6,10 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import VerificationCode from "./pages/verify";
 import NotFound from "./pages/NotFound";
+import { Protected, ProtectVerifyRoute } from "./hooks/ProtectedRoutes";
+import Dashboard from "./pages/Dashboard";
 
 function AllRoutes() {
   const location = useLocation();
@@ -43,9 +46,14 @@ function AllRoutes() {
       <Route path="/recipes" element={<Recipes />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Signup />} />
-      {/* <Route path="/verify" element={<VerificationCode />} /> */}
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
+      <Route element={<ProtectVerifyRoute />}>
+        <Route path="/verify" element={<VerificationCode />} />
+      </Route>
+      {/* <Route element={<Protected />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Route> */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
