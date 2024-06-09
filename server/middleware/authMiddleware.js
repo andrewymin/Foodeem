@@ -1,6 +1,6 @@
-import User from "../models/userModel.js";
+import { User } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
-import { getGoogleUser, getNewAccessToken } from "./googleFunctions.js";
+import { getGoogleUser, getNewAccessToken } from "../hooks/googleFunctions.js";
 
 ///////////// Verify Middleware for protected routes
 

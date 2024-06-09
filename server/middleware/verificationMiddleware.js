@@ -1,5 +1,4 @@
-import User from "../models/userModel.js";
-import TempUser from "../models/tempUserModel.js";
+import { User, TempUser } from "../models/userModel.js";
 
 const verifyPageMiddleware = async (req, res, next) => {
   const verifyToken = await req.cookies.verifyToken; // id of user

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+const EXPIRE_AGE = 180; // in sec
 const resetEmail = new mongoose.Schema({
   // for when user requests password reset link, later deleted on completion or expried time reached
   email: String,
