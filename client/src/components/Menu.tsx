@@ -4,13 +4,18 @@ import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { FaRegUser } from "react-icons/fa";
 
 function HamburgerIcon() {
   const [burgerClass, setBurgerClass] = useState("burger unclicked");
   const [menuClass, setMenuClass] = useState("menu hidden");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { state } = useAuth();
+  const { state, logout } = useAuth();
   const navigate = useNavigate();
+
+  const account = () => {
+    navigate("/dashboard");
+  };
 
   const toggleDropdown = () => {
     if (!isMenuOpen) {
@@ -96,16 +101,12 @@ function HamburgerIcon() {
             ) : (
               <>
                 {" "}
-                <li>
-                  <Link to={"about"} onClick={toggleDropdown}>
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"contact"} onClick={toggleDropdown}>
-                    Contact
-                  </Link>
-                </li>
+                <>
+                  <button onClick={logout}>Logout</button>
+                  <button onClick={account}>
+                    <FaRegUser />
+                  </button>
+                </>
               </>
             )}
           </ul>
