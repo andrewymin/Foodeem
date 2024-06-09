@@ -64,7 +64,7 @@ const reducer = (state: State, action: Action) => {
       return { ...state, isAuth: action.payload };
     }
     case "ALLOW_VERIFY": {
-      return { ...state, isAuth: action.payload };
+      return { ...state, allowVerify: action.payload };
     }
     default:
       return state;
@@ -92,7 +92,7 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
         })
         .then((res) => {
           dispatch({ type: "ALLOW_VERIFY", payload: res.data.allowVerify });
-          console.log(res.data.msg);
+          // console.log(res.data.msg);
           navigate(`/verify`);
         });
     } catch (error) {

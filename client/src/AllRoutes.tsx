@@ -10,6 +10,7 @@ import VerificationCode from "./pages/verify";
 import NotFound from "./pages/NotFound";
 import { Protected, ProtectVerifyRoute } from "./hooks/ProtectedRoutes";
 import Dashboard from "./pages/Dashboard";
+import CheckCookieExists from "./hooks/checkCookie";
 
 function AllRoutes() {
   const location = useLocation();
