@@ -1,5 +1,4 @@
-import User from "../models/userModel.js";
-import TempUser from "../models/tempUserModel.js";
+import { User, TempUser } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import { createCookie, deleteCookie } from "../hooks/jwtCookie.js";
 import {

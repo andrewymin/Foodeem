@@ -1,10 +1,10 @@
 import { createCookie } from "../hooks/jwtCookie.js";
-import User from "../models/userModel.js";
+import { User } from "../models/userModel.js";
 import ResetEmail from "../models/ResetEmailModel.js";
 import {
   getGoogleUser,
   getGoogleOAuthTokens,
-} from "../middleware/googleFunctions.js";
+} from "../hooks/googleFunctions.js";
 import {
   getGithubOAuthTokens,
   getGithubUser,

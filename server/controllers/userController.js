@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import bycrpt from "bcrypt";
-import User from "../models/userModel.js";
+import { User } from "../models/userModel.js";
 import ResetEmail from "../models/ResetEmailModel.js";
 import { createCookie } from "../hooks/jwtCookie.js";
 import { resetPasswordEmail } from "../hooks/verifyCodeGen.js";

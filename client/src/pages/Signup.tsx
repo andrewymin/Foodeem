@@ -54,7 +54,6 @@ function Register() {
       <div className="signup-wrapper">
         <PassInput axiosCall={register} />
       </div>
-
       <div>
         <p>
           Already have an account?{" "}
