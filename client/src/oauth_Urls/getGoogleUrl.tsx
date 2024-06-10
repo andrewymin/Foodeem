@@ -32,7 +32,7 @@ function getGoogleUrl() {
 
 const GoogleSignInButton: React.FC = () => {
   return (
-    <button className="gsi-material-button">
+    <a className="gsi-material-button" href={getGoogleUrl()}>
       <div className="gsi-material-button-state"></div>
       <div className="gsi-material-button-content-wrapper">
         <div className="gsi-material-button-icon">
@@ -65,7 +65,7 @@ const GoogleSignInButton: React.FC = () => {
         <span className="gsi-material-button-contents">Log in with Google</span>
         <span style={{ display: "none" }}>Log in with Google</span>
       </div>
-    </button>
+    </a>
   );
 };
 

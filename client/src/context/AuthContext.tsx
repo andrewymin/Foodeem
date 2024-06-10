@@ -201,23 +201,14 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
   };
 
   const authCheck = async () => {
-    // console.log(state.user, state.pwd);
-    const token = CheckCookieExists("token");
-    if (token) dispatch({ type: "IS_AUTH", payload: true });
-    // try {
-    //   await customAxios.get("auth/protected-route").then((res) => {
-    //     // TODO: check what actually gets send back to payload to fix
-    //     //  this should just be false or true
-    //     dispatch({ type: "IS_AUTH", payload: res.data.authorized });
-    //   });
-    // } catch (error) {
-    //   dispatch({ type: "IS_AUTH", payload: false });
-    //   // console.log(error.response);
-    //   // may need to change this to only naviagte to home if not already
-    //   //  on home page to stop double load even with useEffect
-    //   //  Or get rid of this for a privateRoute strat.
-    //   navigate("/");
-    // }
+    try {
+      await customAxios.get("auth/protected-route").then((res) => {
+        dispatch({ type: "IS_AUTH", payload: res.data.authorized });
+      });
+    } catch (error) {
+      dispatch({ type: "IS_AUTH", payload: false });
+      // navigate("/");
+    }
   };
 
   const setNewPassword = async (token: string | undefined) => {
