@@ -881,6 +881,7 @@ input[name="email"] {
       font-size: 0.8rem;
       box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.4);
       transition: all 0.3s;
+      min-width: 245px;
     }
 
     a:hover {

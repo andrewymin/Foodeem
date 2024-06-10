@@ -59,27 +59,34 @@ const githubLogin = async (req, res) => {
   // get the code from qs on the F.E. side
   const code = req.query.code;
 
-  // Use callback to get github oauth tokens used to
-  //   get access token from code since thats the only thing to get back
-  const { access_token } = await getGithubOAuthTokens({
-    code,
-  });
+  try {
+    // Use callback to get github oauth tokens used to
+    //   get access token from code since thats the only thing to get back
+    const { access_token } = await getGithubOAuthTokens({
+      code,
+    });
 
-  // get github user data from different github api calls
-  const githubUser = await getGithubUser(access_token);
-  // console.log(githubUser);
+    // get github user data from different github api calls
+    const githubUser = await getGithubUser(access_token);
+    // console.log(githubUser);
 
-  // Check if github user already created a regular user or with other accounts
-  const user = await User.accountLink(
-    githubUser,
-    githubUser.data.id.toString(),
-    "github"
-  );
+    // Check if github user already created a regular user or with other accounts
+    const user = await User.accountLink(
+      githubUser,
+      githubUser.data.id.toString(),
+      "github"
+    );
 
-  // set cookies
-  createCookie(user._id, "token", res);
+    // set cookies
+    createCookie(user._id, "token", res);
 
-  res.redirect(REDIRECT_URI);
+    res.redirect(REDIRECT_URI);
+  } catch (error) {
+    console.error("User canceled github oauth: ", error);
+    // User canceled the OAuth process
+    res.redirect(CANCEL_URI);
+    return;
+  }
 };
 
 const protectedRoute = (req, res) => {
