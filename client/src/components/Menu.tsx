@@ -102,7 +102,14 @@ function HamburgerIcon() {
               <>
                 {" "}
                 <>
-                  <button onClick={logout}>Logout</button>
+                  <button
+                    onClick={() => {
+                      logout();
+                      closeMenu();
+                    }}
+                  >
+                    Logout
+                  </button>
                   <button onClick={account}>
                     <FaRegUser />
                   </button>
