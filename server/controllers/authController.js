@@ -84,7 +84,7 @@ const githubLogin = async (req, res) => {
 
 const protectedRoute = (req, res) => {
   // console.log(req.user); // req is from middleware req
-  res.status(200).json({ authorized: true });
+  res.status(200).json({ authorized: req.user });
 };
 
 const checkResetToken = async (req, res) => {

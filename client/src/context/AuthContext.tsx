@@ -207,7 +207,7 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
       });
     } catch (error) {
       dispatch({ type: "IS_AUTH", payload: false });
-      // navigate("/");
+      navigate("/");
     }
   };
 
