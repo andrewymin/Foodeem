@@ -10,7 +10,7 @@ import VerificationCode from "./pages/verify";
 import NotFound from "./pages/NotFound";
 import { Protected, ProtectVerifyRoute } from "./hooks/ProtectedRoutes";
 import Dashboard from "./pages/Dashboard";
-import CheckCookieExists from "./hooks/checkCookie";
+import SavedRecipes from "./pages/SavedRecipes";
 
 function AllRoutes() {
   const location = useLocation();
@@ -54,7 +54,9 @@ function AllRoutes() {
       </Route>
       {/* <Route element={<Protected />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/liked-recipes" element={<SavedRecipes />} />
       </Route> */}
+      <Route path="/saved-recipes" element={<SavedRecipes />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

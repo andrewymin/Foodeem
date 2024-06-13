@@ -102,6 +102,10 @@ function HamburgerIcon() {
               <>
                 {" "}
                 <>
+                  <a href="saved-recipes">Saved Recipes</a>
+                  <button onClick={account}>
+                    <FaRegUser />
+                  </button>
                   <button
                     onClick={() => {
                       logout();
@@ -109,9 +113,6 @@ function HamburgerIcon() {
                     }}
                   >
                     Logout
-                  </button>
-                  <button onClick={account}>
-                    <FaRegUser />
                   </button>
                 </>
               </>

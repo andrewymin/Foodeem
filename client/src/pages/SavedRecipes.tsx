@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
 import { AiOutlineSearch, AiOutlineLoading3Quarters } from "react-icons/ai";
-import pizza from "../assets/img/pizza.svg";
 import Modal from "../components/Modal";
-import axios from "axios";
 import { randomFoods } from "../spoonTestData";
 import { useData } from "../context/DataContext";
+import { FaHeart } from "react-icons/fa";
+import { customAxios } from "../hooks/axiosInstance";
+import useToast from "../components/Toastify";
+import { ToastContainer } from "react-toastify";
 
-interface Results {
+interface SavedFood {
   id: number;
   title: string;
   image: string;
+  summary: string;
+  servings: number;
+  readyInMinutes: number;
+  extendedIngredients: [];
+  analyzedInstructions: [];
 }
 
 const SEARCH_URL =
@@ -17,51 +24,59 @@ const SEARCH_URL =
     ? "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods"
     : "http://localhost:3001/searchfoods";
 
-function Recipe() {
+function SavedRecipes() {
   const { state, dispatch } = useData();
+  const { showError, showSuccess } = useToast();
+
   // later update states with useReducer?
   const [modalActive, setModalActive] = useState(false);
   const [recipeData, setRecipeData] = useState();
-  const [searchFoods, setSearchFoods] = useState([]);
-  const [search, setSearch] = useState("");
+  const [savedFoods, setSavedFoods] = useState<SavedFood[]>([]);
   const [searchLoading, setSearchLoading] = useState(false);
 
   useEffect(() => {
-    if (state.randomRecipe) {
-      setRecipeData(state.randomRecipe);
-      openModal();
-    }
     let savedRecipes = localStorage.getItem("savedRecipes");
+
     if (savedRecipes) {
-      console.log(savedRecipes);
+      let savedRecipesArray = JSON.parse(savedRecipes);
+      console.log(savedRecipesArray);
+      setSavedFoods((prevArray) => [...prevArray, savedRecipesArray]);
+      console.log(savedFoods);
     }
-  }, [state.randomRecipe]);
+  }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
-
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  const saveRecipe = async (e: React.MouseEvent) => {
     e.preventDefault();
-    setSearchLoading(true);
-    axios
-      .get(SEARCH_URL, {
-        params: {
-          search: search,
-        },
-      }) // place nodejs(aws) created route for url, using server to hide api keys
-      .then((response) => {
-        // console.log(response.data.results);
-        // after success place data into randomFoods
-        // let randomFoods = response.data.meals;
-        setSearchFoods(response.data.results);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setSearchLoading(false);
-      });
+    // stops bubbling after click (doesn't click things behind it)
+    e.stopPropagation();
+    const target = e.target as HTMLButtonElement;
+    target.style.color = "#d5334f";
+    // Getting data attribute thats on target using dataset
+    //  the "!"  tells TypeScript that even though something looks like it could be null,
+    //  it can trust you that it's not.
+    const recipeId = target.dataset.id!;
+    // Use the id to make call to get specific recipe and store data to db
+    try {
+      await customAxios
+        .post(
+          "searchfoods/save-recipe",
+          // .get(
+          // "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods/recipe",
+          {
+            id: recipeId,
+          }
+        )
+        .then((res) => {
+          // data is sorted on server side
+          showSuccess("Saved Recipe! 🎉");
+          localStorage.setItem(
+            "savedRecipes",
+            JSON.stringify(res.data.userRecipes)
+          );
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const openRecipe = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -69,16 +84,12 @@ function Recipe() {
     let targetId = target.id;
     dispatch({ type: "LOADING" });
 
-    axios
-      // .get("http://localhost:3001/searchfoods/recipe", {
-      .get(
-        "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods/recipe",
-        {
-          params: {
-            id: targetId,
-          },
-        }
-      ) // place nodejs(aws) created route for url, using server to hide api keys
+    customAxios
+      .get("searchfoods/get-saved-recipe", {
+        params: {
+          id: targetId,
+        },
+      }) // place nodejs(aws) created route for url, using server to hide api keys
       .then((response) => {
         setRecipeData(response.data.body);
       })
@@ -102,29 +113,15 @@ function Recipe() {
     <section id="recipe">
       <div className="container">
         <div className="content">
-          {/* using searched input (handleSubmit=>this.state?) for another api call after submiting data */}
-          <form action="get" className="search" onSubmit={handleSearch}>
-            <input
-              type="search"
-              name="search"
-              id="searchbar"
-              placeholder="Search"
-              onChange={handleChange}
-            />
-            <button type="submit" style={{ padding: "0" }}>
-              <AiOutlineSearch size={30} className="search-icon" />
-            </button>
-          </form>
-          {/* // set a different function to onClick where the function will call axios then call openModal */}
-          <div className="results">
-            <h2>Recipes: </h2>
+          <div className="results saved-recipes">
+            <h2>Saved Recipes: </h2>
             {searchLoading ? (
               <div className="foods" style={{ color: "#1e7943" }}>
                 <AiOutlineLoading3Quarters size={60} className="loading" />
               </div>
             ) : (
               <div className="foods">
-                {searchFoods.length == 0
+                {savedFoods.length == 0
                   ? randomFoods.recipes.map((i, k) => (
                       <div
                         id={i.id.toString()}
@@ -136,9 +133,15 @@ function Recipe() {
                       >
                         <img src={i.image} alt={i.title} />
                         <h3>{i.title}</h3>
+
+                        <FaHeart
+                          className="heart-icon"
+                          onClick={saveRecipe}
+                          data-id={i.id.toString()}
+                        />
                       </div>
                     ))
-                  : searchFoods.map((i: Results, k) => (
+                  : savedFoods.map((i, k) => (
                       <div
                         id={i.id.toString()}
                         key={k}
@@ -160,10 +163,10 @@ function Recipe() {
           modal={modalActive}
           // isLoading={props.isLoading}
         />
-        <img src={pizza} alt="pizza" className="food-img" />
       </div>
+      <ToastContainer />
     </section>
   );
 }
 
-export default Recipe;
+export default SavedRecipes;
