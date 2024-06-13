@@ -756,7 +756,7 @@ button:hover {
 }
 #recipe .container .content .results h2 {
   color: #3f2323;
-  margin: 1rem 0 0 1.2rem;
+  margin: 1rem 0 0 3rem;
   text-decoration: underline;
 }
 #recipe .container .content .foods {
@@ -1215,4 +1215,33 @@ input[name=email] {
   border-radius: 7px;
   outline: none;
   border: 2px #952323 solid;
+}
+
+.saved-recipes h2 {
+  font-family: fangsong;
+  letter-spacing: 1px;
+}
+.saved-recipes .food-item {
+  position: relative;
+}
+.saved-recipes .food-item .heart-icon {
+  color: white;
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  width: 30px;
+  height: fit-content;
+  z-index: 3;
+  transition: all 1s;
+}
+.saved-recipes .food-item .heart-icon path {
+  pointer-events: none;
+}
+.saved-recipes .food-item .heart-icon:hover {
+  color: #d5334f;
+  scale: 1.3;
+}
+
+#recipe .content:has(.saved-recipes) {
+  margin-top: 5.5rem;
 }/*# sourceMappingURL=app.css.map */

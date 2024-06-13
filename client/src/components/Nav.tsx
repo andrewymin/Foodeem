@@ -7,9 +7,9 @@ import { FaRegUser } from "react-icons/fa";
 function Nav() {
   const { state, logout, authCheck } = useAuth();
   const navigate = useNavigate();
-  useEffect(() => {
-    authCheck();
-  }, []);
+  // useEffect(() => {
+  //   authCheck();
+  // }, []);
 
   const account = () => {
     navigate("/dashboard");
