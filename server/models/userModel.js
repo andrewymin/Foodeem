@@ -10,6 +10,7 @@ import {
 const EXPIRE_AGE = 60 * 5; // in sec
 
 const likedRecipes = new mongoose.Schema({
+  id: Number,
   title: String,
   image: String,
   summary: String,
@@ -51,7 +52,7 @@ const userSchema = new mongoose.Schema({
   verified: {
     type: Boolean,
   },
-  recipes: [{ type: mongoose.Schema.Types.ObjectId, ref: "LikedRecipe" }],
+  recipes: [likedRecipes],
   verificationCode: verificationRequest,
 });
 
