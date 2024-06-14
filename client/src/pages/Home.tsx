@@ -7,21 +7,21 @@ import { useData } from "../context/DataContext";
 function Home() {
   // const [videoNum, setVideoNum] = useState(0);
   // const { intervalId } = useData();
-  const { state, dispatch } = useData();
+  const { dataState, dispatch } = useData();
 
   useEffect(() => {
     // setting time interval for videos to loop, 0-4 videos
     const intervalId = setInterval(() => {
       // Get previous videoNum using 'pre' and
       //   increment the count and reset to 0 if it reaches 4
-      dispatch({ type: "VID_NUM", payload: (state.videoNum + 1) % 5 });
+      dispatch({ type: "VID_NUM", payload: (dataState.videoNum + 1) % 5 });
     }, 10000); // 10000 milliseconds = 10 seconds
     // intervalId;
-    console.log("Video Number from Home useEffect: ", state.videoNum);
+    console.log("Video Number from Home useEffect: ", dataState.videoNum);
 
     // Clean up the interval when the component unmounts
     return () => clearInterval(intervalId);
-  }, [state.videoNum]);
+  }, [dataState.videoNum]);
 
   // console.log(videoNum);
 

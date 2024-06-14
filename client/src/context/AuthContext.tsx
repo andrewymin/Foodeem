@@ -128,9 +128,14 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
           userPass: state.pwd,
         })
         .then((res) => {
+          // authorizing user from backend
           dispatch({ type: "IS_AUTH", payload: res.data.authorized });
-          // console.log(res.data.userData.email);
-          // localStorage.setItem("user", JSON.stringify(user));
+          // getting saved recipes from user and placing them in localstorage
+          localStorage.setItem(
+            "savedRecipes",
+            JSON.stringify(res.data.userRecipes)
+          );
+          // redirect to home page after success
           navigate("/");
         });
     } catch (error) {
@@ -162,6 +167,7 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
     try {
       await customAxios.get("user/logout").then((res) => {
         dispatch({ type: "IS_AUTH", payload: res.data.authorized });
+        localStorage.removeItem("savedRecipes");
         // console.log(res.data.isAuthorized);
         // console.log(res.data.token);
         console.log("logout auth successful");
@@ -207,6 +213,7 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
       });
     } catch (error) {
       dispatch({ type: "IS_AUTH", payload: false });
+      localStorage.removeItem("savedRecipes");
       navigate("/");
     }
   };

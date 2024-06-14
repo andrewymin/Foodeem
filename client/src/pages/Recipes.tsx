@@ -1,15 +1,26 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiOutlineLoading3Quarters } from "react-icons/ai";
 import pizza from "../assets/img/pizza.svg";
 import Modal from "../components/Modal";
 import axios from "axios";
 import { randomFoods } from "../spoonTestData";
 import { useData } from "../context/DataContext";
+import { customAxios } from "../hooks/axiosInstance";
+import useToast from "../components/Toastify";
+import { ToastContainer } from "react-toastify";
+import { useAuth } from "../context/AuthContext";
+// import { FaHeart } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa6";
 
 interface Results {
   id: number;
   title: string;
   image: string;
+}
+
+interface RecipeId {
+  id: number;
 }
 
 const SEARCH_URL =
@@ -18,24 +29,40 @@ const SEARCH_URL =
     : "http://localhost:3001/searchfoods";
 
 function Recipe() {
-  const { state, dispatch } = useData();
+  const { state } = useAuth();
+  const { dataState, dispatch } = useData();
+  const navigate = useNavigate();
   // later update states with useReducer?
   const [modalActive, setModalActive] = useState(false);
   const [recipeData, setRecipeData] = useState();
   const [searchFoods, setSearchFoods] = useState([]);
   const [search, setSearch] = useState("");
   const [searchLoading, setSearchLoading] = useState(false);
+  const [savedRecipesIds, setRecipesIds] = useState<RecipeId[]>([]);
+  const { showSuccess } = useToast();
 
   useEffect(() => {
-    if (state.randomRecipe) {
-      setRecipeData(state.randomRecipe);
+    if (dataState.randomRecipe) {
+      setRecipeData(dataState.randomRecipe);
       openModal();
     }
-    let savedRecipes = localStorage.getItem("savedRecipes");
-    if (savedRecipes) {
-      console.log(savedRecipes);
+  }, [dataState.randomRecipe]);
+
+  useEffect(() => {
+    if (state.isAuth) {
+      const savedRecipesString = localStorage.getItem("savedRecipes");
+      // let savedRecipesIds = [];
+      if (savedRecipesString) {
+        let savedRecipesArray = JSON.parse(savedRecipesString);
+        console.log(savedRecipesArray.length);
+        for (let i = 0; i < savedRecipesArray.length; i++) {
+          setRecipesIds([savedRecipesArray[i].id]);
+        }
+      }
     }
-  }, [state.randomRecipe]);
+    console.log(savedRecipesIds);
+    console.log(state.isAuth);
+  }, [state.isAuth]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -98,6 +125,57 @@ function Recipe() {
     setModalActive(true);
   };
 
+  const saveRecipe = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    // stops bubbling after click (doesn't click things behind it)
+    e.stopPropagation();
+
+    const target = e.target as HTMLButtonElement;
+    // Getting data attribute thats on target using dataset
+    //  the "!"  tells TypeScript that even though something looks like it could be null,
+    //  it can trust you that it's not.
+    const recipeId = target.dataset.id!;
+
+    if (!state.isAuth) return navigate("/login");
+    target.classList.add("bookmarked");
+
+    // Use the id to make call to get specific recipe and store data to db
+    try {
+      await customAxios
+        .post(
+          "searchfoods/save-recipe",
+          // .get(
+          // "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods/recipe",
+          {
+            id: recipeId,
+          }
+        )
+        .then((res) => {
+          // data is sorted on server side
+          showSuccess("Saved Recipe! 🎉");
+          localStorage.setItem(
+            "savedRecipes",
+            JSON.stringify(res.data.userRecipes)
+          );
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const delRecipe = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const target = e.target as HTMLButtonElement;
+    const recipeId = target.dataset.id!;
+    target.style.color = "white";
+
+    console.log(
+      "make axios call to delete recipe from user db using id: ",
+      recipeId
+    );
+  };
+
   return (
     <section id="recipe">
       <div className="container">
@@ -125,7 +203,7 @@ function Recipe() {
             ) : (
               <div className="foods">
                 {searchFoods.length == 0
-                  ? randomFoods.recipes.map((i, k) => (
+                  ? randomFoods.recipes.map((i: any, k) => (
                       <div
                         id={i.id.toString()}
                         key={k}
@@ -136,9 +214,22 @@ function Recipe() {
                       >
                         <img src={i.image} alt={i.title} />
                         <h3>{i.title}</h3>
+                        {savedRecipesIds.includes(i.id) ? (
+                          <FaBookmark
+                            className="save-icon bookmarked"
+                            onClick={delRecipe}
+                            data-id={i.id.toString()}
+                          />
+                        ) : (
+                          <FaBookmark
+                            className="save-icon"
+                            onClick={saveRecipe}
+                            data-id={i.id.toString()}
+                          />
+                        )}
                       </div>
                     ))
-                  : searchFoods.map((i: Results, k) => (
+                  : searchFoods.map((i: any, k) => (
                       <div
                         id={i.id.toString()}
                         key={k}
@@ -149,6 +240,20 @@ function Recipe() {
                       >
                         <img src={i.image} alt={i.title} />
                         <h3>{i.title}</h3>
+
+                        {savedRecipesIds.includes(i.id) ? (
+                          <FaBookmark
+                            className="save-icon bookmarked"
+                            onClick={delRecipe}
+                            data-id={i.id.toString()}
+                          />
+                        ) : (
+                          <FaBookmark
+                            className="save-icon"
+                            onClick={saveRecipe}
+                            data-id={i.id.toString()}
+                          />
+                        )}
                       </div>
                     ))}
               </div>
@@ -162,6 +267,7 @@ function Recipe() {
         />
         <img src={pizza} alt="pizza" className="food-img" />
       </div>
+      <ToastContainer />
     </section>
   );
 }

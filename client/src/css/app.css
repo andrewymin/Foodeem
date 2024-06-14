@@ -771,6 +771,7 @@ button:hover {
   border-radius: 8px;
 }
 #recipe .container .content .foods .food-item {
+  position: relative;
   width: 220px;
   height: 235px;
   display: flex;
@@ -1217,14 +1218,32 @@ input[name=email] {
   border: 2px #952323 solid;
 }
 
-.saved-recipes h2 {
+#recipe .saved-recipes h2 {
   font-family: fangsong;
   letter-spacing: 1px;
 }
-.saved-recipes .food-item {
-  position: relative;
+#recipe .saved-recipes .foods:has(.saved-recipes-ph) {
+  width: 100vw;
+  width: 100svw;
+  padding: 0;
 }
-.saved-recipes .food-item .heart-icon {
+#recipe .saved-recipes .saved-recipes-ph {
+  color: #952323;
+  font-weight: 600;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+#recipe .saved-recipes .save-icon {
+  color: #0087ca;
+}
+#recipe .saved-recipes .save-icon:hover {
+  color: #952323;
+}
+
+.save-icon {
   color: white;
   position: absolute;
   top: 0.5rem;
@@ -1234,14 +1253,19 @@ input[name=email] {
   z-index: 3;
   transition: all 1s;
 }
-.saved-recipes .food-item .heart-icon path {
+.save-icon path {
   pointer-events: none;
 }
-.saved-recipes .food-item .heart-icon:hover {
-  color: #d5334f;
+
+.save-icon:hover {
+  color: #0087ca;
   scale: 1.3;
 }
 
 #recipe .content:has(.saved-recipes) {
   margin-top: 5.5rem;
+}
+
+.bookmarked {
+  color: #0087ca;
 }/*# sourceMappingURL=app.css.map */
