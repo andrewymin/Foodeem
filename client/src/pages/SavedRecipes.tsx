@@ -3,10 +3,10 @@ import { AiOutlineSearch, AiOutlineLoading3Quarters } from "react-icons/ai";
 import Modal from "../components/Modal";
 import { randomFoods } from "../spoonTestData";
 import { useData } from "../context/DataContext";
-import { FaHeart } from "react-icons/fa";
 import { customAxios } from "../hooks/axiosInstance";
 import useToast from "../components/Toastify";
 import { ToastContainer } from "react-toastify";
+import { FaBookmark } from "react-icons/fa6";
 
 interface SavedFood {
   id: number;
@@ -25,58 +25,48 @@ const SEARCH_URL =
     : "http://localhost:3001/searchfoods";
 
 function SavedRecipes() {
-  const { state, dispatch } = useData();
-  const { showError, showSuccess } = useToast();
+  // use data context to get loading comonent
+  const { dataState, dispatch } = useData();
+  // const { showError, showSuccess } = useToast();
 
   // later update states with useReducer?
   const [modalActive, setModalActive] = useState(false);
   const [recipeData, setRecipeData] = useState();
   const [savedFoods, setSavedFoods] = useState<SavedFood[]>([]);
-  const [searchLoading, setSearchLoading] = useState(false);
 
   useEffect(() => {
+    dispatch({ type: "LOADING" }); // set loading to true
     let savedRecipes = localStorage.getItem("savedRecipes");
+    // console.log(savedRecipes);
+    const fetchSavedRecipes = () => {
+      try {
+        if (savedRecipes) {
+          let savedRecipesArray = JSON.parse(savedRecipes);
+          // console.log(savedRecipesArray[0]);
+          for (let i = 0; i < savedRecipesArray.length; i++) {
+            setSavedFoods((prevArray) => [...prevArray, savedRecipesArray[i]]);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        dispatch({ type: "UNLOADING" }); // set loading to false
+      }
+    };
 
-    if (savedRecipes) {
-      let savedRecipesArray = JSON.parse(savedRecipes);
-      console.log(savedRecipesArray);
-      setSavedFoods((prevArray) => [...prevArray, savedRecipesArray]);
-      console.log(savedFoods);
-    }
+    fetchSavedRecipes();
   }, []);
 
-  const saveRecipe = async (e: React.MouseEvent) => {
+  const delRecipe = (e: React.MouseEvent) => {
     e.preventDefault();
-    // stops bubbling after click (doesn't click things behind it)
     e.stopPropagation();
     const target = e.target as HTMLButtonElement;
-    target.style.color = "#d5334f";
-    // Getting data attribute thats on target using dataset
-    //  the "!"  tells TypeScript that even though something looks like it could be null,
-    //  it can trust you that it's not.
     const recipeId = target.dataset.id!;
-    // Use the id to make call to get specific recipe and store data to db
-    try {
-      await customAxios
-        .post(
-          "searchfoods/save-recipe",
-          // .get(
-          // "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods/recipe",
-          {
-            id: recipeId,
-          }
-        )
-        .then((res) => {
-          // data is sorted on server side
-          showSuccess("Saved Recipe! 🎉");
-          localStorage.setItem(
-            "savedRecipes",
-            JSON.stringify(res.data.userRecipes)
-          );
-        });
-    } catch (error) {
-      console.log(error);
-    }
+
+    console.log(
+      "make axios call to delete recipe from user db using id: ",
+      recipeId
+    );
   };
 
   const openRecipe = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -115,45 +105,35 @@ function SavedRecipes() {
         <div className="content">
           <div className="results saved-recipes">
             <h2>Saved Recipes: </h2>
-            {searchLoading ? (
+            {dataState.isLoading ? (
               <div className="foods" style={{ color: "#1e7943" }}>
                 <AiOutlineLoading3Quarters size={60} className="loading" />
               </div>
             ) : (
               <div className="foods">
-                {savedFoods.length == 0
-                  ? randomFoods.recipes.map((i, k) => (
-                      <div
-                        id={i.id.toString()}
-                        key={k}
-                        className="food-item"
-                        title={i.title}
-                        // set a different function to onClick where the function will call axios then call openModal
-                        onClick={openRecipe}
-                      >
-                        <img src={i.image} alt={i.title} />
-                        <h3>{i.title}</h3>
+                {savedFoods.length == 0 ? (
+                  <div className="saved-recipes-ph">No Saved Recipes 😢</div> // ph = placeholder
+                ) : (
+                  savedFoods.map((i, k) => (
+                    <div
+                      id={i.id.toString()}
+                      key={k}
+                      className="food-item"
+                      title={i.title}
+                      // set a different function to onClick where the function will call axios then call openModal
+                      onClick={openRecipe}
+                    >
+                      <img src={i.image} alt={i.title} />
+                      <h3>{i.title}</h3>
 
-                        <FaHeart
-                          className="heart-icon"
-                          onClick={saveRecipe}
-                          data-id={i.id.toString()}
-                        />
-                      </div>
-                    ))
-                  : savedFoods.map((i, k) => (
-                      <div
-                        id={i.id.toString()}
-                        key={k}
-                        className="food-item"
-                        title={i.title}
-                        // set a different function to onClick where the function will call axios then call openModal
-                        onClick={openRecipe}
-                      >
-                        <img src={i.image} alt={i.title} />
-                        <h3>{i.title}</h3>
-                      </div>
-                    ))}
+                      <FaBookmark
+                        className="save-icon "
+                        onClick={delRecipe}
+                        data-id={i.id.toString()}
+                      />
+                    </div>
+                  ))
+                )}
               </div>
             )}
           </div>

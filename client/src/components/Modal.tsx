@@ -17,13 +17,13 @@ interface Ingredient {
 }
 
 function Modal(props: Props) {
-  const { state } = useData();
+  const { dataState } = useData();
   let data = props.recipeData;
 
   return props.modal ? (
     <div className="modal-space">
       <div className="modal">
-        {state.isLoading ? (
+        {dataState.isLoading ? (
           <div className="center" style={{ color: "#1e7943" }}>
             <AiOutlineLoading3Quarters size={60} className="loading" />
           </div>
@@ -66,7 +66,7 @@ function Modal(props: Props) {
     </div>
   ) : (
     <div className="modal-ph">
-      {state.isLoading ? (
+      {dataState.isLoading ? (
         <div className="foods" style={{ color: "#1e7943" }}>
           <AiOutlineLoading3Quarters size={60} className="loading" />
         </div>

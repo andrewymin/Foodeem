@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useData } from "../context/DataContext";
 
 function Videos() {
-  const { state } = useData();
+  const { dataState } = useData();
   // Selecting which video to play and stop
   const vidChange = (position: number) => {
     let videos = document.querySelectorAll(".video-slide");
@@ -25,7 +25,7 @@ function Videos() {
 
   // using useEffect for query search after everything has rendered
   useEffect(() => {
-    switch (state.videoNum) {
+    switch (dataState.videoNum) {
       case 0:
         vidChange(0);
         // console.log("clicked 0");
@@ -47,7 +47,7 @@ function Videos() {
         // console.log("clicked 4");
         break;
     }
-  }, [state.videoNum]); // set to render on prop/state change
+  }, [dataState.videoNum]); // set to render on prop/state change
 
   return (
     <>

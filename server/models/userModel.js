@@ -10,7 +10,7 @@ import {
 const EXPIRE_AGE = 60 * 5; // in sec
 
 const likedRecipes = new mongoose.Schema({
-  id: Number,
+  id: { type: Number, unique: true },
   title: String,
   image: String,
   summary: String,

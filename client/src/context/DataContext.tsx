@@ -20,7 +20,7 @@ const initialState = {
 };
 
 interface DataContextType {
-  state: State;
+  dataState: State;
   dispatch: Dispatch<Action>;
   // intervalId: ReturnType<typeof setInterval>;
 }
@@ -38,36 +38,36 @@ export const useData = () => {
   return context;
 };
 
-const reducer = (state: State, action: Action): State => {
+const reducer = (dataState: State, action: Action): State => {
   switch (action.type) {
     case "LOADING":
-      return { ...state, isLoading: true };
+      return { ...dataState, isLoading: true };
     case "UNLOADING":
-      return { ...state, isLoading: false };
+      return { ...dataState, isLoading: false };
     case "RANDOMRECIPE":
-      return { ...state, randomRecipe: action.payload };
+      return { ...dataState, randomRecipe: action.payload };
     case "VID_NUM": {
-      return { ...state, videoNum: action.payload };
+      return { ...dataState, videoNum: action.payload };
     }
     default:
-      return state;
+      return dataState;
   }
 };
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [dataState, dispatch] = useReducer(reducer, initialState);
 
   // // setting time interval for videos to loop, 0-4 videos
   // const intervalId = setInterval(() => {
   //   // Get previous videoNum using 'pre' and
   //   //   increment the count and reset to 0 if it reaches 4
-  //   dispatch({ type: "VID_NUM", payload: (state.videoNum + 1) % 5 });
-  //   console.log("Video Index in set interval: ", state.videoNum);
+  //   dispatch({ type: "VID_NUM", payload: (dataState.videoNum + 1) % 5 });
+  //   console.log("Video Index in set interval: ", dataState.videoNum);
   // }, 5000); // 10000 milliseconds = 10 seconds
 
   return (
-    // <DataContext.Provider value={{ state, dispatch, intervalId }}>
-    <DataContext.Provider value={{ state, dispatch }}>
+    // <DataContext.Provider value={{ dataState, dispatch, intervalId }}>
+    <DataContext.Provider value={{ dataState, dispatch }}>
       {children}
     </DataContext.Provider>
   );

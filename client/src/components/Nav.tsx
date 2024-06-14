@@ -7,9 +7,9 @@ import { FaRegUser } from "react-icons/fa";
 function Nav() {
   const { state, logout, authCheck } = useAuth();
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   authCheck();
-  // }, []);
+  useEffect(() => {
+    authCheck();
+  }, []);
 
   const account = () => {
     navigate("/dashboard");
@@ -41,6 +41,7 @@ function Nav() {
             </>
           ) : (
             <>
+              <a href="saved-recipes">Saved Recipes</a>
               <button onClick={logout}>Logout</button>
               <button onClick={account}>
                 <FaRegUser />

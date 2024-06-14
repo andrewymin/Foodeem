@@ -6,29 +6,6 @@ import { createCookie } from "../hooks/jwtCookie.js";
 import { resetPasswordEmail } from "../hooks/verifyCodeGen.js";
 import crypto from "crypto";
 
-///////////// login user
-const loginUser = async (req, res) => {
-  const username = await req.body.userID;
-  const password = await req.body.userPass;
-
-  try {
-    const user = await User.login(username, password); // this is credentials
-    //create a token
-    // const token = createToken(user._id);
-
-    createCookie(user._id, "token", res);
-    // res.cookie("token", token, { httpOnly: true, maxAge: 60000 });
-    // res.status(200).json({ userData: { email: user.email } });
-    res.status(200).json({ authorized: true });
-
-    // res.json({ msg: "got the data", isAuth: user });
-    // res.status(200).json({ token: token });
-  } catch (error) {
-    console.log(error.message);
-    res.status(400).json({ errorMsg: error.message });
-  }
-};
-
 ///////////// signup user
 const signupUser = async (req, res) => {
   const username = await req.body.userID;
@@ -46,6 +23,29 @@ const signupUser = async (req, res) => {
     // res.status(200).json({ msg: "added user", isAuth: user });
   } catch (error) {
     // console.log(error.message);
+    res.status(400).json({ errorMsg: error.message });
+  }
+};
+
+///////////// login user
+const loginUser = async (req, res) => {
+  const username = await req.body.userID;
+  const password = await req.body.userPass;
+
+  try {
+    const user = await User.login(username, password); // this is credentials
+    //create a token
+    // const token = createToken(user._id);
+
+    createCookie(user._id, "token", res);
+    // res.cookie("token", token, { httpOnly: true, maxAge: 60000 });
+    // res.status(200).json({ userData: { email: user.email } });
+    res.status(200).json({ authorized: true, userRecipes: user.recipes });
+
+    // res.json({ msg: "got the data", isAuth: user });
+    // res.status(200).json({ token: token });
+  } catch (error) {
+    console.log(error.message);
     res.status(400).json({ errorMsg: error.message });
   }
 };

@@ -10,7 +10,7 @@ import { videoData } from "../assets/vid/videoData";
 // }
 
 function Tabs() {
-  const { state, dispatch } = useData();
+  const { dataState, dispatch } = useData();
   let navigate = useNavigate();
 
   const randomOne = () => {
@@ -40,21 +40,22 @@ function Tabs() {
   return (
     <section id="content">
       <h2 className="title">
-        {state.videoNum == 0
+        {dataState.videoNum == 0
           ? videoData[0].title
-          : videoData.find((title) => title.id == state.videoNum)?.title}
+          : videoData.find((title) => title.id == dataState.videoNum)?.title}
         <span>.</span>
       </h2>
       <h1 className="sub-heading">
-        {state.videoNum == 0
+        {dataState.videoNum == 0
           ? videoData[0].subHeading
-          : videoData.find((title) => title.id == state.videoNum)?.subHeading}
+          : videoData.find((title) => title.id == dataState.videoNum)
+              ?.subHeading}
       </h1>
       <div className="description">
         <p>
-          {state.videoNum == 0
+          {dataState.videoNum == 0
             ? videoData[0].description
-            : videoData.find((title) => title.id == state.videoNum)
+            : videoData.find((title) => title.id == dataState.videoNum)
                 ?.description}
         </p>
       </div>
