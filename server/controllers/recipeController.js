@@ -1,7 +1,7 @@
 import "dotenv/config.js";
 import axios from "axios";
 // import dotenv from "dotenv";
-import { User } from "../models/userModel.js";
+import { LikedRecipes, User } from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 
 // dotenv.config();
@@ -60,11 +60,31 @@ const saveRecipe = async (req, res) => {
           return recipeData;
         })
         .then(async (recipeData) => {
+          // check if recipe already exists in LikedRecipes
+          //   db to be saved or retrieve that already existing recipe
+          const recipeExists = await LikedRecipes.findOne({
+            id: recipeData.id,
+          }).exec();
+          if (!recipeExists) {
+            // create a new recipe to fetch later for all users
+            const newRecipe = await LikedRecipes(recipeData);
+            // Save this recipe to db
+            await newRecipe.save();
+            return newRecipe;
+          }
+          // if recipe already saved, send existing saved recipe
+          return recipeExists;
+        })
+        .then(async (recipe) => {
+          // Find user using decoded token and add the recipe id for reference
           const updateduser = await User.findByIdAndUpdate(
             { _id: decodedToken._id },
-            { $push: { recipes: recipeData } },
+            { $push: { recipes: recipe._id } },
             { new: true }
-          );
+          ) // using populate to be able to send recipes to frontend
+            .populate("recipes")
+            .exec();
+          // if user exists send recipes
           if (updateduser)
             return res.status(200).json({ userRecipes: updateduser.recipes });
         })
@@ -83,7 +103,8 @@ const getSavedRecipe = (req, res) => {
     async (err, decodedToken) => {
       //   req.user_id = decodedToken._id;
       if (err) return res.status(401);
-      const user = await User.findById(decodedToken._id);
+      // getting user by id and populating recipes to send to frontend
+      const user = await User.findById(decodedToken._id).populate("recipes");
       if (!user) return res.status(401).json({ errorMsg: "User not found" });
       return res.status(200).json({ userRecipes: user.recipes });
     }

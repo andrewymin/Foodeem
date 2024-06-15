@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import bycrpt from "bcrypt";
 import validator from "validator";
 import {
@@ -52,7 +52,7 @@ const userSchema = new mongoose.Schema({
   verified: {
     type: Boolean,
   },
-  recipes: [likedRecipes],
+  recipes: [{ type: Schema.Types.ObjectId, ref: "LikedRecipes" }],
   verificationCode: verificationRequest,
 });
 
@@ -275,7 +275,7 @@ userSchema.statics.login = async function (email, password) {
     throw Error("All fields must be filled");
   }
 
-  const user = await this.findOne({ email });
+  const user = await this.findOne({ email }).populate("recipes");
 
   if (!user) {
     throw Error("Incorrect email");
