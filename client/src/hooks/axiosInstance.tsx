@@ -1,4 +1,4 @@
-import axios, { isAxiosError, AxiosError } from "axios";
+import axios, { isAxiosError, AxiosError, AxiosRequestConfig } from "axios";
 
 const BASE_URL =
   process.env.NODE_ENV === "production"
@@ -11,4 +11,15 @@ const customAxios = axios.create({
   timeout: 3000, // in ms, after 3sec will throw error if call is not returned
 });
 
-export { customAxios, isAxiosError, AxiosError };
+interface DeleteData {
+  recipeId: number;
+}
+
+const deleteRecipeWithData = (url: string, recipeId: DeleteData) => {
+  const config: AxiosRequestConfig = {
+    data: recipeId,
+  };
+  return customAxios.delete(url, config);
+};
+
+export { customAxios, isAxiosError, AxiosError, deleteRecipeWithData };

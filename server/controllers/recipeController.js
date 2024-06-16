@@ -96,7 +96,7 @@ const saveRecipe = async (req, res) => {
 };
 
 const getSavedRecipe = (req, res) => {
-  const token = req.cookie.token;
+  const token = req.cookies.token;
   jwt.verify(
     token,
     process.env.ACCESS_TOKEN_SECRET,
@@ -112,4 +112,30 @@ const getSavedRecipe = (req, res) => {
   // console.log(data)
 };
 
-export { getRecipe, saveRecipe, getSavedRecipe };
+const deleteSavedRecipe = (req, res) => {
+  const token = req.cookies.token;
+  const recipeId = req.params.id.toString();
+
+  jwt.verify(
+    token,
+    process.env.ACCESS_TOKEN_SECRET,
+    async (err, decodedToken) => {
+      //   req.user_id = decodedToken._id;
+      if (err) return res.status(401);
+      // getting saved recipe list to get objectId of recipe
+      const recipe = await LikedRecipes.findOne({ id: recipeId });
+      // getting user and updating by using the $pull operator to remove
+      //   the recipe from the array
+      const user = await User.findByIdAndUpdate(
+        decodedToken._id,
+        { $pull: { recipes: recipe._id } },
+        { new: true }
+      ).populate("recipes");
+      if (!user) return res.status(401).json({ errorMsg: "User not found" });
+      return res.status(200).json({ userRecipes: user.recipes });
+    }
+  );
+  // console.log(data)
+};
+
+export { getRecipe, saveRecipe, getSavedRecipe, deleteSavedRecipe };
