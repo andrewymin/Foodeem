@@ -3,7 +3,7 @@ import { AiOutlineSearch, AiOutlineLoading3Quarters } from "react-icons/ai";
 import Modal from "../components/Modal";
 import { randomFoods } from "../spoonTestData";
 import { useData } from "../context/DataContext";
-import { customAxios } from "../hooks/axiosInstance";
+import { customAxios, deleteRecipeWithData } from "../hooks/axiosInstance";
 import useToast from "../components/Toastify";
 import { ToastContainer } from "react-toastify";
 import { FaBookmark } from "react-icons/fa6";
@@ -27,46 +27,61 @@ const SEARCH_URL =
 function SavedRecipes() {
   // use data context to get loading comonent
   const { dataState, dispatch } = useData();
-  // const { showError, showSuccess } = useToast();
+  const { showError, showSuccess } = useToast();
 
   // later update states with useReducer?
   const [modalActive, setModalActive] = useState(false);
   const [recipeData, setRecipeData] = useState();
   const [savedFoods, setSavedFoods] = useState<SavedFood[]>([]);
 
+  let savedRecipes = localStorage.getItem("savedRecipes");
+  // console.log(savedRecipes);
+  const fetchSavedRecipes = () => {
+    try {
+      if (savedRecipes) {
+        let savedRecipesArray = JSON.parse(savedRecipes);
+        // console.log(savedRecipesArray[0]);
+        for (let i = 0; i < savedRecipesArray.length; i++) {
+          setSavedFoods((prevArray) => [...prevArray, savedRecipesArray[i]]);
+        }
+      } else setSavedFoods([]);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dispatch({ type: "UNLOADING" }); // set loading to false
+    }
+  };
+
   useEffect(() => {
     dispatch({ type: "LOADING" }); // set loading to true
-    let savedRecipes = localStorage.getItem("savedRecipes");
-    // console.log(savedRecipes);
-    const fetchSavedRecipes = () => {
-      try {
-        if (savedRecipes) {
-          let savedRecipesArray = JSON.parse(savedRecipes);
-          // console.log(savedRecipesArray[0]);
-          for (let i = 0; i < savedRecipesArray.length; i++) {
-            setSavedFoods((prevArray) => [...prevArray, savedRecipesArray[i]]);
-          }
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        dispatch({ type: "UNLOADING" }); // set loading to false
-      }
-    };
-
     fetchSavedRecipes();
   }, []);
 
-  const delRecipe = (e: React.MouseEvent) => {
+  const delRecipe = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     const target = e.target as HTMLButtonElement;
     const recipeId = target.dataset.id!;
 
-    console.log(
-      "make axios call to delete recipe from user db using id: ",
-      recipeId
-    );
+    try {
+      await customAxios
+        .delete(`searchfoods/delete-saved-recipe/${recipeId}`)
+        .then((res) => {
+          // data is sorted on server side
+          showSuccess("Recipe removed from saved recipes");
+          if (res.data.userRecipes != 0) {
+            localStorage.setItem(
+              "savedRecipes",
+              JSON.stringify(res.data.userRecipes)
+            );
+
+            setSavedFoods(res.data.userRecipes);
+          } else setSavedFoods([]);
+          // fetchSavedRecipes();
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const openRecipe = (e: React.MouseEvent<HTMLDivElement>) => {
