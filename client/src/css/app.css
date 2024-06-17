@@ -528,6 +528,52 @@ footer .copyright {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
+#heading nav .profile-icon {
+  cursor: pointer;
+  transition: all 0.5s;
+}
+#heading nav .profile-icon:hover {
+  color: #952323;
+}
+#heading nav .acct-menu {
+  position: absolute;
+  right: 1.5rem;
+  top: 5.5rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: white;
+  color: #952323;
+  border-radius: 20px;
+  border: 2px solid;
+  height: 13rem;
+  width: 12rem;
+  transition: all 0.3s;
+}
+#heading nav .acct-menu li > a {
+  color: #952323;
+}
+#heading nav .acct-menu .logout {
+  cursor: pointer;
+}
+#heading nav .acct-menu hr {
+  width: 80%;
+  border: 1px solid;
+}
+#heading nav .hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+#heading nav .visible {
+  opacity: 1;
+  pointer-events: all;
+}
+#heading nav .profile-icon:has(+ ul.visible) {
+  color: #952323;
+}
 
 video {
   z-index: 0;

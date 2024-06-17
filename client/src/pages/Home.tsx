@@ -17,7 +17,7 @@ function Home() {
       dispatch({ type: "VID_NUM", payload: (dataState.videoNum + 1) % 5 });
     }, 10000); // 10000 milliseconds = 10 seconds
     // intervalId;
-    console.log("Video Number from Home useEffect: ", dataState.videoNum);
+    // console.log("Video Number from Home useEffect: ", dataState.videoNum);
 
     // Clean up the interval when the component unmounts
     return () => clearInterval(intervalId);

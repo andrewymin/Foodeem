@@ -68,59 +68,62 @@ function HamburgerIcon() {
   };
 
   return (
-    <div className="menu-btn">
-      <AiOutlineMenu
-        onClick={toggleDropdown}
-        className={burgerClass}
-        size={30}
-      />
-      {/* <div className={`blur ${menuClass}`}></div> */}
-      <div className={menuClass} onClick={closeMenu}>
-        <AiOutlineClose onClick={toggleDropdown} className="close-icon" />
-        <div className="navbar-a" onClick={stopEarlyClose}>
-          <ul className="navbar">
-            <li>
-              <Link to={"recipes"} onClick={toggleDropdown}>
-                Recipes
-              </Link>
-            </li>
-            {!state.isAuth ? (
-              <>
-                {" "}
-                <li>
-                  <button type="button" onClick={loginPage}>
-                    Login
-                  </button>
-                </li>
-                <li>
-                  <button type="button" onClick={registerPage}>
-                    Sign-up
-                  </button>
-                </li>
-              </>
-            ) : (
-              <>
-                {" "}
+    <>
+      {" "}
+      <div className="menu-btn">
+        <AiOutlineMenu
+          onClick={toggleDropdown}
+          className={burgerClass}
+          size={30}
+        />
+        {/* <div className={`blur ${menuClass}`}></div> */}
+        <div className={menuClass} onClick={closeMenu}>
+          <AiOutlineClose onClick={toggleDropdown} className="close-icon" />
+          <div className="navbar-a" onClick={stopEarlyClose}>
+            <ul className="navbar">
+              <li>
+                <Link to={"recipes"} onClick={toggleDropdown}>
+                  Recipes
+                </Link>
+              </li>
+              {!state.isAuth ? (
                 <>
-                  <a href="saved-recipes">Saved Recipes</a>
-                  <button onClick={account}>
-                    <FaRegUser />
-                  </button>
-                  <button
-                    onClick={() => {
-                      logout();
-                      closeMenu();
-                    }}
-                  >
-                    Logout
-                  </button>
+                  {" "}
+                  <li>
+                    <button type="button" onClick={loginPage}>
+                      Login
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" onClick={registerPage}>
+                      Sign-up
+                    </button>
+                  </li>
                 </>
-              </>
-            )}
-          </ul>
+              ) : (
+                <>
+                  {" "}
+                  <>
+                    <a href="saved-recipes">Saved Recipes</a>
+                    <button onClick={account}>
+                      <FaRegUser />
+                    </button>
+                    <button
+                      onClick={() => {
+                        logout();
+                        closeMenu();
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </>
+                </>
+              )}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
