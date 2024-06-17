@@ -137,7 +137,7 @@ function Recipe() {
     const recipeId = target.dataset.id!;
 
     if (!state.isAuth) return navigate("/login");
-    target.classList.add("bookmarked");
+    target.classList.toggle("bookmarked");
 
     // Use the id to make call to get specific recipe and store data to db
     try {
@@ -163,17 +163,28 @@ function Recipe() {
     }
   };
 
-  const delRecipe = (e: React.MouseEvent) => {
+  const delRecipe = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     const target = e.target as HTMLButtonElement;
+    target.classList.toggle("bookmarked");
     const recipeId = target.dataset.id!;
-    target.style.color = "white";
 
-    console.log(
-      "make axios call to delete recipe from user db using id: ",
-      recipeId
-    );
+    try {
+      await customAxios
+        .delete(`searchfoods/delete-saved-recipe/${recipeId}`)
+        .then((res) => {
+          // console.log(res.data.userRecipes);
+          localStorage.setItem(
+            "savedRecipes",
+            JSON.stringify(res.data.userRecipes)
+          );
+          showSuccess("Recipe removed from saved recipes");
+          // fetchSavedRecipes();
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

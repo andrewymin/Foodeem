@@ -11,12 +11,12 @@ const apiKey = process.env.spoonacular;
 // only use testKey to not send call
 const testKey = process.env.testKey;
 
-const getRecipe = (req, res) => {
-  let recipeId = req.query.id;
+const getRecipe = async (req, res) => {
+  let recipeId = await req.query.id;
   // console.log(data)
 
   // For axios don't forget to add "https:" before url or get ECONNREFUSED error
-  axios
+  await axios
     .get(
       `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}&includeNutrition=false`
     )
@@ -95,26 +95,25 @@ const saveRecipe = async (req, res) => {
   );
 };
 
-const getSavedRecipe = (req, res) => {
-  const token = req.cookies.token;
-  jwt.verify(
-    token,
-    process.env.ACCESS_TOKEN_SECRET,
-    async (err, decodedToken) => {
-      //   req.user_id = decodedToken._id;
-      if (err) return res.status(401);
-      // getting user by id and populating recipes to send to frontend
-      const user = await User.findById(decodedToken._id).populate("recipes");
-      if (!user) return res.status(401).json({ errorMsg: "User not found" });
-      return res.status(200).json({ userRecipes: user.recipes });
-    }
-  );
+const getSavedRecipe = async (req, res) => {
+  let recipeIdString = await req.params.id;
+  const recipeId = Number(recipeIdString);
+
+  // getting saved recipe list to get objectId of recipe
+  const retrievedRecipe = await LikedRecipes.findOne({ id: recipeId });
+
+  if (!retrievedRecipe)
+    return res.status(401).json({ errorMsg: "Recipe not found" });
+  return res.status(200).json({ userRecipes: retrievedRecipe });
   // console.log(data)
 };
 
-const deleteSavedRecipe = (req, res) => {
-  const token = req.cookies.token;
-  const recipeId = req.params.id.toString();
+const deleteSavedRecipe = async (req, res) => {
+  const token = await req.cookies.token;
+  let recipeIdString = await req.params.id;
+  const recipeId = Number(recipeIdString);
+  // console.log("deleting recipe!");
+  // console.log(typeof recipeId);
 
   jwt.verify(
     token,
@@ -135,6 +134,7 @@ const deleteSavedRecipe = (req, res) => {
       return res.status(200).json({ userRecipes: user.recipes });
     }
   );
+
   // console.log(data)
 };
 

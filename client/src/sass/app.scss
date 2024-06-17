@@ -1120,10 +1120,6 @@ input[name="email"] {
   .save-icon {
     color: $highlight;
   }
-
-  .save-icon:hover {
-    color: $ten;
-  }
 }
 
 .save-icon {
@@ -1133,7 +1129,7 @@ input[name="email"] {
   right: 1rem;
   width: 30px;
   height: fit-content;
-  z-index: 3;
+  z-index: 2;
   transition: all 1s;
 
   path {

@@ -4,7 +4,9 @@ import "react-toastify/dist/ReactToastify.css";
 const useToast = () => {
   return {
     showSuccess: (message: String) => {
-      toast.success(message);
+      toast.success(message, {
+        position: "top-center",
+      });
     },
     showError: (message: String) => {
       toast.error(message, {
