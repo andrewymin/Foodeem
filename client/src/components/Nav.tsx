@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import HamburgerIcon from "./Menu";
 import { useAuth } from "../context/AuthContext";
-import { FaRegUser } from "react-icons/fa";
+// import { FaRegUser } from "react-icons/fa";
+import AccountIcon from "./AccountIcon";
 
 function Nav() {
   const { state, logout, authCheck } = useAuth();
+
   const navigate = useNavigate();
   useEffect(() => {
     authCheck();
@@ -35,17 +37,10 @@ function Nav() {
               <li>
                 <Link to={"login"}>Login</Link>
               </li>
-              <li>
-                <Link to={"register"}>Sign up</Link>
-              </li>
             </>
           ) : (
             <>
-              <a href="saved-recipes">Saved Recipes</a>
-              <button onClick={logout}>Logout</button>
-              <button onClick={account}>
-                <FaRegUser />
-              </button>
+              <AccountIcon />
             </>
           )}
         </ul>
