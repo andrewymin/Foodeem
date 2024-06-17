@@ -11,7 +11,7 @@ import {
 router.get("/", getSearchFoods);
 router.get("/recipe", getRecipe);
 router.post("/save-recipe", saveRecipe);
-router.get("/get-saved-recipe", getSavedRecipe);
+router.get("/get-saved-recipe/:id", getSavedRecipe);
 router.delete("/delete-saved-recipe/:id", deleteSavedRecipe);
 
 export default router;

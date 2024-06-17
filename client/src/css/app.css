@@ -1239,9 +1239,6 @@ input[name=email] {
 #recipe .saved-recipes .save-icon {
   color: #0087ca;
 }
-#recipe .saved-recipes .save-icon:hover {
-  color: #952323;
-}
 
 .save-icon {
   color: white;
@@ -1250,7 +1247,7 @@ input[name=email] {
   right: 1rem;
   width: 30px;
   height: fit-content;
-  z-index: 3;
+  z-index: 2;
   transition: all 1s;
 }
 .save-icon path {

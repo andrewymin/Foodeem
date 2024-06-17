@@ -68,15 +68,14 @@ function SavedRecipes() {
         .delete(`searchfoods/delete-saved-recipe/${recipeId}`)
         .then((res) => {
           // data is sorted on server side
+          localStorage.setItem(
+            "savedRecipes",
+            JSON.stringify(res.data.userRecipes)
+          );
           showSuccess("Recipe removed from saved recipes");
-          if (res.data.userRecipes != 0) {
-            localStorage.setItem(
-              "savedRecipes",
-              JSON.stringify(res.data.userRecipes)
-            );
+          setSavedFoods(res.data.userRecipes);
+          setModalActive(false);
 
-            setSavedFoods(res.data.userRecipes);
-          } else setSavedFoods([]);
           // fetchSavedRecipes();
         });
     } catch (error) {
@@ -90,13 +89,9 @@ function SavedRecipes() {
     dispatch({ type: "LOADING" });
 
     customAxios
-      .get("searchfoods/get-saved-recipe", {
-        params: {
-          id: targetId,
-        },
-      }) // place nodejs(aws) created route for url, using server to hide api keys
-      .then((response) => {
-        setRecipeData(response.data.body);
+      .get(`searchfoods/get-saved-recipe/${targetId}`)
+      .then((res) => {
+        setRecipeData(res.data.userRecipes);
       })
       .then(() => {
         // after axios call send data to modal
