@@ -11,23 +11,21 @@ function AccountIcon() {
   const modalRef = useRef<HTMLUListElement>(null);
 
   const closeDropdown = () => {
-    if (dropdown) {
-      setAccountClass("acct-menu hidden");
-      setDropdown(false);
-    }
+    setAccountClass("acct-menu hidden");
+    setDropdown(false);
   };
 
   const openDropdown = () => {
-    if (!dropdown) {
+    if (dropdown) {
+      setAccountClass("acct-menu hidden");
+      setDropdown(false);
+    } else {
       setAccountClass("acct-menu visible");
       setDropdown(true);
     }
   };
 
-  //   const test = () => {
-  //     console.log("testing");
-  //   };
-
+  // this will run before the onClick
   closeOnClickOutside(modalRef, () => closeDropdown());
 
   return (
@@ -45,9 +43,6 @@ function AccountIcon() {
         <li className="logout" onClick={logout}>
           Logout
         </li>
-        {/* <li className="logout" onClick={test}>
-          Logout
-        </li> */}
       </ul>
     </>
   );

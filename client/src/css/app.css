@@ -13,10 +13,6 @@
   body #heading nav .menu-btn .burger {
     margin-right: 1.5rem;
   }
-  body #heading nav .menu-btn svg {
-    cursor: pointer;
-    transition: 0.3s ease;
-  }
   body #heading nav .menu-btn .menu {
     width: 100%;
     height: 100vh;
@@ -34,6 +30,14 @@
     flex-direction: column;
     align-items: center;
   }
+  body #heading nav .menu-btn .menu .navbar .signout {
+    background-color: #952323;
+    color: #f9f0eb;
+    border: none;
+  }
+  body #heading nav .menu-btn .menu .navbar .signout:hover {
+    filter: brightness(80%);
+  }
   body #heading nav .menu-btn .menu .navbar-a {
     background: white;
     width: 20%;
@@ -43,23 +47,52 @@
     align-items: center;
     border-radius: 20px;
   }
-  body #heading nav .menu-btn .menu .navbar-a a {
-    color: black;
-    border-radius: 15px;
-    padding: 0.5rem;
-    box-shadow: 0px 0px 6px 0px #999;
+  body #heading nav .menu-btn .menu .navbar-a * {
+    color: #952323;
+  }
+  body #heading nav .menu-btn .menu .navbar-a a.p-current::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(1);
+    height: 2px;
+    bottom: -3px;
+    left: 0;
+    background-color: #0087ca;
+    transform-origin: bottom left;
+    transition: transform 0.25s ease-out;
+  }
+  body #heading nav .menu-btn .menu .navbar-a a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -3px;
+    left: 0;
+    background-color: #0087ca;
+    transform-origin: bottom left;
+    transition: transform 0.25s ease-out;
+  }
+  body #heading nav .menu-btn .menu .navbar-a a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
   }
   body #heading nav .menu-btn .menu .navbar-a button {
-    box-shadow: 0 0 10px 2px rgba(4, 4, 4, 0.4);
     border-radius: 15px;
-    min-width: 6rem;
+    border: 2px solid #952323;
+    background: whitesmoke;
+    font-size: 1rem;
   }
-  body #heading nav .menu-btn .menu .navbar-a li:nth-child(3) button {
+  body #heading nav .menu-btn .menu .navbar-a .logout {
+    font-weight: 600;
+  }
+  body #heading nav .menu-btn .menu .navbar-a button:hover {
     background-color: #952323;
     color: #f9f0eb;
   }
-  body #heading nav .menu-btn .menu .navbar-a li:nth-child(3) button:hover {
-    filter: brightness(80%);
+  body #heading nav .menu-btn .menu .navbar-a .profile-icon {
+    color: #952323;
   }
   body #heading nav .menu-btn .close-icon {
     position: absolute;
@@ -67,6 +100,10 @@
     color: white;
     top: 1.4rem;
     right: 1.4rem;
+  }
+  body #heading nav .menu-btn .close-icon,
+  body #heading nav .menu-btn .burger {
+    cursor: pointer;
   }
   body #heading nav .menu-btn .hidden,
   body #heading nav .menu-btn .clicked {
@@ -477,30 +514,7 @@ footer .copyright {
   align-items: center;
   color: white;
 }
-#heading nav .navbar li:nth-child(2) > a {
-  background-color: #f9f0eb;
-  color: #952323;
-  font-size: 1.2rem;
-  padding: 0.5rem;
-  border-radius: 15px;
-}
-#heading nav .navbar li:nth-child(2) > a:hover {
-  filter: brightness(90%);
-  background-color: #f9f0eb;
-  color: #952323;
-}
-#heading nav .navbar li:nth-child(3) > a {
-  background-color: #952323;
-  color: #f9f0eb;
-  font-size: 1.2rem;
-  padding: 0.5rem;
-  border-radius: 15px;
-}
-#heading nav .navbar li:nth-child(3) > a:hover {
-  background-color: #6c1919;
-  color: #f9f0eb;
-}
-#heading nav .navbar a.p-current::after {
+#heading nav .navbar .underline.p-current::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -512,7 +526,7 @@ footer .copyright {
   transform-origin: bottom left;
   transition: transform 0.25s ease-out;
 }
-#heading nav .navbar a::after {
+#heading nav .navbar .underline::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -524,7 +538,7 @@ footer .copyright {
   transform-origin: bottom left;
   transition: transform 0.25s ease-out;
 }
-#heading nav .navbar a:hover::after {
+#heading nav .navbar .underline:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
@@ -532,25 +546,29 @@ footer .copyright {
   cursor: pointer;
   transition: all 0.5s;
 }
+#heading nav .profile-icon path {
+  pointer-events: none;
+}
 #heading nav .profile-icon:hover {
   color: #952323;
 }
 #heading nav .acct-menu {
-  position: absolute;
-  right: 1.5rem;
-  top: 5.5rem;
-  list-style: none;
+  height: 10rem;
+  width: 12rem;
+  font-size: 1.2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
+  position: absolute;
+  right: 1.5rem;
+  top: 5.5rem;
+  list-style: none;
   background-color: white;
   color: #952323;
   border-radius: 20px;
   border: 2px solid;
-  height: 13rem;
-  width: 12rem;
   transition: all 0.3s;
 }
 #heading nav .acct-menu li > a {

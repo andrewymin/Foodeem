@@ -5,8 +5,16 @@ const closeOnClickOutside = (
   handler: () => void
 ) => {
   useEffect(() => {
-    const listener = (event: MouseEvent | TouchEvent) => {
-      if (!ref.current || ref.current.contains(event.target as Node)) {
+    const profileIcon = document.querySelector(".profile-icon");
+    const listener = (e: MouseEvent | TouchEvent) => {
+      // console.log(profileIcon?.classList[0]);
+      const target = e.target as HTMLLIElement;
+      // console.log(target.classList[0]);
+      if (
+        target.classList[0] == profileIcon?.classList[0] ||
+        !ref.current ||
+        ref.current.contains(e.target as Node)
+      ) {
         return;
       }
       handler();
