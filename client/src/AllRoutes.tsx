@@ -52,11 +52,11 @@ function AllRoutes() {
       <Route element={<ProtectVerifyRoute />}>
         <Route path="/verify" element={<VerificationCode />} />
       </Route>
-      {/* <Route element={<Protected />}>
+      <Route element={<Protected />}>
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/liked-recipes" element={<SavedRecipes />} />
-      </Route> */}
-      <Route path="/saved-recipes" element={<SavedRecipes />} />
+        <Route path="/saved-recipes" element={<SavedRecipes />} />
+      </Route>
+      {/* <Route path="/saved-recipes" element={<SavedRecipes />} /> */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
