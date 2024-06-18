@@ -1,27 +1,43 @@
 import React, { createContext, useContext, useReducer, Dispatch } from "react";
+import { customAxios } from "../hooks/axiosInstance";
+import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
+
+interface UserProfile {
+  email: string;
+  googleLink: string;
+  githubLink: string;
+}
 
 interface State {
   isLoading: boolean;
   randomRecipe: undefined | React.SetStateAction<undefined>;
   videoNum: number;
+  userData: UserProfile | null;
 }
 
 type Action =
   | { type: "LOADING" }
   | { type: "UNLOADING" }
   | { type: "RANDOMRECIPE"; payload?: React.SetStateAction<undefined> }
-  | { type: "VID_NUM"; payload: number };
+  | { type: "VID_NUM"; payload: number }
+  | { type: "USER_DATA"; payload: null };
 
 const initialState = {
   isLoading: false,
   randomRecipe: undefined,
   videoNum: 0,
+  userData: null,
 };
+
+interface AxiosCallFunction {
+  (): Promise<void>;
+}
 
 interface DataContextType {
   dataState: State;
   dispatch: Dispatch<Action>;
+  userDataFetch: AxiosCallFunction;
   // intervalId: ReturnType<typeof setInterval>;
 }
 
@@ -49,6 +65,9 @@ const reducer = (dataState: State, action: Action): State => {
     case "VID_NUM": {
       return { ...dataState, videoNum: action.payload };
     }
+    case "USER_DATA": {
+      return { ...dataState, userData: action.payload };
+    }
     default:
       return dataState;
   }
@@ -56,6 +75,7 @@ const reducer = (dataState: State, action: Action): State => {
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   const [dataState, dispatch] = useReducer(reducer, initialState);
+  const navigate = useNavigate();
 
   // // setting time interval for videos to loop, 0-4 videos
   // const intervalId = setInterval(() => {
@@ -65,9 +85,21 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
   //   console.log("Video Index in set interval: ", dataState.videoNum);
   // }, 5000); // 10000 milliseconds = 10 seconds
 
+  const userDataFetch = async () => {
+    try {
+      await customAxios.get("user/data").then((res) => {
+        // console.log(res.data.userData);
+        dispatch({ type: "USER_DATA", payload: res.data.userData });
+      });
+    } catch (error) {
+      // notifyError(error.response.data.errorMsg);
+      navigate("/");
+    }
+  };
+
   return (
     // <DataContext.Provider value={{ dataState, dispatch, intervalId }}>
-    <DataContext.Provider value={{ dataState, dispatch }}>
+    <DataContext.Provider value={{ dataState, dispatch, userDataFetch }}>
       {children}
     </DataContext.Provider>
   );

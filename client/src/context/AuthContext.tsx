@@ -2,20 +2,20 @@ import React, { createContext, useContext, useReducer } from "react";
 import { customAxios, isAxiosError } from "../hooks/axiosInstance";
 import useToast from "../components/Toastify";
 import { useNavigate } from "react-router-dom";
-import CheckCookieExists from "../hooks/checkCookie";
+// import CheckCookieExists from "../hooks/checkCookie";
 
 interface State {
-  user: String;
-  pwd: String;
-  allowVerify: Boolean;
-  isAuth: Boolean;
+  user: string;
+  pwd: string;
+  allowVerify: boolean;
+  isAuth: boolean;
 }
 
 type Action =
-  | { type: "USER"; payload: String }
-  | { type: "PWD"; payload: String }
-  | { type: "ALLOW_VERIFY"; payload: Boolean }
-  | { type: "IS_AUTH"; payload: Boolean };
+  | { type: "USER"; payload: string }
+  | { type: "PWD"; payload: string }
+  | { type: "ALLOW_VERIFY"; payload: boolean }
+  | { type: "IS_AUTH"; payload: boolean };
 
 const initialState: State = {
   user: "",
@@ -39,7 +39,6 @@ interface AppContextType {
   register: AxiosCallFunction;
   logout: AxiosCallFunction;
   authCheck: AxiosCallFunction;
-  userDataFetch: AxiosCallFunction;
   setNewPassword: newPassAxiosCall;
 }
 const AuthContext = createContext<AppContextType | undefined>(undefined);
@@ -194,18 +193,6 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
     }
   };
 
-  const userDataFetch = async () => {
-    // try {
-    //   await customAxios.get("user/data").then((res) => {
-    //     // console.log(res.data.userData);
-    //     dispatch({ type: "USER", payload: res.data.userData });
-    //   });
-    // } catch (error) {
-    //   // notifyError(error.response.data.errorMsg);
-    //   navigate("/");
-    // }
-  };
-
   const authCheck = async () => {
     try {
       await customAxios.get("auth/protected-route").then((res) => {
@@ -261,7 +248,6 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
         login,
         logout,
         authCheck,
-        userDataFetch,
         setNewPassword,
       }}
     >

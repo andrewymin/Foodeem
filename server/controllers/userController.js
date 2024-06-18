@@ -59,9 +59,8 @@ const logoutUser = (req, res) => {
 const userData = async (req, res) => {
   const token = req.cookies.token;
   if (!token) {
-    console.log("no token");
+    res.status(401).json({ errorMsg: "Not authorized." });
   } else {
-    // TODO: use token to find user in USER model to return that user for data
     jwt.verify(
       token,
       process.env.ACCESS_TOKEN_SECRET,
@@ -72,7 +71,7 @@ const userData = async (req, res) => {
         let data = {
           email: user.email,
           googleLink: user.googleId ? "Linked" : "Not Linked",
-          githubLinked: user.githubId ? "Linked" : "Not Linked",
+          githubLink: user.githubId ? "Linked" : "Not Linked",
         };
 
         if (user) return res.status(200).json({ userData: data });

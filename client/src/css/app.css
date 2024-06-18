@@ -1360,6 +1360,12 @@ input[name=email] {
 #dashboard .dashboard-info h2:nth-child(2) {
   text-align: center;
 }
+#dashboard .dashboard-info h2:nth-child(4) {
+  text-align: center;
+}
+#dashboard .dashboard-info h2:nth-child(6) {
+  text-align: center;
+}
 #dashboard .dashboard-info button {
   width: fit-content;
   margin: auto;

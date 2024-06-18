@@ -60,8 +60,8 @@ function Recipe() {
         }
       }
     }
-    console.log(savedRecipesIds);
-    console.log(state.isAuth);
+    // console.log(savedRecipesIds);
+    // console.log(state.isAuth);
   }, [state.isAuth]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

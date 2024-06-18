@@ -16,20 +16,19 @@ const VerificationCode = ({ length = 6 }) => {
   // References to input fields
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
-  // 6/08 uncomment when done styling
-  // // Check if user is allowed to see this page, i.e. if they clicked sign-in or just tried to use url
-  // useEffect(() => {
-  //   // place setTimeout for max_age of token and useHistory from
-  //   //  react-router-dom history.push('/') for the verify page
-  //   //  to redirect to home
-  //   const verifyPageTime = setTimeout(() => {
-  //     navigate("/");
-  //   }, MAX_AGE);
+  // Check if user is allowed to see this page, i.e. if they clicked sign-in or just tried to use url
+  useEffect(() => {
+    // place setTimeout for max_age of token and useHistory from
+    //  react-router-dom history.push('/') for the verify page
+    //  to redirect to home
+    const verifyPageTime = setTimeout(() => {
+      navigate("/");
+    }, MAX_AGE);
 
-  //   return () => {
-  //     clearTimeout(verifyPageTime);
-  //   };
-  // }, [navigate]);
+    return () => {
+      clearTimeout(verifyPageTime);
+    };
+  }, [navigate]);
 
   const onComplete = async (userCode: string) => {
     // Send an axios call to server to check if mongo User code matches
