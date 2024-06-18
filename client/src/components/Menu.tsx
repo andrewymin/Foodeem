@@ -14,6 +14,7 @@ function HamburgerIcon() {
   const navigate = useNavigate();
 
   const account = () => {
+    toggleDropdown();
     navigate("/dashboard");
   };
 
@@ -69,7 +70,6 @@ function HamburgerIcon() {
 
   return (
     <>
-      {" "}
       <div className="menu-btn">
         <AiOutlineMenu
           onClick={toggleDropdown}
@@ -81,42 +81,46 @@ function HamburgerIcon() {
           <AiOutlineClose onClick={toggleDropdown} className="close-icon" />
           <div className="navbar-a" onClick={stopEarlyClose}>
             <ul className="navbar">
-              <li>
-                <Link to={"recipes"} onClick={toggleDropdown}>
-                  Recipes
-                </Link>
-              </li>
               {!state.isAuth ? (
                 <>
-                  {" "}
+                  <li>
+                    <Link to={"recipes"} onClick={toggleDropdown}>
+                      Recipes
+                    </Link>
+                  </li>
                   <li>
                     <button type="button" onClick={loginPage}>
                       Login
                     </button>
                   </li>
                   <li>
-                    <button type="button" onClick={registerPage}>
+                    <button
+                      type="button"
+                      className="signout"
+                      onClick={registerPage}
+                    >
                       Sign-up
                     </button>
                   </li>
                 </>
               ) : (
                 <>
-                  {" "}
-                  <>
-                    <a href="saved-recipes">Saved Recipes</a>
-                    <button onClick={account}>
-                      <FaRegUser />
-                    </button>
-                    <button
-                      onClick={() => {
-                        logout();
-                        closeMenu();
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </>
+                  <FaRegUser className="profile-icon" onClick={account} />
+                  <Link to={"recipes"} onClick={toggleDropdown}>
+                    Recipes
+                  </Link>
+                  <Link to={"saved-recipes"} onClick={toggleDropdown}>
+                    Saved Recipes
+                  </Link>
+                  <button
+                    onClick={() => {
+                      logout();
+                      closeMenu();
+                    }}
+                    className="logout"
+                  >
+                    Logout
+                  </button>
                 </>
               )}
             </ul>

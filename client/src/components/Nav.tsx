@@ -28,7 +28,7 @@ function Nav() {
         <HamburgerIcon />
         <ul className="navbar-w navbar">
           <li>
-            <Link className="recipes" to={"recipes"}>
+            <Link className="recipes underline" to={"recipes"}>
               Recipes
             </Link>
           </li>
