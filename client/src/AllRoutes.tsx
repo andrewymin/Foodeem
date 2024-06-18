@@ -11,9 +11,11 @@ import NotFound from "./pages/NotFound";
 import { Protected, ProtectVerifyRoute } from "./hooks/ProtectedRoutes";
 import Dashboard from "./pages/Dashboard";
 import SavedRecipes from "./pages/SavedRecipes";
+import { useAuth } from "./context/AuthContext";
 
 function AllRoutes() {
   const location = useLocation();
+  const { authCheck } = useAuth();
   // show user current page by addrress link path, also add bg to header based on link path
   useEffect(() => {
     let path = location.pathname.replaceAll("/", "");
@@ -39,6 +41,7 @@ function AllRoutes() {
         i.classList.remove("p-current");
       });
     }
+    authCheck();
   }, [location.pathname]);
 
   return (

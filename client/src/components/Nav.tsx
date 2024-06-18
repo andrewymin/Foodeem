@@ -1,21 +1,16 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import HamburgerIcon from "./Menu";
 import { useAuth } from "../context/AuthContext";
 // import { FaRegUser } from "react-icons/fa";
 import AccountIcon from "./AccountIcon";
 
 function Nav() {
-  const { state, logout, authCheck } = useAuth();
+  const { state, authCheck } = useAuth();
 
-  const navigate = useNavigate();
-  useEffect(() => {
-    authCheck();
-  }, []);
-
-  const account = () => {
-    navigate("/dashboard");
-  };
+  // useEffect(() => {
+  //   authCheck();
+  // }, []);
 
   return (
     <div id="heading">

@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
-import closeOnClickOutside from "../hooks/closeOnClickOutside";
+import { closeOnClickOutside } from "../hooks/modalRefs";
 import { useAuth } from "../context/AuthContext";
 
 function AccountIcon() {

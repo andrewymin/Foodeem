@@ -54,7 +54,7 @@ function Recipe() {
       // let savedRecipesIds = [];
       if (savedRecipesString) {
         let savedRecipesArray = JSON.parse(savedRecipesString);
-        console.log(savedRecipesArray.length);
+        // console.log(savedRecipesArray.length);
         for (let i = 0; i < savedRecipesArray.length; i++) {
           setRecipesIds([savedRecipesArray[i].id]);
         }

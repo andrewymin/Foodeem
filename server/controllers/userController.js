@@ -191,14 +191,37 @@ const resetPassword = async (req, res) => {
   }
 };
 
-///////////// Cookie TEST
-const checkCookie = async (req, res) => {
+///////////// Delete User
+const deleteUser = async (req, res) => {
   const token = req.cookies.token;
   if (!token) {
-    console.log("no token");
+    res.status(401).json({ errorMsg: "Not authorized." });
   } else {
-    res.status(200).json({ msg: "token sent" });
-    console.log(token);
+    jwt.verify(
+      token,
+      process.env.ACCESS_TOKEN_SECRET,
+      async (err, decodedToken) => {
+        //   req.user_id = decodedToken._id;
+        if (err) return res.status(401);
+        const user = await User.findById(decodedToken._id);
+        let data = {
+          email: user.email,
+          googleLink: user.googleId ? "Linked" : "Not Linked",
+          githubLink: user.githubId ? "Linked" : "Not Linked",
+        };
+
+        if (user)
+          return res
+            .status(200)
+            .json({ successMsg: "Deleted your account. You will be missed!" });
+        else
+          return res
+            .status(401)
+            .json({
+              msg: "Error occured while deleting your account. Please try again in a few minutes.",
+            });
+      }
+    );
   }
 };
 
@@ -206,7 +229,7 @@ export {
   loginUser,
   signupUser,
   logoutUser,
-  checkCookie,
+  deleteUser,
   userData,
   resetPasswordLink,
   resetPasswordPage,
