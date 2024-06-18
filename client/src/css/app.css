@@ -1004,7 +1004,7 @@ button:hover {
   height: 51%;
   align-items: center;
   border-radius: 50px;
-  box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.8);
 }
 #register .signup-wrapper .formInputs {
   display: grid;
@@ -1067,7 +1067,7 @@ button:hover {
   height: 51%;
   align-items: center;
   border-radius: 50px;
-  box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 16px 4px rgba(0, 0, 0, 0.8);
 }
 
 input[name=pwd] {
@@ -1377,4 +1377,39 @@ input[name=email] {
   font-weight: 900;
   background-color: #2b2b2b;
   color: red;
+}
+#dashboard .del-modal {
+  position: absolute;
+  padding: 0 2rem;
+  z-index: 3;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 12rem;
+  width: 27rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+}
+#dashboard .del-modal .del-btns {
+  display: flex;
+  gap: 1.5rem;
+}
+#dashboard .del-modal .del-btns button {
+  font-size: 1rem;
+}
+#dashboard .del-modal .del-btns button:nth-child(1) {
+  border: 2px solid #952323;
+}
+#dashboard .del-modal .del-btns button:nth-child(2) {
+  background-color: #2b2b2b;
+  color: red;
+}
+#dashboard .del-modal .del-btns button:nth-child(2):hover {
+  filter: brightness(80%);
 }/*# sourceMappingURL=app.css.map */

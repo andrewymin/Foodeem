@@ -1,17 +1,18 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import useToast from "../components/Toastify";
 import { ToastContainer } from "react-toastify";
 import { useData } from "../context/DataContext";
+import { deleteConfirm } from "../hooks/modalRefs";
 
 function Dashboard() {
-  // const { state } = useAuth();
+  const { delAcct } = useAuth();
   const { dataState, userDataFetch } = useData();
   // const { showError, showSuccess } = useToast();
   const navigate = useNavigate();
-  const [confirm, setConfirm] = useState(false); // Track active tab
+  const [confirm, setConfirm] = useState(false); // seeing if modal is open or not
+  const modalRef = useRef<HTMLDivElement>(null);
   // console.log(cat);
 
   useEffect(() => {
@@ -19,8 +20,14 @@ function Dashboard() {
   }, []);
 
   const openConfirm = () => {
-    console.log("use ref to open and close modal to make things easy");
+    setConfirm(true);
   };
+
+  const closeConfirm = () => {
+    setConfirm(false);
+  };
+
+  deleteConfirm(modalRef, () => closeConfirm());
 
   return (
     <div id="dashboard">
@@ -39,6 +46,19 @@ function Dashboard() {
       <button className="del-acct" onClick={openConfirm}>
         Delete Account
       </button>
+
+      {confirm && (
+        <div className="del-modal-wrapper">
+          <div className="del-modal" ref={modalRef}>
+            <h3>Are you sure you wish to delete your account?</h3>
+            <div className="del-btns">
+              <button onClick={closeConfirm}>No</button>
+              <button onClick={delAcct}>Yes</button>
+            </div>
+          </div>
+          <div className="blur"></div>
+        </div>
+      )}
 
       <ToastContainer />
     </div>

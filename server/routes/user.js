@@ -4,11 +4,11 @@ import {
   loginUser,
   signupUser,
   logoutUser,
-  checkCookie,
   userData,
   resetPasswordLink,
   resetPasswordPage,
   resetPassword,
+  deleteUser,
 } from "../controllers/userController.js";
 import { logoutDeleteCookies } from "../middleware/userMiddleware.js";
 
@@ -23,9 +23,6 @@ router.post("/login", loginUser);
 ///////////// logout route
 router.get("/logout", logoutDeleteCookies, logoutUser);
 
-///////////// logout route
-router.get("/cookie", checkCookie);
-
 ///////////// Data route
 router.get("/data", userData);
 
@@ -37,6 +34,9 @@ router.get("/reset-password-page", resetPasswordPage);
 
 ///////////// Reset Password
 router.post("/reset-password", resetPassword);
+
+///////////// Delete Route
+router.delete("/delete", deleteUser);
 
 // ///////////// google route
 // router.get('/google', logoutUser)

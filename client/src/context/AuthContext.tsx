@@ -40,6 +40,7 @@ interface AppContextType {
   logout: AxiosCallFunction;
   authCheck: AxiosCallFunction;
   setNewPassword: newPassAxiosCall;
+  delAcct: AxiosCallFunction;
 }
 const AuthContext = createContext<AppContextType | undefined>(undefined);
 
@@ -197,6 +198,7 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
     try {
       await customAxios.get("auth/protected-route").then((res) => {
         dispatch({ type: "IS_AUTH", payload: res.data.authorized });
+        navigate("/");
       });
     } catch (error) {
       dispatch({ type: "IS_AUTH", payload: false });
@@ -208,7 +210,7 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
   const setNewPassword = async (token: string | undefined) => {
     try {
       await customAxios
-        .post("api/user/reset-password", {
+        .post("auth/reset-password", {
           userPass: state.pwd,
           token: token,
         })
@@ -217,6 +219,34 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
           showSuccess(res.data.msg);
           navigate(`/`);
         });
+    } catch (error) {
+      if (isAxiosError(error)) {
+        // `error` is an AxiosError
+        console.error("Error message: ", error.message);
+        console.error("Error message: ", error.code);
+        if (error.response) {
+          showError(error.response.data.msg);
+          // console.log(error);
+        } else if (error.request) {
+          // Request was made but no response was received
+          console.error("Request data:", error.request);
+        } else {
+          // Something happened in setting up the request
+          console.error("Error:", error.message);
+        }
+      } else {
+        // Handle non-Axios errors
+        console.error("Unexpected error:", error);
+      }
+    }
+  };
+
+  const delAcct = async () => {
+    try {
+      await customAxios.delete(`user/delete`).then((res) => {
+        showSuccess(res.data.successMsg);
+        navigate("/");
+      });
     } catch (error) {
       if (isAxiosError(error)) {
         // `error` is an AxiosError
@@ -249,6 +279,7 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
         logout,
         authCheck,
         setNewPassword,
+        delAcct,
       }}
     >
       {children}
