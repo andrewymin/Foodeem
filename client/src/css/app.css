@@ -1329,4 +1329,46 @@ input[name=email] {
 
 .bookmarked {
   color: #0087ca;
+}
+
+#dashboard {
+  width: 100vw;
+  height: 100vh;
+  width: 100svw;
+  height: 100svh;
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 7rem;
+  margin-left: 3rem;
+  color: black;
+}
+#dashboard h1 {
+  font-size: 5rem;
+  font-family: "Times New Roman", Times, serif !important;
+}
+#dashboard .dashboard-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  width: 88%;
+  align-items: center;
+}
+#dashboard .dashboard-info h2 {
+  border-bottom: 1px solid black;
+}
+#dashboard .dashboard-info h2:nth-child(2) {
+  text-align: center;
+}
+#dashboard .dashboard-info button {
+  width: fit-content;
+  margin: auto;
+}
+#dashboard .del-acct {
+  position: absolute;
+  bottom: 1rem;
+  width: fit-content;
+  font-weight: 900;
+  background-color: #2b2b2b;
+  color: red;
 }/*# sourceMappingURL=app.css.map */

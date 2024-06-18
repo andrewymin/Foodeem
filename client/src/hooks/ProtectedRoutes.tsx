@@ -12,7 +12,7 @@ function ProtectVerifyRoute() {
   const { state } = useAuth();
 
   // const verifyToken = CheckCookieExists("verifyToken");
-  console.log(state.allowVerify);
+  // console.log(state.allowVerify);
   return state.allowVerify ? <Outlet /> : <Navigate to="/" replace={true} />;
 }
 
