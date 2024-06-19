@@ -39,6 +39,7 @@ interface AppContextType {
   register: AxiosCallFunction;
   logout: AxiosCallFunction;
   authCheck: AxiosCallFunction;
+  forgotPasswordLink: AxiosCallFunction;
   setNewPassword: newPassAxiosCall;
   delAcct: AxiosCallFunction;
 }
@@ -207,6 +208,39 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
     }
   };
 
+  const forgotPasswordLink = async () => {
+    try {
+      await customAxios
+        .post("auth/reset-password-link", {
+          userId: state.user,
+        })
+        .then((res) => {
+          // console.log(res);
+          showSuccess(res.data.successMsg);
+          // return res.data.success
+        });
+    } catch (error) {
+      if (isAxiosError(error)) {
+        // `error` is an AxiosError
+        console.error("Error message: ", error.message);
+        console.error("Error message: ", error.code);
+        if (error.response) {
+          showError(error.response.data.errorMsg);
+          // console.log(error);
+        } else if (error.request) {
+          // Request was made but no response was received
+          console.error("Request data:", error.request);
+        } else {
+          // Something happened in setting up the request
+          console.error("Error:", error.message);
+        }
+      } else {
+        // Handle non-Axios errors
+        console.error("Unexpected error:", error);
+      }
+    }
+  };
+
   const setNewPassword = async (token: string | undefined) => {
     try {
       await customAxios
@@ -278,6 +312,7 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
         login,
         logout,
         authCheck,
+        forgotPasswordLink,
         setNewPassword,
         delAcct,
       }}
