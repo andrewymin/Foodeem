@@ -10,7 +10,7 @@ function Nav() {
 
   // useEffect(() => {
   //   authCheck();
-  // }, []);
+  // }, [location.pathname]);
 
   return (
     <div id="heading">
