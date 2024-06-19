@@ -15,16 +15,24 @@ function Dashboard() {
   const modalRef = useRef<HTMLDivElement>(null);
   // console.log(cat);
 
+  const body = document.querySelector("body");
+
   useEffect(() => {
     userDataFetch();
   }, []);
 
   const openConfirm = () => {
     setConfirm(true);
+    body?.classList.add("no-scrolling");
   };
 
   const closeConfirm = () => {
     setConfirm(false);
+    body?.classList.remove("no-scrolling");
+  };
+
+  const resetPass = () => {
+    navigate("reset-password");
   };
 
   deleteConfirm(modalRef, () => closeConfirm());
@@ -40,7 +48,7 @@ function Dashboard() {
         <h2>Github Linked: </h2>
         <h2>{dataState.userData?.githubLink}</h2>
         <h2>Reset Password: </h2>
-        <button>Reset password</button>
+        <button onClick={resetPass}>Reset password</button>
       </div>
 
       <button className="del-acct" onClick={openConfirm}>

@@ -43,6 +43,10 @@ a:link {
   display: grid;
 }
 
+.no-scrolling {
+  overflow: hidden;
+}
+
 footer {
   color: $navBar;
   text-align: center;

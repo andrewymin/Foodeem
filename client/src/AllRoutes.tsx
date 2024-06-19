@@ -12,6 +12,7 @@ import { Protected, ProtectVerifyRoute } from "./hooks/ProtectedRoutes";
 import Dashboard from "./pages/Dashboard";
 import SavedRecipes from "./pages/SavedRecipes";
 import { useAuth } from "./context/AuthContext";
+import ResetPassPage from "./pages/newPassword";
 
 function AllRoutes() {
   const location = useLocation();
@@ -57,6 +58,7 @@ function AllRoutes() {
       </Route>
       <Route element={<Protected />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/reset-password" element={<ResetPassPage />} />
         <Route path="/saved-recipes" element={<SavedRecipes />} />
       </Route>
       {/* <Route path="/saved-recipes" element={<SavedRecipes />} /> */}
