@@ -5,8 +5,9 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 // uncomment for testing on localhost
-// const linkURL = 'http://localhost:5000';
-const linkURL = "https://user-auth-server-three.vercel.app";
+const linkURL = "http://localhost:3001";
+// const linkURL = "https://user-auth-server-three.vercel.app";
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // const templatePath = path.join(
