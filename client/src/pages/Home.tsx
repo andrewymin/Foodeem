@@ -3,6 +3,7 @@ import Social from "../components/Social";
 import Videos from "../components/Videos";
 import { useEffect } from "react";
 import { useData } from "../context/DataContext";
+import { ToastContainer } from "react-toastify";
 
 function Home() {
   // const [videoNum, setVideoNum] = useState(0);
@@ -31,6 +32,7 @@ function Home() {
       <Videos />
       <Tabs />
       <Social />
+      <ToastContainer />
     </>
   );
 }
