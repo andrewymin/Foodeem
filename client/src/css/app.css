@@ -1416,4 +1416,33 @@ input[name=email] {
 }
 #dashboard .del-modal .del-btns button:nth-child(2):hover {
   filter: brightness(80%);
+}
+
+#resetPass {
+  height: 100vh;
+  width: 100vw;
+  height: 100svh;
+  width: 100svw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#resetPass .signup-wrapper {
+  max-width: 28rem;
+}
+#resetPass .formInputs {
+  width: 80%;
+}
+#resetPass .formInputs .grid-display {
+  margin-bottom: 0.8rem;
+}
+#resetPass p {
+  font-size: 0.8rem;
+  width: 90%;
+  text-align: center;
+  margin: auto;
+}
+#resetPass .submit-buttons {
+  text-align: center;
+  margin-top: 2rem;
 }/*# sourceMappingURL=app.css.map */
