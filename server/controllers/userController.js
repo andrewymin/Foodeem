@@ -83,9 +83,10 @@ const userData = async (req, res) => {
 
 ///////////// Reset Password Link
 const resetPasswordLink = async (req, res) => {
-  const username = await req.body.userID; // check if link was accessed from login page
-  // console.log(username);
-  const token = await req.cookies.token; // check if link was accessed from account security page
+  // check if link was accessed from login page
+  const username = await req.body.userId;
+  // check if link was accessed from dashboard page
+  const token = await req.cookies.token;
   if (username) {
     // sent from login page with email
     const user = await User.findOne({ email: username });
@@ -104,7 +105,7 @@ const resetPasswordLink = async (req, res) => {
       // checking if email is acctually sent before sending response of 200, if not could get success but no email
       return res
         .status(200)
-        .json({ successMsg: "Successfully sent link to email!" });
+        .json({ successMsg: "Sent reset password link to email!" });
     return res.status(400).json({ errorMsg: "Error sending email" });
   }
 
@@ -134,9 +135,10 @@ const resetPasswordLink = async (req, res) => {
         let emailRes = await resetPasswordEmail(user.email, token);
         if (emailRes.messageId)
           // checking if email is acctually sent before sending response of 200, if not could get success but no email
-          return res
-            .status(200)
-            .json({ successMsg: "Successfully sent link to email!" });
+          return res.status(200).json({
+            successMsg:
+              "Successfully sent link to email!. May take up to 5 minutes.",
+          });
         return res.status(400).json({ errorMsg: "Error sending email" });
       }
     );
@@ -153,10 +155,10 @@ const resetPasswordPage = async (req, res) => {
     const user = await ResetEmail.findOne({ token: token });
     if (!user) return res.status(404).json({ errorMsg: "User not found" });
     // redirect to frontend password change component if link is still good
-    // res.redirect(`http://localhost:5173/password-reset/${token}`);
-    res.redirect(
-      `https://user-auth-frontend-teal.vercel.app/password-reset/${token}`
-    );
+    res.redirect(`http://localhost:5173/password-reset/${token}`);
+    // res.redirect(
+    //   `https://user-auth-frontend-teal.vercel.app/password-reset/${token}`
+    // );
   } catch (error) {
     console.log(error);
   }
@@ -203,23 +205,16 @@ const deleteUser = async (req, res) => {
       async (err, decodedToken) => {
         //   req.user_id = decodedToken._id;
         if (err) return res.status(401);
-        const user = await User.findById(decodedToken._id);
-        let data = {
-          email: user.email,
-          googleLink: user.googleId ? "Linked" : "Not Linked",
-          githubLink: user.githubId ? "Linked" : "Not Linked",
-        };
+        const user = await User.findByIdAndDelete(decodedToken._id);
 
         if (user)
           return res
             .status(200)
             .json({ successMsg: "Deleted your account. You will be missed!" });
         else
-          return res
-            .status(401)
-            .json({
-              msg: "Error occured while deleting your account. Please try again in a few minutes.",
-            });
+          return res.status(401).json({
+            msg: "Error occured while deleting your account. Please try again in a few minutes.",
+          });
       }
     );
   }
