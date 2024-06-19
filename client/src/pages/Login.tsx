@@ -9,43 +9,20 @@ import { getGithubUrl } from "../oauth_Urls/getGithubUrl";
 import useToast from "../components/Toastify";
 
 function Login() {
-  const { login, dispatch, state } = useAuth();
+  const { login, dispatch, forgotPasswordLink } = useAuth();
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
-  const { showError, showSuccess } = useToast();
+  // const { showError, showSuccess } = useToast();
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     login();
   }
 
-  interface ServerError {
-    errorMsg: string;
-  }
-
   const sendEmail = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    // showSuccess(`Sent link to: ${state.user}`);
-    try {
-      await customAxios
-        .post("api/user/reset-password-link", {
-          userID: state.user,
-        })
-        .then((res) => {
-          // console.log(res);
-          showSuccess(res.data.successMsg);
-          setOpenModal(false);
-        });
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        if (error.response) {
-          const customError: ServerError = error.response.data;
-          showError(customError.errorMsg);
-        } else {
-          console.error("An error occured:", error.message);
-        }
-      }
-    }
+    forgotPasswordLink();
+    setOpenModal(false);
   };
 
   //   showError(error.response.data.errorMsg);
