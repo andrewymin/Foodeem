@@ -7,7 +7,7 @@ import { useData } from "../context/DataContext";
 import { deleteConfirm } from "../hooks/modalRefs";
 
 function Dashboard() {
-  const { delAcct } = useAuth();
+  const { forgotPasswordLink, delAcct } = useAuth();
   const { dataState, userDataFetch } = useData();
   // const { showError, showSuccess } = useToast();
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ function Dashboard() {
   };
 
   const resetPass = () => {
-    navigate("reset-password");
+    forgotPasswordLink();
   };
 
   deleteConfirm(modalRef, () => closeConfirm());

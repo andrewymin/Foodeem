@@ -211,7 +211,7 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
   const forgotPasswordLink = async () => {
     try {
       await customAxios
-        .post("auth/reset-password-link", {
+        .post("user/reset-password-link", {
           userId: state.user,
         })
         .then((res) => {
@@ -276,9 +276,12 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
   };
 
   const delAcct = async () => {
+    const body = document.querySelector("body");
+    body?.classList.remove("no-scrolling");
     try {
       await customAxios.delete(`user/delete`).then((res) => {
         showSuccess(res.data.successMsg);
+        dispatch({ type: "IS_AUTH", payload: false });
         navigate("/");
       });
     } catch (error) {

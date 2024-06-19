@@ -58,7 +58,7 @@ function AllRoutes() {
       </Route>
       <Route element={<Protected />}>
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/reset-password" element={<ResetPassPage />} />
+        <Route path="/reset-password/:token" element={<ResetPassPage />} />
         <Route path="/saved-recipes" element={<SavedRecipes />} />
       </Route>
       {/* <Route path="/saved-recipes" element={<SavedRecipes />} /> */}
