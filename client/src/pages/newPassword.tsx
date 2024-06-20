@@ -4,12 +4,8 @@ import { useParams } from "react-router-dom";
 import PassInput from "../components/PassInput";
 
 function ResetPassPage() {
-  const { setNewPassword, authCheck } = useAuth();
+  const { setNewPassword } = useAuth();
   const { token } = useParams();
-
-  // useEffect(() => {
-  //   authCheck();
-  // }, []);
 
   return (
     <section id="resetPass">

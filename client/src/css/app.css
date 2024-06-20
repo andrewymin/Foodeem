@@ -1167,7 +1167,7 @@ input[name=email] {
 }
 #login #modal {
   text-align: right;
-  background-color: #e6e6e6;
+  background-color: white;
   color: black;
   padding: 1rem;
   border-radius: 1.2rem;
@@ -1176,6 +1176,7 @@ input[name=email] {
   display: grid;
   margin: 0;
   grid-template-columns: 1fr 2fr;
+  align-items: center;
 }
 #login #modal > button {
   margin-bottom: 1rem;
@@ -1186,12 +1187,20 @@ input[name=email] {
   margin: 0;
   margin-left: auto;
   width: 80%;
+  padding: 0.5rem 0;
+  padding-left: 0.5rem;
+  border-radius: 8px;
 }
 #login #modal > form > button {
   grid-column: 2;
   width: fit-content;
   justify-self: end;
   margin-top: 1rem;
+  background-color: #952323;
+  color: white;
+}
+#login #modal > form > button:hover {
+  filter: brightness(80%);
 }
 #login div:nth-child(3) {
   font-size: 0.85rem;
