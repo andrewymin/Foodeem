@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import useToast from "../components/Toastify";
 import { ToastContainer } from "react-toastify";
 import { useData } from "../context/DataContext";
 import { deleteConfirm } from "../hooks/modalRefs";
@@ -10,7 +8,6 @@ function Dashboard() {
   const { forgotPasswordLink, delAcct } = useAuth();
   const { dataState, userDataFetch } = useData();
   // const { showError, showSuccess } = useToast();
-  const navigate = useNavigate();
   const [confirm, setConfirm] = useState(false); // seeing if modal is open or not
   const modalRef = useRef<HTMLDivElement>(null);
   // console.log(cat);

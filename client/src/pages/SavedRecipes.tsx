@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { AiOutlineSearch, AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Modal from "../components/Modal";
-import { randomFoods } from "../spoonTestData";
+// import { randomFoods } from "../spoonTestData";
 import { useData } from "../context/DataContext";
-import { customAxios, deleteRecipeWithData } from "../hooks/axiosInstance";
+import { customAxios } from "../hooks/axiosInstance";
 import useToast from "../components/Toastify";
 import { ToastContainer } from "react-toastify";
 import { FaBookmark } from "react-icons/fa6";
@@ -19,15 +19,15 @@ interface SavedFood {
   analyzedInstructions: [];
 }
 
-const SEARCH_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods"
-    : "http://localhost:3001/searchfoods";
+// const SEARCH_URL =
+//   process.env.NODE_ENV === "production"
+//     ? "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods"
+//     : "http://localhost:3001/searchfoods";
 
 function SavedRecipes() {
   // use data context to get loading comonent
   const { dataState, dispatch } = useData();
-  const { showError, showSuccess } = useToast();
+  const { showSuccess } = useToast();
 
   // later update states with useReducer?
   const [modalActive, setModalActive] = useState(false);

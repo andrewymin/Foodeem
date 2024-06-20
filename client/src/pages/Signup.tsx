@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 import PassInput from "../components/PassInput";
 
 function Register() {
-  const { register, dispatch } = useAuth();
+  const { register } = useAuth();
   // const { showError } = useToast();
   // using properties of state instead of actual state values do to delay
   //  from asyncronous updating

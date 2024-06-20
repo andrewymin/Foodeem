@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import HamburgerIcon from "./Menu";
 import { useAuth } from "../context/AuthContext";
@@ -6,7 +6,8 @@ import { useAuth } from "../context/AuthContext";
 import AccountIcon from "./AccountIcon";
 
 function Nav() {
-  const { state, authCheck } = useAuth();
+  // const { state, authCheck } = useAuth();
+  const { state } = useAuth();
 
   // useEffect(() => {
   //   authCheck();
