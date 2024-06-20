@@ -244,14 +244,14 @@ export const AuthProvider: React.FC<ProviderChildern> = ({ children }) => {
   const setNewPassword = async (token: string | undefined) => {
     try {
       await customAxios
-        .post("auth/reset-password", {
+        .post("user/reset-password", {
           userPass: state.pwd,
           token: token,
         })
         .then((res) => {
           // console.log(res);
           showSuccess(res.data.msg);
-          navigate(`/`);
+          logout();
         });
     } catch (error) {
       if (isAxiosError(error)) {
