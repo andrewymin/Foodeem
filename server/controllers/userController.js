@@ -153,7 +153,7 @@ const resetPasswordPage = async (req, res) => {
   // console.log(token);
   try {
     const user = await ResetEmail.findOne({ token: token });
-    if (!user) return res.status(404).json({ errorMsg: "User not found" });
+    if (!user) return res.redirect("http://localhost:5173");
     // redirect to frontend password change component if link is still good
     res.redirect(`http://localhost:5173/password-reset/${token}`);
     // res.redirect(
