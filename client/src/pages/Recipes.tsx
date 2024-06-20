@@ -13,11 +13,11 @@ import { useAuth } from "../context/AuthContext";
 // import { FaHeart } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa6";
 
-interface Results {
-  id: number;
-  title: string;
-  image: string;
-}
+// interface Results {
+//   id: number;
+//   title: string;
+//   image: string;
+// }
 
 interface RecipeId {
   id: number;

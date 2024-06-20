@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Input from "../components/inputs";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { ToastContainer } from "react-toastify";
-import { customAxios, AxiosError } from "../hooks/axiosInstance";
-import { getGoogleUrl, GoogleSignInButton } from "../oauth_Urls/getGoogleUrl";
+// import { customAxios, AxiosError } from "../hooks/axiosInstance";
+import { GoogleSignInButton } from "../oauth_Urls/getGoogleUrl";
 import { getGithubUrl } from "../oauth_Urls/getGithubUrl";
-import useToast from "../components/Toastify";
+// import useToast from "../components/Toastify";
 
 function Login() {
   const { login, dispatch, forgotPasswordLink } = useAuth();
-  const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   // const { showError, showSuccess } = useToast();
 
@@ -45,9 +44,6 @@ function Login() {
   return (
     <section id="login" className="full-page">
       <div className="authTypes">
-        {/* <a className="gg" href={getGoogleUrl()}>
-          Log in with Google
-        </a> */}
         <GoogleSignInButton />
         <a className="gh" href={getGithubUrl()}>
           <i className="fa-brands fa-github"></i>
