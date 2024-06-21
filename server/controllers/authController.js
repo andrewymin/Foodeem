@@ -12,12 +12,12 @@ import {
 
 const REDIRECT_URI =
   process.env.NODE_ENV === "production"
-    ? "https://user-auth-frontend-teal.vercel.app/secret"
+    ? "https://foodeem.vercel.app"
     : "http://localhost:5173";
 
 const CANCEL_URI =
   process.env.NODE_ENV === "production"
-    ? "https://user-auth-frontend-teal.vercel.app/"
+    ? "https://foodeem.vercel.app"
     : "http://localhost:5173";
 
 const googleLogin = async (req, res) => {
