@@ -7,7 +7,7 @@ import {
 } from "../hooks/verifyCodeGen.js";
 // import TempUser from "./tempUserModel.js";
 
-const EXPIRE_AGE = 60 * 5; // in sec
+const EXPIRE_AGE = 60 * 5; // in sec, 5 min
 
 const likedRecipes = new mongoose.Schema({
   id: { type: Number, unique: true },

@@ -21,7 +21,7 @@ interface SavedFood {
 
 // const SEARCH_URL =
 //   process.env.NODE_ENV === "production"
-//     ? "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods"
+//     ? "https://foodeem-zgft.vercel.app/searchfoods"
 //     : "http://localhost:3001/searchfoods";
 
 function SavedRecipes() {

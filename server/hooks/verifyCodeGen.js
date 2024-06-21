@@ -6,7 +6,7 @@ import path from "path";
 
 // uncomment for testing on localhost
 const localLinkURL = "http://localhost:3001";
-const prodLinkURL = "https://foodeem.vercel.app";
+const prodLinkURL = "https://foodeem-zgft.vercel.app";
 
 const linkURL =
   process.env.NODE_ENV === "production" ? prodLinkURL : localLinkURL;

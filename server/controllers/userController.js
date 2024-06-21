@@ -7,7 +7,7 @@ import { resetPasswordEmail } from "../hooks/verifyCodeGen.js";
 import crypto from "crypto";
 
 const localURL = "http://localhost:3001";
-const prodURL = "https://foodeem.vercel.app";
+const prodURL = "https://foodeem-zgft.vercel.app";
 
 const redirectURL = process.env.NODE_ENV === "production" ? prodURL : localURL;
 
