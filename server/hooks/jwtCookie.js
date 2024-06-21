@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
-const MAX_AGE = 3 * 60 * 1000; // time in ms, 3min
+// const MAX_AGE = 3 * 60 * 1000; // time in ms, 3min
+const MAX_AGE = 60 * 60 * 1000; // time in ms, 1 hr
 
 const createToken = (_id) => {
   // return jwt.sign({_id}, process.env.SECRET, { expiresIn: '1h' })
