@@ -145,8 +145,18 @@
   html body #content .description {
     font-size: 17px;
   }
+  html body #content div:nth-last-child(2) {
+    text-align: end;
+  }
+  html body #content div:nth-last-child(2) button {
+    width: 5.5rem;
+    margin-right: 0.6rem;
+  }
   html body #content .slider-nav {
     transform: translateY(40px);
+  }
+  html body #recipe {
+    height: 100svh;
   }
   html body #recipe .container {
     flex-wrap: wrap;
@@ -165,6 +175,9 @@
   }
   html body #recipe .container .modal-space {
     width: 100svw;
+  }
+  html body #recipe .container .modal-space .modal {
+    margin-top: 3rem;
   }
   html body #about {
     height: 100svh;
@@ -199,6 +212,9 @@
   }
   html body #contact .contact-inputs > *:not(button) {
     color: inherit !important;
+  }
+  html body #register .signup-wrapper {
+    width: 73%;
   }
 }
 @keyframes rotate {
@@ -1345,15 +1361,16 @@ input[name=email] {
 }
 
 #dashboard {
+  position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 130vh;
   width: 100svw;
-  height: 100svh;
+  height: 130svh;
   padding-top: 5rem;
   display: flex;
   flex-direction: column;
   gap: 7rem;
-  margin-left: 3rem;
+  padding-left: 1rem;
   color: black;
 }
 #dashboard h1 {

@@ -1186,15 +1186,16 @@ input[name="email"] {
 ///////////////////////////// dashboard
 
 #dashboard {
+  position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 130vh;
   width: 100svw;
-  height: 100svh;
+  height: 130svh;
   padding-top: 5rem;
   display: flex;
   flex-direction: column;
   gap: 7rem;
-  margin-left: 3rem;
+  padding-left: 1rem;
   color: black;
 
   h1 {

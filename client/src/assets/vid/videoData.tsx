@@ -11,7 +11,7 @@ export const videoData = [
     title: "Citris",
     subHeading: "tendencies",
     description:
-      "Spice up your cooking game with culinary magic. Tasting new flavors by exploring a wide range of recipes that cater to all skill levels and dietary preferences, making delicious meals accessible to everyone. Whether you're cooking for yourself or hosting a dinner party, our recipes will help you create dishes that everyone will love.",
+      "Spice up your cooking game with culinary magic. Tasting new flavors by exploring a wide range of recipes that cater to all skill levels and dietary preferences, making delicious meals accessible to everyone.",
   },
   {
     id: 2,
