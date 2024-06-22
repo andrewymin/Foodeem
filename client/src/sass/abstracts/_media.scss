@@ -189,6 +189,15 @@
         font-size: 17px;
       }
 
+      div:nth-last-child(2) {
+        text-align: end;
+
+        button {
+          width: 5.5rem;
+          margin-right: 0.6rem;
+        }
+      }
+
       .slider-nav {
         transform: translateY(40px);
       }
@@ -196,6 +205,7 @@
     //////////////////// Recipe section ///////////////
 
     #recipe {
+      height: 100svh;
       // .search {
       // transform: translateX(-50%);
       // }
@@ -226,6 +236,10 @@
 
         .modal-space {
           width: 100svw;
+
+          .modal {
+            margin-top: 3rem;
+          }
         }
       }
     }
@@ -273,6 +287,13 @@
 
       .contact-inputs > *:not(button) {
         color: inherit !important;
+      }
+    }
+
+    //////////////////// Sign-up section ///////////////
+    #register {
+      .signup-wrapper {
+        width: 73%;
       }
     }
   }

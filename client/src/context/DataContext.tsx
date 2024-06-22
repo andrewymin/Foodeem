@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, Dispatch } from "react";
-import { customAxios } from "../hooks/axiosInstance";
+import { customAxios, isAxiosError } from "../hooks/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "react-toastify";
 // import { useNavigate } from "react-router-dom";
 
 interface UserProfile {
@@ -38,6 +39,7 @@ interface DataContextType {
   dataState: State;
   dispatch: Dispatch<Action>;
   userDataFetch: AxiosCallFunction;
+  randomOne: AxiosCallFunction;
   // intervalId: ReturnType<typeof setInterval>;
 }
 
@@ -97,9 +99,51 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const randomOne = async () => {
+    dispatch({ type: "LOADING" });
+    await customAxios
+      .get("randomfood") // place nodejs(aws) created route for url, using server to hide api keys
+      // .get(
+      //   "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/randomfood"
+      // ) // place nodejs(aws) created route for url, using server to hide api keys
+      .then((res) => {
+        // this will return a list of recipes, i.e. recipes: array
+        // after success place data of that arrayinto recipeData
+        // props.getRandomRecipe(response.data.body);
+        dispatch({ type: "RANDOMRECIPE", payload: res.data });
+      })
+      .catch((error) => {
+        if (isAxiosError(error)) {
+          // `error` is an AxiosError
+          console.error("Error message: ", error.message);
+          console.error("Error message: ", error.code);
+          if (error.response) {
+            // showError(error.response);
+            console.log(error.response);
+          } else if (error.request) {
+            // Request was made but no response was received
+            console.error("Request data:", error.request);
+          } else {
+            // Something happened in setting up the request
+            console.error("Error:", error.message);
+          }
+        } else {
+          // Handle non-Axios errors
+          console.error("Unexpected error:", error);
+        }
+      })
+      .finally(() => {
+        dispatch({ type: "UNLOADING" });
+      });
+
+    navigate("/recipes");
+  };
+
   return (
     // <DataContext.Provider value={{ dataState, dispatch, intervalId }}>
-    <DataContext.Provider value={{ dataState, dispatch, userDataFetch }}>
+    <DataContext.Provider
+      value={{ dataState, dispatch, userDataFetch, randomOne }}
+    >
       {children}
     </DataContext.Provider>
   );
