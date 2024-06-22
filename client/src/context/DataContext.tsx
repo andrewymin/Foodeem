@@ -1,8 +1,6 @@
 import React, { createContext, useContext, useReducer, Dispatch } from "react";
 import { customAxios, isAxiosError } from "../hooks/axiosInstance";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "react-toastify";
-// import { useNavigate } from "react-router-dom";
 
 interface UserProfile {
   email: string;

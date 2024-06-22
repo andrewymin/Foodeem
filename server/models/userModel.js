@@ -202,15 +202,15 @@ userSchema.statics.signup = async function (email, password) {
     const updatedExistingUser = await exists.save();
     ///////////////////  Uncomment when ready to email
     // Here send a email for verification with crypto code
-    // let emailRes = await verifyEmail(exists.email, newCode);
-    // if (emailRes.messageId)
-    //   return updatedExistingUser
-    // throw Error("Verify email couldn't be sent.");
-    console.log(
-      "New code from updating existing user that didn't finish verification before: ",
-      newCode
-    );
-    return updatedExistingUser;
+    let emailRes = await verifyEmail(exists.email, newCode);
+    if (emailRes.messageId) return updatedExistingUser;
+    throw Error("Verify email couldn't be sent.");
+
+    // console.log(
+    //   "New code from updating existing user that didn't finish verification before: ",
+    //   newCode
+    // );
+    // return updatedExistingUser;
   }
 
   const verifyCode = generateRandomSixDigitNumber(); // generating 6 digit crypto number for security
