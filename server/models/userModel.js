@@ -206,6 +206,7 @@ userSchema.statics.signup = async function (email, password) {
     if (emailRes.messageId) return updatedExistingUser;
     throw Error("Verify email couldn't be sent.");
 
+    /////// 6/23 uncomment for testing
     // console.log(
     //   "New code from updating existing user that didn't finish verification before: ",
     //   newCode
@@ -228,12 +229,12 @@ userSchema.statics.signup = async function (email, password) {
 
   ///////////////////  Uncomment when ready to email
   // Here send a email for verification with crypto code
-  // let emailRes = await verifyEmail(email, verifyCode);
-  // if (emailRes.messageId)
-  //   return newUser
-  // throw Error("Verify email couldn't be sent.");
+  let emailRes = await verifyEmail(email, verifyCode);
+  if (emailRes.messageId) return newUser;
+  throw Error("Verify email couldn't be sent.");
 
-  return newUser; // return created user with all its data from db
+  /////// 6/23 uncomment for testing
+  // return newUser; // return created user with all its data from db
 };
 
 userSchema.statics.googleSignup = async function (email, google_id) {
