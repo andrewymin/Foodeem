@@ -11,10 +11,12 @@ function About() {
         <h1>About Us</h1>
         <h2 className="title">Finding Great Recipes</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus,
-          possimus accusantium commodi assumenda recusandae unde veniam
-          consectetur praesentium! Aperiam rerum consequuntur, quidem harum
-          adipisci nostrum eaque totam aspernatur. Ducimus, earum?
+          Welcome to Foodiem! We are passionate about bringing the joy of
+          cooking to your kitchen with an extensive collection of delicious
+          recipes. Whether you're cooking for yourself or hosting a dinner
+          party, our recipes will help you create dishes that everyone will
+          love. Join us in celebrating the art of cooking, and discover new
+          flavors and techniques to elevate your culinary skills. Happy cooking!
         </p>
       </div>
     </section>
