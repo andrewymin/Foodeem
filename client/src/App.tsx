@@ -5,6 +5,7 @@ import AllRoutes from "./AllRoutes";
 import { DataProvider } from "./context/DataContext";
 import { AuthProvider } from "./context/AuthContext";
 import Footer from "./components/Footer";
+import ThirdPartyCookieConsent from "./components/ThirdPartyConsent";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Nav />
           <AllRoutes />
           <Footer />
+          <ThirdPartyCookieConsent />
         </DataProvider>
       </AuthProvider>
     </BrowserRouter>

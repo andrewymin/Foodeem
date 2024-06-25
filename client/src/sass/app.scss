@@ -1317,3 +1317,39 @@ input[name="email"] {
     margin-top: 2rem;
   }
 }
+
+.cookie-consent-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 2rem 0;
+  z-index: 1000;
+
+  .cookie-consent-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cookie-consent-message > p {
+    padding: 0 3rem;
+  }
+
+  .consent-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .consent-button:hover {
+    background-color: #45a049;
+  }
+}
