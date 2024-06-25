@@ -32,11 +32,11 @@ function AccountIcon() {
     <>
       <FaRegUser className="profile-icon" onClick={openDropdown} />
       <ul ref={modalRef} className={accountClass}>
-        <li>
+        <li onClick={closeDropdown}>
           <Link to={"dashboard"}>View Profile</Link>
         </li>
         <hr />
-        <li>
+        <li onClick={closeDropdown}>
           <Link to={"saved-recipes"}>Saved Recipes</Link>
         </li>
         <hr />
