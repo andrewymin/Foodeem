@@ -73,8 +73,6 @@ function PassInput(props: Props) {
           checkPassword(e, props.axiosCall)
         }
       >
-        {/* <label htmlFor='userEmail'>UserName: </label>
-            <Input inputType="text" name="user" ph="HappyUser01" change={(e)=> setUser(e.target.value)} charLength="0"/> */}
         <div className="grid-display">
           <label htmlFor="userEmail">Email: </label>
           <Input
@@ -89,10 +87,6 @@ function PassInput(props: Props) {
         </div>
         <div className="grid-display">
           <label htmlFor="userPass">Password: </label>
-          {/* this is for testing purposes */}
-          {/* <Input inputType="password" name="userPass" ph="0123abc!#$" change={this.handleChange} charLength="12"/> */}
-          {/* this is for testing purposes */}
-          {/* <Input inputType="password" name="userPass" ph="0123abc!#$" change={(e: any)=> setPwd(e.target.value)} charLength="3"/> */}
           <div className="revealPsw">
             <Input
               inputType="password"
@@ -101,7 +95,7 @@ function PassInput(props: Props) {
               change={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleChange(e, "password")
               }
-              lengthMin={3}
+              lengthMin={12}
             />
           </div>
         </div>
@@ -117,7 +111,7 @@ function PassInput(props: Props) {
                 // must place this here since it has the same delay if placed above with register()
                 dispatch({ type: "PWD", payload: e.target.value });
               }}
-              lengthMin={3}
+              lengthMin={12}
             />
             <span onClick={showPSW}>
               <i className="fas fa-eye"></i>
@@ -128,7 +122,7 @@ function PassInput(props: Props) {
           </div>
         </div>
         <p>
-          Must contain 8+ characters, including at least 1 letter, 1 number, 1
+          Must contain 12+ characters, including at least 1 letter, 1 number, 1
           symbol and 1 uppercase.
         </p>
         <div className="submit-buttons">

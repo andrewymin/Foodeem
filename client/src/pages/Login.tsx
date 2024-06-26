@@ -71,7 +71,7 @@ function Login() {
               name="pwd"
               ph="Password"
               change={(e) => dispatch({ type: "PWD", payload: e.target.value })}
-              lengthMin={3}
+              lengthMin={12}
             />
             <span onClick={showPSW}>
               <i className="fas fa-eye"></i>
