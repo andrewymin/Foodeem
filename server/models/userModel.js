@@ -131,9 +131,9 @@ userSchema.statics.signup = async function (email, password) {
     throw Error("Email is not valid");
   }
   // commented out this for testing the jwt in userController
-  // if (!validator.isStrongPassword(password)) {
-  //   throw Error("Password not strong enough");
-  // }
+  if (!validator.isStrongPassword(password)) {
+    throw Error("Password not strong enough");
+  }
 
   const exists = await this.findOne({ email }); // checking to see if user already exists
   const tempExists = await TempUser.findOne({ email: email }); // checking if user didn't complete verify code input and trying again before tempUser expires
@@ -206,7 +206,7 @@ userSchema.statics.signup = async function (email, password) {
     if (emailRes.messageId) return updatedExistingUser;
     throw Error("Verify email couldn't be sent.");
 
-    /////// 6/23 uncomment for testing
+    /////// 6/23 uncomment when testing
     // console.log(
     //   "New code from updating existing user that didn't finish verification before: ",
     //   newCode
@@ -215,7 +215,8 @@ userSchema.statics.signup = async function (email, password) {
   }
 
   const verifyCode = generateRandomSixDigitNumber(); // generating 6 digit crypto number for security
-  console.log("This is code for new user: ", verifyCode);
+  /////// 6/26 uncomment for when testing
+  // console.log("This is code for new user: ", verifyCode);
 
   // const salt = await bycrpt.genSalt(saltRounds);
   const hash = await bycrpt.hash(password, 10); // hashing password for security
