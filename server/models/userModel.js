@@ -131,7 +131,13 @@ userSchema.statics.signup = async function (email, password) {
     throw Error("Email is not valid");
   }
   // commented out this for testing the jwt in userController
-  if (!validator.isStrongPassword(password)) {
+  ///////// Default setting for isStrongPassword
+  // { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1,
+  // minSymbols: 1, returnScore: false, pointsPerUnique: 1,
+  // pointsPerRepeat: 0.5, pointsForContainingLower: 10,
+  // pointsForContainingUpper: 10, pointsForContainingNumber: 10,
+  // pointsForContainingSymbol: 10 }
+  if (!validator.isStrongPassword(password, { minLength: 12 })) {
     throw Error("Password not strong enough");
   }
 
