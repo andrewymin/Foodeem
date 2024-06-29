@@ -652,6 +652,9 @@ button:hover {
   //   }
 
   .content {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    padding: 1rem;
     width: 65%;
     color: #252525;
     display: flex;
@@ -661,10 +664,11 @@ button:hover {
 
     h1 {
       font-size: 2rem;
+      font-family: serif;
     }
 
     p {
-      font-size: 1.2rem;
+      line-height: 1.5;
     }
   }
 }

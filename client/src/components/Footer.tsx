@@ -18,7 +18,7 @@ function Footer() {
           </Link>
         </li>
       </ul>
-      <p className="copyright">© {year} Foodiem. All rights reserved</p>
+      <p className="copyright">© {year} Foodeem. All rights reserved</p>
     </footer>
   );
 }

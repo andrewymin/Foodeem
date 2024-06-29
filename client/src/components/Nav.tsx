@@ -18,7 +18,7 @@ function Nav() {
       <nav>
         <div>
           <h3 className="brand">
-            <Link to={"/"}>foodiem</Link>
+            <Link to={"/"}>foodeem</Link>
           </h3>
         </div>
         <HamburgerIcon />

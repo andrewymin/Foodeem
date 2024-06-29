@@ -300,5 +300,18 @@
         }
       }
     }
+
+    #verify-code {
+      .verification-input {
+        gap: 1.5rem;
+        .verification-code {
+          max-width: 280px;
+
+          p {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
   }
 }
