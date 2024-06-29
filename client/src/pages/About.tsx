@@ -11,7 +11,7 @@ function About() {
         <h1>About Us</h1>
         <h2 className="title">Finding Great Recipes</h2>
         <p>
-          Welcome to Foodiem! We are passionate about bringing the joy of
+          Welcome to Foodeem! We are passionate about bringing the joy of
           cooking to your kitchen with an extensive collection of delicious
           recipes. Whether you're cooking for yourself or hosting a dinner
           party, our recipes will help you create dishes that everyone will

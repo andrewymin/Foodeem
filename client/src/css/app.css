@@ -219,6 +219,15 @@
   html body #register .signup-wrapper .formInputs {
     gap: 1rem;
   }
+  html body #verify-code .verification-input {
+    gap: 1.5rem;
+  }
+  html body #verify-code .verification-input .verification-code {
+    max-width: 280px;
+  }
+  html body #verify-code .verification-input .verification-code p {
+    font-size: 0.8rem;
+  }
 }
 @keyframes rotate {
   0% {
@@ -898,6 +907,9 @@ button:hover {
   background-size: cover;
 }
 #about .content {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  padding: 1rem;
   width: 65%;
   color: #252525;
   display: flex;
@@ -907,9 +919,10 @@ button:hover {
 }
 #about .content h1 {
   font-size: 2rem;
+  font-family: serif;
 }
 #about .content p {
-  font-size: 1.2rem;
+  line-height: 1.5;
 }
 
 #contact {
