@@ -294,6 +294,10 @@
     #register {
       .signup-wrapper {
         width: 73%;
+
+        .formInputs {
+          gap: 1rem;
+        }
       }
     }
   }
