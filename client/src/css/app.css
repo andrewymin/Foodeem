@@ -116,8 +116,8 @@
 }
 @media (max-width: 500px) {
   html body #root {
-    height: 100svh;
-    width: 100svw;
+    height: 100dvh;
+    width: 100dvw;
   }
   html body #heading nav {
     padding: 1rem 1rem 0;
@@ -155,16 +155,14 @@
   html body #content .slider-nav {
     transform: translateY(40px);
   }
-  html body #recipe {
-    height: 100svh;
-  }
   html body #recipe .container {
     flex-wrap: wrap;
     position: relative;
   }
   html body #recipe .container .food-img {
     height: 22%;
-    right: 1rem;
+    right: 0rem;
+    top: 7.5rem;
   }
   html body #recipe .container .content {
     width: 100svw;
