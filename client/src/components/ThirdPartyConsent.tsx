@@ -23,9 +23,11 @@ function ThirdPartyCookieConsent() {
     <div className="cookie-consent-container">
       <div className="cookie-consent-message">
         <p>
-          Our website uses third-party cookies for the login/signup system. You
-          need to enable third-party cookies for these features to work
-          properly.
+          Our website utilizes third-party cookies to facilitate the login and
+          signup processes. To ensure these features function correctly, please
+          enable third-party cookies in your browser settings. If you encounter
+          issues with logging in or signing up, allowing third-party cookies for
+          this site may resolve the problem.
         </p>
         <button onClick={handleConsent} className="consent-button">
           I Understand

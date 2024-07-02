@@ -498,7 +498,7 @@ footer .copyright {
 }
 
 .navBgColor {
-  background-color: #3f2323;
+  background: linear-gradient(to bottom, rgb(63, 35, 35) 80%, rgba(0, 0, 0, 0));
 }
 
 .line-height {
@@ -902,7 +902,7 @@ button:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url("../assets/img/about_bg.avif");
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 95%, rgb(242, 232, 198)), url("/src/assets/img/about_bg.avif");
   background-size: cover;
 }
 #about .content {
