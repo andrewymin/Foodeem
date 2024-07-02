@@ -163,6 +163,7 @@
     height: 22%;
     right: 0rem;
     top: 7.5rem;
+    width: auto;
   }
   html body #recipe .container .content {
     width: 100svw;
@@ -810,7 +811,7 @@ button:hover {
 }
 #recipe .container .food-img {
   position: absolute;
-  width: fit-content;
+  width: 50%;
   height: 50%;
   top: 4.2rem;
   right: 0;
