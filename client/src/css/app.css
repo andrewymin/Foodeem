@@ -159,8 +159,11 @@
     flex-wrap: wrap;
     position: relative;
   }
+  html body #recipe .container .modal-ph {
+    width: 100%;
+  }
   html body #recipe .container .food-img {
-    height: 22%;
+    height: 22dvh;
     right: 0rem;
     top: 7.5rem;
     width: auto;

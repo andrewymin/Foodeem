@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineSearch, AiOutlineLoading3Quarters } from "react-icons/ai";
 import pizza from "../assets/img/pizza.svg";
 import Modal from "../components/Modal";
-import axios from "axios";
+// import axios from "axios";
 import { randomFoods } from "../spoonTestData";
 import { useData } from "../context/DataContext";
 import { customAxios } from "../hooks/axiosInstance";
@@ -37,6 +37,7 @@ function Recipe() {
   const [recipeData, setRecipeData] = useState();
   const [searchFoods, setSearchFoods] = useState([]);
   const [search, setSearch] = useState("");
+  // This is loading for search recipes not modal thus two loading mechanics
   const [searchLoading, setSearchLoading] = useState(false);
   const [savedRecipesIds, setRecipesIds] = useState<RecipeId[]>([]);
   const { showSuccess } = useToast();
@@ -94,20 +95,19 @@ function Recipe() {
   const openRecipe = (e: React.MouseEvent<HTMLDivElement>) => {
     let target = e.target as HTMLDivElement;
     let targetId = target.id;
+    // this loading is for the modal
+    setModalActive(false);
     dispatch({ type: "LOADING" });
 
-    axios
-      // .get("http://localhost:3001/searchfoods/recipe", {
-      .get(
-        "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods/recipe",
-        {
-          params: {
-            id: targetId,
-          },
-        }
-      ) // place nodejs(aws) created route for url, using server to hide api keys
+    customAxios
+      .get("searchfoods/recipe", {
+        params: {
+          id: targetId,
+        },
+      }) // place nodejs(aws) created route for url, using server to hide api keys
       .then((response) => {
-        setRecipeData(response.data.body);
+        setRecipeData(response.data);
+        // console.log(response.data);
       })
       .then(() => {
         // after axios call send data to modal
