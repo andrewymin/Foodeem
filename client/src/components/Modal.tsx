@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import parse from "html-react-parser";
 import { useData } from "../context/DataContext";
@@ -19,6 +20,12 @@ interface Ingredient {
 function Modal(props: Props) {
   const { dataState } = useData();
   let data = props.recipeData;
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (dataState.isLoading && modalRef.current) {
+      modalRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [dataState.isLoading]);
 
   return props.modal ? (
     <div className="modal-space">
@@ -65,7 +72,7 @@ function Modal(props: Props) {
       </div>
     </div>
   ) : (
-    <div className="modal-ph">
+    <div className="modal-ph" ref={modalRef}>
       {dataState.isLoading ? (
         <div className="foods" style={{ color: "#1e7943" }}>
           <AiOutlineLoading3Quarters size={60} className="loading" />

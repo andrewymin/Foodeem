@@ -2,6 +2,7 @@ import { useLayoutEffect } from "react";
 
 function About() {
   useLayoutEffect(() => {
+    // when arriving on page scroll to top since it doesn't happen by itself
     window.scrollTo(0, 0);
   }, []);
 

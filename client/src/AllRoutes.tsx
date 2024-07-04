@@ -19,12 +19,15 @@ function AllRoutes() {
   const { authCheck } = useAuth();
   // show user current page by addrress link path, also add bg to header based on link path
   useEffect(() => {
+    // get current single path and replace '/' with ''
     let path = location.pathname.replaceAll("/", "");
-    // console.log(location.pathname);
+    // get heading
     const heading = document.getElementById("heading");
+    // get navbar-wide-screen links
     const navList = document.querySelectorAll(".navbar-w a");
-    // const menuList = document.querySelectorAll(".navbar-a a");
+    // check if path not homepage
     if (path != "") {
+      // adding background color depending on path
       let navLink = document.querySelector(`.${path}`);
       heading?.classList.add("navBgColor");
 
@@ -36,13 +39,16 @@ function AllRoutes() {
       });
       return;
     }
+    // check if path is homepage
     if (path == "") {
+      // get rid of any background styling
       heading?.classList.remove("navBgColor");
       navList.forEach((i) => {
         i.classList.remove("p-current");
       });
     }
     authCheck();
+    // rerun on change of url path
   }, [location.pathname]);
 
   return (
