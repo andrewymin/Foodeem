@@ -107,7 +107,7 @@ function Recipe() {
       }) // place nodejs(aws) created route for url, using server to hide api keys
       .then((response) => {
         setRecipeData(response.data);
-        // console.log(response.data);
+        console.log(response.data);
       })
       .then(() => {
         // after axios call send data to modal
