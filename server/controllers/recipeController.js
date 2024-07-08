@@ -13,7 +13,6 @@ const testKey = process.env.testKey;
 
 const getRecipe = async (req, res) => {
   let recipeId = await req.query.id;
-  // console.log(data)
 
   // For axios don't forget to add "https:" before url or get ECONNREFUSED error
   await axios
@@ -21,11 +20,13 @@ const getRecipe = async (req, res) => {
       `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}&includeNutrition=false`
     )
     .then((response) => {
-      // console.log(response.data)
+      // console.log(response.data);
       res.send(response.data);
+      // return response.data;
     })
     .catch((error) => {
       res.send(error);
+      // return res.status(401).json({ errorMsg: "Recipe not found" });
     });
 };
 
