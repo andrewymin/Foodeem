@@ -153,6 +153,7 @@
       width: 100dvw;
     }
     #heading {
+      height: 4.5rem;
       nav {
         padding: 1rem 1rem 0;
 
@@ -219,11 +220,12 @@
         }
 
         .food-img {
-          // height: 22%;
-          height: 22dvh;
+          // height: 22dvh;
+          // width: auto;
+          height: 200px;
+          width: 200px;
           right: 0rem;
           top: 7.5rem;
-          width: auto;
         }
 
         .content {

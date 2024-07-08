@@ -119,6 +119,9 @@
     height: 100dvh;
     width: 100dvw;
   }
+  html body #heading {
+    height: 4.5rem;
+  }
   html body #heading nav {
     padding: 1rem 1rem 0;
   }
@@ -163,10 +166,10 @@
     width: 100%;
   }
   html body #recipe .container .food-img {
-    height: 22dvh;
+    height: 200px;
+    width: 200px;
     right: 0rem;
     top: 7.5rem;
-    width: auto;
   }
   html body #recipe .container .content {
     width: 100svw;
