@@ -25,7 +25,7 @@ interface RecipeId {
 //////// AWS prod url
 // const SEARCH_URL =
 //   process.env.NODE_ENV === "production"
-//     ? "https://7aypfs7kzc.execute-api.us-west-2.amazonaws.com/prod/searchfoods"
+//     ? "process.env.SEARCH_RECIPE_AWS"
 //     : "http://localhost:3001/searchfoods";
 
 function Recipe() {
