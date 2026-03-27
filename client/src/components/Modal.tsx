@@ -22,7 +22,7 @@ function Modal(props: Props) {
   let data = props.recipeData;
   const modalRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    if (dataState.isLoading && modalRef.current) {
+    if (!dataState.isLoading && modalRef.current) {
       modalRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [dataState.isLoading]);
@@ -35,7 +35,7 @@ function Modal(props: Props) {
             <AiOutlineLoading3Quarters size={60} className="loading" />
           </div>
         ) : (
-          <div className="modal-content">
+          <div className="modal-content" ref={modalRef}>
             <div>
               <h1>{data.title}</h1>
               <img src={data.image} alt={data.title} />
@@ -63,7 +63,7 @@ function Modal(props: Props) {
                 {data.analyzedInstructions[0].steps.map(
                   (i: Step, k: number) => (
                     <li key={k}>{i.step}</li>
-                  )
+                  ),
                 )}
               </ol>
             </div>
